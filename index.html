@@ -3,59 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 PLAVE Asia Tour in Bangkok</title>
+    <title>2025 PLAVE Asia Tour [DASH: Quantum Leap] in Bangkok</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0b0e14; color: white; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 800px; width: 100%; text-align: center; }
-        
-        /* ส่วนแสดงผลราคา */
-        #price-display { 
-            background: #252a33; padding: 15px; border-radius: 10px; 
-            margin: 20px 0; font-size: 1.2rem; color: #ffeb3b; 
-            border: 1px solid #444;
+        :root {
+            --bg-color: #05070c;
+            --card-bg: #0f131a;
+            --accent-blue: #58a6ff;
+            --text-main: #ffffff;
+            --text-sub: #8b949e;
+            --highlight: #ffeb3b;
         }
 
-        /* ส่วนของรูปผังที่นั่ง */
-        .map-container { margin: 20px 0; }
-        .map-container img { max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #333; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
 
-        /* ข้อมูลด้านล่าง */
-        .info { background: #1a1f26; padding: 20px; border-radius: 8px; text-align: left; line-height: 1.6; }
-        a { color: #58a6ff; }
+        /* Top Navigation Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(15, 19, 26, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #21262d;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-logo { font-weight: bold; color: var(--accent-blue); font-size: 1.1rem; }
+        .nav-btn {
+            background: #ff9800;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .nav-btn:hover { background: #e68a00; transform: scale(1.05); }
+
+        /* Main Container Layout */
+        .main-layout {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Left Side: Poster & Info */
+        .hero-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #21262d;
+            height: fit-content;
+        }
+        .poster-wrapper img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .concert-title { font-size: 1.8rem; margin: 0 0 10px 0; font-weight: 800; }
+        .meta-info { color: var(--text-sub); font-size: 0.95rem; line-height: 1.6; }
+        .price-tags { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .tag { padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; color: #fff; }
+        .tag.vip { background: #d63384; }
+        .tag.std1 { background: #dc3545; }
+        .tag.std2 { background: #0d6efd; }
+
+        /* Right Side: Seating Map & Price Dynamic Box */
+        .interactive-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .price-display-box {
+            background: linear-gradient(135deg, #161b22 0%, #0f131a 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--highlight);
+            min-height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .map-wrapper {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #21262d;
+            position: relative;
+        }
+        .map-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            display: block;
+        }
+
+        /* Ticket details & conditions */
+        .details-box {
+            grid-column: 1 / -1;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #21262d;
+            margin-top: 10px;
+        }
+        .details-box h3 { margin-top: 0; color: var(--accent-blue); border-bottom: 1px solid #21262d; padding-bottom: 10px; }
+        .details-box ol { padding-left: 20px; color: var(--text-sub); font-size: 0.9rem; line-height: 1.8; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>2025 PLAVE Asia Tour</h1>
-    <p>[DASH: Quantum Leap] in Bangkok</p>
-    
-    <div id="price-display">คลิกที่โซนในรูปเพื่อดูราคา</div>
+    <!-- Navbar หัวเว็บ -->
+    <nav class="navbar">
+        <div class="nav-logo">#PLAVE_DASH_BKK</div>
+        <a href="https://bit.ly/3G1gDcJ" target="_blank" class="nav-btn">ซื้อบัตรคอนเสิร์ต ➔</a>
+    </nav>
 
-    <div class="map-container">
-        <img src="seating-map.png" alt="Seating Map" usemap="#seating-map">
-    </div>
+    <!-- เลย์เอาท์หลักแบ่งซ้ายขวาแบบเว็บโมเดิร์น -->
+    <main class="main-layout">
+        
+        <!-- ฝั่งซ้าย: ข้อมูลคอนเสิร์ตและรูปภาพศิลปิน -->
+        <section class="hero-section">
+            <div class="poster-wrapper">
+                <img src="poster.jpg" alt="PLAVE Concert Poster">
+            </div>
+            <h1 class="concert-title">2025 PLAVE Asia Tour [DASH: Quantum Leap] in Bangkok</h1>
+            <div class="meta-info">
+                <p>📍 <strong>สถานที่แสดง:</strong> ยูโอบี ไลฟ์, เอ็มสเฟียร์ (UOB LIVE, Emsphere)</p>
+                <p>📅 <strong>วันที่แสดง:</strong> วันเสาร์ที่ 25 ตุลาคม 2568</p>
+                <p>⏰ <strong>เวลาแสดง:</strong> 18.00 น.</p>
+                <p>🎟️ <strong>วันเปิดจำหน่ายบัตร:</strong> วันที่ 27 กรกฎาคม 2568 เวลา 11:00 น.</p>
+            </div>
+            <div class="price-tags">
+                <span class="tag vip">VIP 6,000 บาท</span>
+                <span class="tag std1">4,500 บาท</span>
+                <span class="tag std2">3,000 บาท</span>
+            </div>
+        </section>
 
-    <map name="seating-map">
-        <area shape="rect" coords="170,250,260,350" alt="Zone A" onclick="showPrice('A4-A3', 4500)">
-        <area shape="rect" coords="200,600,280,680" alt="Zone VIP" onclick="showPrice('DD (VIP)', 6000)">
-    </map>
+        <!-- ฝั่งขวา: กล่องแสดงราคากลไกคลิก และ รูปภาพผังที่นั่ง -->
+        <section class="interactive-section">
+            <div id="price-notifier" class="price-display-box">
+                🖱️ จิ้มเลือกโซนบนภาพผังที่นั่งเพื่อตรวจสอบราคาบัตร
+            </div>
 
-    <div class="info">
-        <p><strong>วันที่แสดง:</strong> 25 ตุลาคม 2568</p>
-        <p><strong>เวลาแสดง:</strong> 18.00 น.</p>
-        <p><strong>สถานที่:</strong> ยูโอบี ไลฟ์, เอ็มสเฟียร์</p>
-        <p><strong>วันเปิดจำหน่ายบัตร:</strong> 27 กรกฎาคม 2568 เวลา 11:00 น.</p>
-        <p><strong>รายละเอียดเพิ่มเติม:</strong> <a href="https://bit.ly/3G1gDcJ" target="_blank">คลิกที่นี่เพื่อไปหน้าซื้อบัตร</a></p>
-    </div>
-</div>
+            <div class="map-wrapper">
+                <!-- แผนผังภาพแบบ Map-Area คลิกได้จริง -->
+                <img src="seating-map.jpg" alt="PLAVE Seating Map" usemap="#concert-map">
+                
+                <map name="concert-map">
+                    <!-- โซน VIP ด้านหน้าสเตจ (DD, CC, EE ฯลฯ) -->
+                    <area shape="rect" coords="350,600,550,750" alt="VIP" onclick="updatePrice('VIP (GG-AA)', '6,000')">
+                    
+                    <!-- โซนกลางสีแดง (A3, A4, B3, B4) -->
+                    <area shape="rect" coords="330,270,550,550" alt="Zone 4500 Center" onclick="updatePrice('A3, A4, B3, B4', '4,500')">
+                    
+                    <!-- โซนปีกสีชมพู (A5, A2, B5, B2, C2-C5) -->
+                    <area shape="rect" coords="230,270,330,600" alt="Zone 4500 Left" onclick="updatePrice('A5, B5, C5', '4,500')">
+                    <area shape="rect" coords="550,270,700,600" alt="Zone 4500 Right" onclick="updatePrice('A2, B2, C2', '4,500')">
+                    
+                    <!-- โซนขอบน้ำเงิน 3000 บาท (A6, B6, C6, A1, B1, C1 และแถวล่างสุด) -->
+                    <area shape="rect" coords="150,300,230,680" alt="Zone 3000 Left" onclick="updatePrice('A6, B6, C6', '3,000')">
+                    <area shape="rect" coords="700,300,800,680" alt="Zone 3000 Right" onclick="updatePrice('A1, B1, C1', '3,000')">
+                </map>
+            </div>
+        </section>
 
-<script>
-    function showPrice(zone, price) {
-        document.getElementById('price-display').innerHTML = 
-            `โซน ${zone} ราคา <strong>${price.toLocaleString()} บาท</strong>`;
-    }
-</script>
+        <!-- ข้อกำหนดเพิ่มเติมด้านล่างสุดเต็มหน้าจอ -->
+        <section class="details-box">
+            <h3>📝 ข้อกำหนดและเงื่อนไขเพิ่มเติม</h3>
+            <ol>
+                <li>ดำเนินการซื้อบัตรฯ และชำระเงินให้เสร็จสิ้นภายใน 10 นาที</li>
+                <li>สามารถทำการสั่งซื้อบัตรฯ ได้สูงสุดไม่เกิน 2 ใบต่อรายการ</li>
+                <li>ราคาบัตรฯ รวมภาษีมูลค่าเพิ่ม 7% แล้ว แต่ยังไม่รวมค่าธรรมเนียมอื่นๆ ของไทยทิคเก็ตเมเจอร์</li>
+                <li>บัตรเข้าชมคอนเสิร์ตเป็นบัตรกระดาษที่ออกโดยไทยทิคเก็ตเมเจอร์เท่านั้น</li>
+                <li>สำหรับผู้ถือบัตรฯ ทุกประเภท จะได้รับแพ็กเกจ ณ ประตูทางเข้าฮอลล์ก่อนเริ่มการแสดง และรับโปสเตอร์บริเวณทางออกหลังจบการแสดง</li>
+                <li>สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้ เว้นแต่จะได้รับความยินยอมจากผู้จัดฯ</li>
+            </ol>
+        </section>
 
+    </main>
+
+    <script>
+        // ฟังก์ชันอัปเดตราคาแบบ Interactive เมื่อยูสเซอร์กดจิ้มที่โซนในรูปภาพ
+        function updatePrice(zoneName, priceValue) {
+            const displayBox = document.getElementById('price-notifier');
+            displayBox.innerHTML = `🎟️ <strong>โซน ${zoneName}</strong> ราคาแผงผัง: <span style="color:#00ffcc; margin-left:10px;">${priceValue} บาท</span>`;
+            
+            // เอฟเฟกต์กระพริบตาเพื่อความตื่นเต้นสะใจ
+            displayBox.style.transform = 'scale(1.02)';
+            setTimeout(() => { displayBox.style.transform = 'scale(1)'; }, 150);
+        }
+    </script>
 </body>
 </html>
