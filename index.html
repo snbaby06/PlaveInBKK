@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 PLAVE Asia Tour in Bangkok</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0b0e14; color: white; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 800px; width: 100%; text-align: center; }
+        
+        /* ส่วนแสดงผลราคา */
+        #price-display { 
+            background: #252a33; padding: 15px; border-radius: 10px; 
+            margin: 20px 0; font-size: 1.2rem; color: #ffeb3b; 
+            border: 1px solid #444;
+        }
+
+        /* ส่วนของรูปผังที่นั่ง */
+        .map-container { margin: 20px 0; }
+        .map-container img { max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #333; }
+
+        /* ข้อมูลด้านล่าง */
+        .info { background: #1a1f26; padding: 20px; border-radius: 8px; text-align: left; line-height: 1.6; }
+        a { color: #58a6ff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>2025 PLAVE Asia Tour</h1>
+    <p>[DASH: Quantum Leap] in Bangkok</p>
+    
+    <div id="price-display">คลิกที่โซนในรูปเพื่อดูราคา</div>
+
+    <div class="map-container">
+        <img src="seating-map.png" alt="Seating Map" usemap="#seating-map">
+    </div>
+
+    <map name="seating-map">
+        <area shape="rect" coords="170,250,260,350" alt="Zone A" onclick="showPrice('A4-A3', 4500)">
+        <area shape="rect" coords="200,600,280,680" alt="Zone VIP" onclick="showPrice('DD (VIP)', 6000)">
+    </map>
+
+    <div class="info">
+        <p><strong>วันที่แสดง:</strong> 25 ตุลาคม 2568</p>
+        <p><strong>เวลาแสดง:</strong> 18.00 น.</p>
+        <p><strong>สถานที่:</strong> ยูโอบี ไลฟ์, เอ็มสเฟียร์</p>
+        <p><strong>วันเปิดจำหน่ายบัตร:</strong> 27 กรกฎาคม 2568 เวลา 11:00 น.</p>
+        <p><strong>รายละเอียดเพิ่มเติม:</strong> <a href="https://bit.ly/3G1gDcJ" target="_blank">คลิกที่นี่เพื่อไปหน้าซื้อบัตร</a></p>
+    </div>
+</div>
+
+<script>
+    function showPrice(zone, price) {
+        document.getElementById('price-display').innerHTML = 
+            `โซน ${zone} ราคา <strong>${price.toLocaleString()} บาท</strong>`;
+    }
+</script>
+
+</body>
+</html>
