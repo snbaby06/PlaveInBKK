@@ -52,10 +52,12 @@
            3. CONTAINER DESIGN (ขยายขนาดกรอบให้ใหญ่ขึ้น + เส้นขอบแดง + เอฟเฟกต์กระจกใส)
            ========================================================================== */
         .modal-window {
-            width: 1200px;                        /* ขยายความกว้างโครงสร้างตามบรีฟ */
-            height: 720px;                        /* ขยายความสูงให้ดูโปร่งจุข้อมูลได้เต็มตา */
-            max-width: 92vw;
-            max-height: 88vh;
+    width: 90%;           /* ให้กว้าง 90% ของหน้าจอ */
+    max-width: 1300px;    /* แต่กว้างสุดไม่เกิน 1300px */
+    
+    height: 85vh;         /* ให้สูง 85% ของความสูงหน้าจอคอมทุกเครื่องอัตโนมัติ */
+    max-height: 850px;    /* แต่สูงได้มากสุดไม่เกิน 850px */
+}
             background: var(--glass-outer-bg);
             border: 2px solid var(--neon-red);    /* เส้นขอบสีแดงตามเรฟวิดีโอ */
             border-radius: 16px;
@@ -346,7 +348,7 @@
                     <h2 class="section-title">Overview // ข้อมูลการแสดงภาพรวม</h2>
                     <div class="overview-grid">
                         <div class="poster-box">
-                            <img src="bg.jpg" alt="PLAVE Concert Poster">
+                            <img src="poster.jpg" alt="PLAVE Concert Poster">
                         </div>
                         <div class="details-box">
                             <p><strong>📍 สถานที่แสดง :</strong> IMPACT Arena</p>
@@ -390,7 +392,7 @@
                 </div>
 
                 <div class="tab-content-block">
-                    <h2 class="section-title">Benefits // สิทธิพิเศษตามเงื่อนไขราคา</h2>
+                    <h2 class="section-title">Benefits</h2>
                     <ul class="bullet-list">
                           <img src="benefit.jpg" alt="benefit" class="benefit-image">
                         <li><strong>VIP Benefit:</strong> xxx</li>
