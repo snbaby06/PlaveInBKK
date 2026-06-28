@@ -151,9 +151,12 @@
 <body>
 
     <nav class="navbar">
-        <div class="nav-logo">#2025_PLAVE_BY_BANGKOK</div>
-        <a href="https://bit.ly/3G1gDcJ" target="_blank" class="nav-btn">ซื้อบัตรคอนเสิร์ต ➔</a>
-    </nav>
+        <div class="nav-logo">#DASH_Quantum_Leap_in_Bangkok #PLAVEBKK2025 </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="#" class="nav-btn-guide" id="openGuideBtn">CONCERT GUIDE 📘</a>
+        <a href="https://bit.ly/3G1gDcJ" target="_blank" class="nav-btn">BUY TICKET 🎟️➔</a>
+    </div>
+</nav>
 
     <main class="main-layout">
         
@@ -192,3 +195,96 @@
                     <area shape="rect" coords="240,550,645,680" alt="Bottom Row C3-C4 3,000" onclick="updatePrice('C3, C4 (แถวล่างสุด)', '3,000', 'var(--plave-std2)')">
                 </map>
             </div>
+
+<!-- Concert Guide Modal -->
+<div id="guideModal" class="modal-overlay">
+    <div class="modal-content">
+        <!-- Header -->
+        <div class="modal-header">
+            <span class="modal-title"><span style="color: #00ffcc; margin-right: 8px;">●</span>CONCERT GUIDE ・ PLAVE DASH: Quantum Leap</span>
+            <button class="close-btn" id="closeGuideBtn">&times;</button>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="modal-tabs">
+            <div class="tab-item active">📅<br><span>กำหนดการ</span></div>
+            <div class="tab-item">🎫<br><span>กดบัตร</span></div>
+            <div class="tab-item">📦<br><span>รับบัตร</span></div>
+            <div class="tab-item">⭐<br><span>Fan Benefits</span></div>
+                   <div class="tab-item">⚠️<br><span>กฎ & เงื่อนไข</span></div>
+        </div>
+
+        <!-- Tab Content (Timeline เหมือนในรูปภาพ) -->
+        <div class="modal-body">
+            <h3 style="color: #58a6ff; font-size: 1.1rem; margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                📅 กำหนดการสำคัญ
+            </h3>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-badge" style="background: #8b949e;"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">27 ก.ค. 2568 10:00 น.</div>
+                        <div class="timeline-title">ระบบเปิดให้เข้าคิวเพื่อกดบัตร</div>
+                        <div class="timeline-desc">ควรเตรียมตัวเข้าเว็บไซต์ล่วงหน้าเพื่อรักษาสิทธิ์คิวต้นๆ</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item active-event">
+                    <div class="timeline-badge" style="background: #00ffcc;"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">27 ก.ค. 2568 11:00 น.</div>
+                        <div class="timeline-title">เปิดขายบัตร รอบออนไลน์</div>
+                        <div class="timeline-desc">ซื้อผ่านเว็บไซต์จำหน่ายบัตรอย่างเป็นทางการเท่านั้น หากบัตรหมดจะไม่มีรอบทั่วไป</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-badge" style="background: #ff9800;"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">25 ต.ค. 2568</div>
+                        <div class="timeline-title">⭐ D-DAY : 2025 PLAVE Asia Tour in Bangkok</div>
+                        <div class="timeline-desc">ลงทะเบียน Fan Benefit และรันคิวหน้างาน / ประตูเปิด 17:00 น. / เริ่มแสดง 18:00 น.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="modal-footer">
+            <span>คลิกแต่ละ Tab เพื่อดูข้อมูลเพิ่มเติม</span>
+            <div class="dots-indicator">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript สำหรับ เปิด-ปิด ป๊อปอัพ -->
+<script>
+    const modal = document.getElementById('guideModal');
+    const openBtn = document.getElementById('openGuideBtn');
+    const closeBtn = document.getElementById('closeGuideBtn');
+
+    // เปิด Modal เมื่อคลิกปุ่ม Guide
+    openBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'flex';
+    });
+
+    // ปิด Modal เมื่อคลิกปุ่มกากบาท
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // ปิด Modal เมื่อคลิกพื้นที่ดำๆ รอบนอกตัวป๊อปอัพ
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>
