@@ -48,11 +48,11 @@
         }
 
         /* ==========================================================================
-           3. CONTAINER DESIGN (ล็อกความสูงกลับมาใช้สัดส่วนหน้าจอ % และ vh เพื่อไม่ให้บ็อกซ์หาย)
+           3. CONTAINER DESIGN 
            ========================================================================== */
         .modal-window {
             width: 1350px;                        
-            height: 88vh; /* กลับมาใช้ค่า vh ล็อกความสูงสัมพันธ์กับหน้าจอ หน้าต่างจะไม่หายแน่นอน */
+            height: 88vh; 
             max-width: 95vw;
             max-height: 88vh;
             background: var(--glass-outer-bg);
@@ -239,22 +239,21 @@
             margin-right: 6px;
         }
 
-        /* จำกัดขนาดรูปภาพภายในเนื้อหาฝั่งขวาให้สวยงามและไม่ล้นจอ */
+        /* 🛠️ แก้ไขตรงนี้: สั่งให้รูปภาพขยายใหญ่เต็มความกว้างกรอบขวา ไม่ย่อเล็กแล้ว */
         .right-content-viewer img {
-            max-width: 100%;
-            height: auto;
-            max-height: 50vh; 
-            object-fit: contain;
+            width: 100%;             /* ขยายกว้างเต็ม 100% ของพื้นที่ฝั่งขวา */
+            max-width: 100%;         
+            height: auto;            /* ให้ความสูงปรับออโต้ตามสัดส่วนภาพ ไม่โดนบีบแบน */
             display: block;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
             border-radius: 8px;
         }
 
-        /* จัดวางรูปผังที่นั่งให้อยู่กึ่งกลาง */
+        /* จัดวางส่วนผังที่นั่งให้เต็มบล็อก */
         .seating-map-container {
             display: flex;
             flex-direction: column;
-            align-items: center;         
+            width: 100%;
             gap: 25px;
             margin-top: 10px;
         }
@@ -262,7 +261,7 @@
         /* ส่วนของหน้าภาพรวม (Overview) */
         .overview-grid {
             display: grid;
-            grid-template-columns: 220px 1fr;
+            grid-template-columns: 280px 1fr; /* ขยายขนาดกล่องโปสเตอร์หน้าแรกขึ้นเล็กน้อย */
             gap: 30px;
             align-items: start;
         }
@@ -308,7 +307,6 @@
             .left-menu-bar { flex-direction: row; flex-wrap: wrap; padding: 12px; border-right: none; border-bottom: 1px solid rgba(255,0,43,0.2); }
             .menu-item { padding: 10px 14px; font-size: 0.8rem; }
             .right-content-viewer { padding: 25px; }
-            .right-content-viewer img { max-height: 45vh; }
         }
     </style>
 </head>
@@ -375,7 +373,7 @@
                     <h2 class="section-title">ผังที่นั่งและราคา</h2>
                     <div class="seating-map-container">
                         <img src="seating-map.jpg" alt="PLAVE Concert Seating Map">
-                        <ul class="bullet-list" style="width: 100%;">
+                        <ul class="bullet-list">
                             <li><strong>ข้อมูลโซน:</strong> กรุณาเช็กรายละเอียดหมายเลขแถวระบุที่นั่งให้เรียบร้อยที่จุดจำหน่ายบัตรออนไลน์</li>
                         </ul>
                     </div>
