@@ -6,20 +6,20 @@
     <title>2026 PLAVE WORLD TOUR [KEEP IT MANIC] - Concert Guide</title>
     <style>
         /* ==========================================================================
-           1. THEME SETTING & VARIABLE (ปรับโทนสีกระจกไซเบอร์โปร่งแสง หลบสีเทา-ดำเดิม)
+           1. THEME SETTING & VARIABLE (ปรับดีไซน์กระจกรมควันโปร่งแสง เพื่อไม่ให้ตัวอักษรจม)
            ========================================================================== */
         :root {
-            --neon-red: #ff002b;                /* สีแดงแมนิแอคหลัก */
+            --neon-red: #ff002b;                  /* สีแดงแมนิแอคหลักตามเส้นขอบ */
             --neon-glow: rgba(255, 0, 43, 0.4);
             
-            /* โทนสีกระจกโปร่งแสงใหม่ (เข้ากับดีไซน์และรูปพื้นหลังอย่างสมบูรณ์) */
-            --glass-outer-bg: rgba(10, 12, 18, 0.75);   /* ดำอวกาศโปร่งแสงเนื้อละเอียด */
-            --glass-inner-left: rgba(6, 8, 14, 0.55);    /* ดำอมน้ำเงินโปร่งแสงสำหรับเมนูซ้าย */
-            --glass-inner-right: rgba(28, 22, 23, 0.65);  /* กระจกรมควันประกายแดงจางๆ รับกับแสงด้านหลัง */
+            /* พื้นหลังและแผงควบคุมสไตล์ Glassmorphism โปร่งแสง หรูหรา มีมิติ */
+            --glass-outer-bg: rgba(10, 12, 18, 0.8);     /* ตัวกรอบนอกสีเข้มโปร่งแสง */
+            --glass-inner-left: rgba(6, 8, 14, 0.65);     /* เมนูฝั่งซ้าย */
+            --glass-inner-right: rgba(20, 22, 28, 0.85);  /* พื้นหลังฝั่งขวา ปรับให้ทึบขึ้นเล็กน้อยเพื่อให้อ่านอักษรง่ายขึ้น */
             
-            /* ตัวอักษรให้อ่านง่ายบนกระจกรมควัน */
-            --text-light-main: #f8fafc;          /* ขาวนวลคมชัด */
-            --text-light-dim: #94a3b8;           /* เทาฟ้าอ่อนสำหรับดีเทลรอง */
+            /* สีตัวอักษร */
+            --text-light-main: #f8fafc;            /* สีขาวนวลคมชัด */
+            --text-light-dim: #94a3b8;             /* สีเทาอ่อนสำหรับข้อมูลรอง */
             
             /* ปุ่ม BUY TICKET */
             --btn-gray: #e2e8f0;                
@@ -27,11 +27,11 @@
         }
 
         /* ==========================================================================
-           2. LAYOUT & BACKGROUND (ย้ายกรอบมาอยู่กึ่งกลางหน้าจอเป๊ะๆ)
+           2. LAYOUT & BACKGROUND (ตั้งค่า bg.jpg เป็นพื้นหลังเว็บ และจัดกรอบอยู่กึ่งกลางจอ)
            ========================================================================== */
         body {
-            /* ไล่สีพื้นหลังจากมืดไปสว่างเพื่อส่งให้รูป bg.jpg ด้านหลังขึ้นกลืนสวยงาม */
-            background: linear-gradient(135deg, #020204 0%, #0c080d 50%, rgba(20, 4, 7, 0.7) 100%), 
+            /* นำภาพ bg.jpg มาทำเป็นพื้นหลังเว็บ พร้อมใส่ overlay เลเยอร์สีดำจาง ๆ เพื่อคุมโทนให้กรอบข้อมูลลอยเด่น */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                         url('bg.jpg');   
             background-repeat: no-repeat;
             background-position: center;       
@@ -42,41 +42,41 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
-            justify-content: center;           /* ย้ายกรอบข้อมูลมาอยู่ตรงกลางหน้าจอแนวนอน */
-            align-items: center;               /* ย้ายกรอบข้อมูลมาอยู่ตรงกลางหน้าจอแนวตั้ง */
+            justify-content: center;             /* จัดวางกรอบข้อความให้อยู่กึ่งกลางหน้าจอแนวนอน */
+            align-items: center;                 /* จัดวางกรอบข้อความให้อยู่กึ่งกลางหน้าจอแนวตั้ง */
             box-sizing: border-box;
             overflow: hidden;
         }
 
         /* ==========================================================================
-           3. CONTAINER DESIGN (ขยายขนาดใหญ่ขึ้น + ทำเอฟเฟกต์กระจกโปร่งแสงล้ำๆ)
+           3. CONTAINER DESIGN (ขยายขนาดกรอบให้ใหญ่ขึ้น + เส้นขอบแดง + เอฟเฟกต์กระจกใส)
            ========================================================================== */
         .modal-window {
-            width: 1200px;                      /* ขยายขนาดความกว้างเพิ่มขึ้นตามบรีฟ */
-            height: 700px;                      /* ขยายความสูงให้ดูโปร่งจุข้อมูลได้สะใจ */
+            width: 1200px;                        /* ขยายความกว้างโครงสร้างตามบรีฟ */
+            height: 720px;                        /* ขยายความสูงให้ดูโปร่งจุข้อมูลได้เต็มตา */
             max-width: 92vw;
             max-height: 88vh;
             background: var(--glass-outer-bg);
-            border: 2px solid var(--neon-red);  /* เส้นขอบแดงนีออนคมๆ ตามรูป image_f8cb60.png */
+            border: 2px solid var(--neon-red);    /* เส้นขอบสีแดงตามเรฟวิดีโอ */
             border-radius: 16px;
-            /* เพิ่มเงาสะท้อนเรืองแสงสีแดงรอบตัวกรอบลอย */
+            /* ใส่เงาหนาและรัศมีเรืองแสงสีแดงรอบกรอบ */
             box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 
-                        0 0 40px rgba(255, 0, 43, 0.2);
+                        0 0 40px rgba(255, 0, 43, 0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            backdrop-filter: blur(20px);        /* เบลอภาพหลังกระจกให้ทะลุนัวๆ */
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(16px);          /* เบลอภาพ bg.jpg ด้านหลังทะลุกระจก */
+            -webkit-backdrop-filter: blur(16px);
         }
 
-        /* แถบ Header คอนโทรลด้านบนกรอบ */
+        /* แถบ Header ด้านบนกรอบ */
         .modal-header {
             padding: 20px 28px;
             border-bottom: 1px solid rgba(255, 0, 43, 0.25);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
         }
         .modal-title-group {
             display: flex;
@@ -105,7 +105,7 @@
             gap: 20px;
         }
 
-        /* ปุ่ม BUY TICKET ด้านบนขวา */
+        /* ย้ายปุ่ม BUY TICKET มาไว้ที่แถวบนขวาตามตำแหน่งที่ต้องการ */
         .btn-buy-ticket-top {
             background-color: var(--btn-gray);
             color: var(--btn-text-black);
@@ -126,7 +126,7 @@
             box-shadow: 0 0 15px var(--neon-glow);
         }
 
-        /* ปุ่มปิด [X] */
+        /* ปุ่มปิดหน้าต่าง [X] */
         .close-window-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255,255,255,0.1);
@@ -146,7 +146,7 @@
             border-color: var(--neon-red);
         }
 
-        /* โครงสร้างพื้นที่เนื้อหาแบ่งซ้าย-ขวา */
+        /* โครงสร้างเนื้อหาแบ่ง ซ้าย (เมนู) - ขวา (ข้อความ) */
         .modal-body {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -154,7 +154,7 @@
             overflow: hidden;
         }
 
-        /* แผงเมนูด้านซ้าย */
+        /* เมนูฝั่งซ้าย */
         .left-menu-bar {
             background: var(--glass-inner-left);
             border-right: 1px solid rgba(255, 0, 43, 0.15);
@@ -189,7 +189,7 @@
             box-shadow: 0 0 15px rgba(255, 0, 43, 0.1);
         }
 
-        /* แผงแสดงข้อมูลด้านขวา */
+        /* พื้นที่แสดงเนื้อหาฝั่งขวา (กระจกรมควัน) */
         .right-content-viewer {
             background: var(--glass-inner-right);
             padding: 40px 45px;
@@ -197,7 +197,7 @@
             position: relative;
         }
 
-        /* ระบบสลับ Tab */
+        /* ระบบจัดแท็บข้อมูล */
         .tab-content-block {
             display: none;
         }
@@ -210,7 +210,7 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* หัวข้อด้านใน */
+        /* สไตล์หัวข้อด้านใน */
         .section-title {
             color: var(--text-light-main);
             font-size: 1.5rem;
@@ -222,7 +222,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* ดีไซน์รายการลิสต์ข้อความ */
+        /* รายการข้อความ */
         .bullet-list {
             list-style: none;
             padding: 0; margin: 0;
@@ -234,7 +234,7 @@
             padding-left: 18px;
             font-size: 1rem;
             color: var(--text-light-main);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* ใส่เงาหลังฟอนต์ให้อ่านง่ายเฉียบขาด */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* เงาหลังฟอนต์ช่วยให้อ่านง่ายขึ้นบนพื้นกระจก */
         }
         .bullet-list strong { 
             color: var(--neon-red); 
@@ -244,25 +244,25 @@
         }
 
         /* ==========================================================================
-           4. SEATING MAP STYLING (จุดแก้ไขสำคัญ: สไตล์จัดวางผังที่นั่งให้บาลานซ์กึ่งกลางพอดี)
+           4. SEATING MAP CENTER ALIGNMENT (จัดวางรูปผังที่นั่งให้อยู่กึ่งกลางอย่างสวยงาม)
            ========================================================================== */
         .seating-map-container {
             display: flex;
             flex-direction: column;
-            align-items: center;       /* จัดรูปภาพผังให้อยู่ตรงกลางพื้นที่สีเทารมควันพอดี */
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
             gap: 25px;
             margin-top: 10px;
         }
         .seating-map-image {
-            max-width: 100%;           /* คุมไม่ให้ผังล้นจอ */
-            height: auto;              /* รักษาอัตราส่วนของรูป */
-            max-height: 440px;         /* จำกัดความสูงให้สมดุลพอดีหน้าต่าง ไม่ต้องเลื่อนเมาส์ลึก */
-            border-radius: 8px;        /* ลบเหลี่ยมคมรูปภาพ */
+            max-width: 100%;             /* ป้องกันไม่ให้รูปภาพล้นขอบ */
+            height: auto;
+            max-height: 420px;           /* บาลานซ์ความสูงของรูปผังให้นั่งดูได้พอดีโดยไม่ต้องเลื่อนจอ */
+            border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7); /* หนุนให้รูปผังที่นั่งลอยเด่นมีมิติ */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);  /* เพิ่มเงามิติหนุนให้ผังที่นั่งลอยขึ้นเด่นชัด */
         }
 
-        /* ดีไซน์หน้าภาพรวม */
+        /* ส่วนของหน้าภาพรวม (Overview) */
         .overview-grid {
             display: grid;
             grid-template-columns: 220px 1fr;
@@ -297,16 +297,16 @@
         .price-badge.std1 { background-color: #d53f8c; }
         .price-badge.std2 { background-color: #2b6cb0; }
 
-        /* แถบสกรอลบาร์ไซเบอร์มินิมอล */
+        /* แถบสกรอลบาร์ดีไซน์มินิมอลแบบไซเบอร์ */
         .right-content-viewer::-webkit-scrollbar { width: 5px; }
         .right-content-viewer::-webkit-scrollbar-track { background: transparent; }
-        .right-content-viewer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        .right-content-viewer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
         .right-content-viewer::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
 
-        /* Responsive */
+        /* รองรับขนาดหน้าจอ Responsive */
         @media (max-width: 992px) {
-            body { padding: 15px; }
-            .modal-window { max-width: 95vw; width: 100%; height: auto; max-height: 95vh; }
+            body { padding: 15px; overflow-y: auto; }
+            .modal-window { max-width: 95vw; width: 100%; height: auto; max-height: none; }
             .modal-body { grid-template-columns: 1fr; }
             .left-menu-bar { flex-direction: row; flex-wrap: wrap; padding: 12px; border-right: none; border-bottom: 1px solid rgba(255,0,43,0.2); }
             .menu-item { padding: 10px 14px; font-size: 0.8rem; }
@@ -317,10 +317,8 @@
 </head>
 <body>
 
-    <!-- โครงสร้างกรอบนอกสุด (ขยายใหญ่ขึ้น + อยู่กึ่งกลางจอ + กระจกใส) -->
     <div class="modal-window">
         
-        <!-- ส่วนหัว (Header) -->
         <header class="modal-header">
             <div class="modal-title-group">
                 <div class="status-dot"></div>
@@ -328,32 +326,27 @@
             </div>
             <div class="header-controls">
                 <button class="btn-buy-ticket-top" onclick="window.open('https://example.com/tickets', '_blank')">Buy Ticket</button>
-                <div class="close-window-btn" onclick="alert('ปิดหน้าต่าง')">✕</div>
+                <div class="close-window-btn" onclick="alert('ปิดหน้าต่างข้อมูล')">✕</div>
             </div>
         </header>
 
-        <!-- ส่วนเนื้อหา (Body) -->
         <div class="modal-body">
             
-            <!-- เมนูนำทางด้านซ้าย -->
             <nav class="left-menu-bar">
                 <button class="menu-item" onclick="changeModalTab(0, this)">ข้อมูลภาพรวมคอนเสิร์ต</button>
                 <button class="menu-item" onclick="changeModalTab(1, this)">กำหนดการสำคัญ</button>
-                <button class="menu-item active" onclick="changeModalTab(2, this)">ผังที่นั่ง</button> <!-- ตั้งค่าเริ่มต้นที่หน้าผังที่นั่งเพื่อตรวจสอบความสวยงาม -->
-                <button class="menu-item" onclick="changeModalTab(3, this)">การรับบัตรคอนเสิร์ต</button>
+                <button class="menu-item active" onclick="changeModalTab(2, this)">ผังที่นั่ง</button> <button class="menu-item" onclick="changeModalTab(3, this)">การรับบัตรคอนเสิร์ต</button>
                 <button class="menu-item" onclick="changeModalTab(4, this)">สิทธิพิเศษ Benefits</button>
                 <button class="menu-item" onclick="changeModalTab(5, this)">กฎระเบียบเข้างาน</button>
             </nav>
 
-            <!-- แผงเนื้อหาแสดงผลขวา (กระจกรมควันโปร่งแสง สวย ลึก มีมิติ) -->
             <div class="right-content-viewer">
 
-                <!-- TAB 0: ข้อมูลภาพรวมคอนเสิร์ต -->
                 <div class="tab-content-block">
                     <h2 class="section-title">Overview // ข้อมูลการแสดงภาพรวม</h2>
                     <div class="overview-grid">
                         <div class="poster-box">
-                            <img src="poster.jpg" alt="PLAVE Concert Poster">
+                            <img src="bg.jpg" alt="PLAVE Concert Poster">
                         </div>
                         <div class="details-box">
                             <p><strong>📍 สถานที่แสดง :</strong> อินชอน มุนฮัก เมน สเตเดียม (Incheon Munhak Main Stadium)</p>
@@ -368,21 +361,18 @@
                     </div>
                 </div>
 
-                <!-- TAB 1: กำหนดการสำคัญ -->
                 <div class="tab-content-block">
-                    <h2 class="section-title">Timeline // 定期กำหนดการสำคัญ</h2>
+                    <h2 class="section-title">Timeline // กำหนดการสำคัญ</h2>
                     <ul class="bullet-list">
                         <li><strong>เปิดจำหน่ายตั๋วทั่วไป:</strong> 12 กันยายน 2569 เวลา 11:00 น. เป็นต้นไป ผ่านระบบออนไลน์เคาน์เตอร์หลัก</li>
                         <li><strong>วันแสดงจริง (D-DAY):</strong> 26-27 กันยายน 2569 ประตูสนามเปิดคัดกรองความปลอดภัยตั้งแต่เวลา 17:00 น.</li>
                     </ul>
                 </div>
 
-                <!-- TAB 2: ผังที่นั่ง (เพิ่มรูปภาพ seating-map.jpg ลื่นไหลเรียบร้อย!) -->
                 <div class="tab-content-block active">
                     <h2 class="section-title">Seating Map // ผังที่นั่งและโซนการแสดง</h2>
                     <div class="seating-map-container">
                         
-                        <!-- เรียกแสดงรูปภาพผังที่นั่งตรงกลางจอพอดี -->
                         <img src="seating-map.jpg" alt="PLAVE Concert Seating Map" class="seating-map-image">
                         
                         <ul class="bullet-list" style="width: 100%;">
@@ -391,7 +381,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: การรับบัตรคอนเสิร์ต -->
                 <div class="tab-content-block">
                     <h2 class="section-title">Ticket Pickup // ข้อตกลงการรับบัตร</h2>
                     <ul class="bullet-list">
@@ -399,7 +388,6 @@
                     </ul>
                 </div>
 
-                <!-- TAB 4: สิทธิพิเศษ Benefits -->
                 <div class="tab-content-block">
                     <h2 class="section-title">Benefits // สิทธิพิเศษตามเงื่อนไขราคา</h2>
                     <ul class="bullet-list">
@@ -407,7 +395,6 @@
                     </ul>
                 </div>
 
-                <!-- TAB 5: กฎระเบียบเข้างาน -->
                 <div class="tab-content-block">
                     <h2 class="section-title">Rules // กฎระเบียบความปลอดภัย</h2>
                     <ul class="bullet-list">
@@ -421,7 +408,6 @@
         </div>
     </div>
 
-    <!-- สคริปต์สลับหน้าข้อมูลล็อกฟังก์ชัน -->
     <script>
         function changeModalTab(tabIndex, buttonElement) {
             const blocks = document.querySelectorAll('.tab-content-block');
@@ -433,7 +419,7 @@
             blocks[tabIndex].classList.add('active');
             buttonElement.classList.add('active');
             
-            // รีเซ็ตสกรอลบาร์ด้านขวาให้กลับไปด้านบนสุดทุกครั้งเวลาเปลี่ยนหน้าเมนู
+            // เลื่อนสกรอลบาร์ฝั่งข้อมูลขวากลับไปตำแหน่งบนสุดอัตโนมัติเมื่อกดสลับแท็บเมนู
             document.querySelector('.right-content-viewer').scrollTop = 0;
         }
     </script>
