@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 PLAVE WORLD TOUR [KEEP IT MANIC] - Ticket Terminal</title>
+    <style>
+        /* อ้างอิงโทนสีดุดันจากโปสเตอร์ plave.jpg และโครงสร้างจาก image_ede23a.jpg */
+        :root {
+            --bg-dark: #0a0c10;                 /* สีดำสนิทขับแสงสีแดง */
+            --panel-bg: rgba(20, 24, 33, 0.85); /* สีเทาเข้มหม่นสไตล์ปูนเปลือยฉากหลัง */
+            --neon-red: #ff002b;                /* สีแดงสดดุดันจากโลโก้ KEEP IT MANIC */
+            --neon-glow: rgba(255, 0, 43, 0.25); /* แสงเรืองรองสีแดง */
+            --text-main: #f0f3f5;               /* สีขาวสว่างจากสีชุดสูทของเมมเบอร์ */
+            --text-dim: #8a95a5;                /* สีเทาเงา */
+            --border-color: #2b1418;            /* สีขอบแดงเข้มมืด */
+            
+            /* สีโซนสำหรับอัปเดต */
+            --plave-vip: #ff002b;
+            --plave-std1: #f37cb5;
+            --plave-std2: #4351b5;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(rgba(255, 0, 43, 0.03) 1px, transparent 0),
+                radial-gradient(rgba(255, 0, 43, 0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+
+        /* Top Header Navbar */
+        .terminal-header {
+            border: 1px solid var(--border-color);
+            background: var(--panel-bg);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            backdrop-filter: blur(8px);
+            border-left: 4px solid var(--neon-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .terminal-title {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .terminal-subtitle {
+            color: var(--neon-red);
+            font-size: 0.8rem;
+            margin: 5px 0 0 0;
+            font-weight: bold;
+        }
+        
+        /* ปุ่มลิงก์ไปหน้าเว็บกดบัตรจริงภายนอก */
+        .buy-ticket-btn {
+            background-color: var(--neon-red);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.2s;
+            box-shadow: 0 0 15px var(--neon-glow);
+            border: none;
+            cursor: pointer;
+        }
+        .buy-ticket-btn:hover {
+            background-color: #cc0022;
+            transform: scale(1.03);
+        }
+
+        /* โครงสร้างหลัก แบ่งซ้ายเมนู - ขวาเนื้อหาแบบในรูป image_ede23a.jpg */
+        .terminal-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            flex: 1;
+            align-items: start;
+        }
+
+        /* เมนูฝั่งซ้าย */
+        .menu-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .menu-node {
+            background: rgba(20, 24, 30, 0.6);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            padding: 16px 20px;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+        .menu-node:hover {
+            border-color: var(--neon-red);
+            color: #ffffff;
+            background: rgba(255, 0, 43, 0.05);
+        }
+        .menu-node.active {
+            background: rgba(255, 0, 43, 0.12);
+            border-color: var(--neon-red);
+            color: #ffffff;
+            font-weight: 800;
+            box-shadow: 0 0 15px var(--neon-glow);
+            border-left: 5px solid var(--neon-red);
+            padding-left: 15px;
+        }
+
+        /* จอแสดงข้อมูลฝั่งขวา */
+        .content-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            backdrop-filter: blur(8px);
+            position: relative;
+            min-height: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* เปิด-ซ่อนเนื้อหา */
+        .data-block {
+            display: none;
+            animation: fadeInContent 0.25s ease-out forwards;
+        }
+        .data-block.active {
+            display: block;
+        }
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        /* สไตล์ตารางเวลาสำคัญ (Timeline) */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 1px solid var(--border-color);
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .timeline-item { position: relative; }
+        .timeline-badge {
+            position: absolute;
+            left: -25px; top: 4px;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: var(--text-dim);
+        }
+        .timeline-item.active-event .timeline-badge {
+            background: var(--neon-red);
+            box-shadow: 0 0 8px var(--neon-red);
+        }
+        .timeline-date { font-size: 0.85rem; color: var(--neon-red); font-weight: bold; margin-bottom: 4px; }
+        .timeline-title { font-size: 1rem; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
+        .timeline-desc { font-size: 0.85rem; color: var(--text-dim); }
+
+        /* สไตล์หน้าผังที่นั่งคอนเสิร์ต */
+        .map-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .map-wrapper {
+            max-width: 100%;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            background: #07090e;
+            border-radius: 4px;
+        }
+        .map-wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        area { cursor: pointer; }
+
+        /* กล่องแสดงราคาโซนเมื่อคลิกเลือกผัง */
+        .price-display-box {
+            width: 100%;
+            background: rgba(10, 12, 16, 0.8);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--text-dim);
+            padding: 15px 20px;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+        .price-display-box h4 { margin: 0 0 5px 0; font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; }
+        .price-display-box p { margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff; }
+
+        /* รายการข้อมูลทั่วไป */
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .info-list li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            border-left: 3px solid var(--neon-red);
+            padding-left: 15px;
+        }
+        .info-list strong { color: #ffffff; }
+
+        /* เส้นกรอบเลเซอร์เสริมความเท่ */
+        .content-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 20px; height: 20px;
+            border-top: 3px solid var(--neon-red);
+            border-right: 3px solid var(--neon-red);
+        }
+
+        /* Responsive สำหรับเปิดในมือถือ */
+        @media (max-width: 768px) {
+            .terminal-container { grid-template-columns: 1fr; }
+            .menu-panel { flex-direction: row; flex-wrap: wrap; gap: 5px; }
+            .menu-node { flex: 1 1 calc(50% - 5px); text-align: center; padding: 12px 5px; font-size: 0.85rem; }
+            .menu-node.active { border-left: 1px solid var(--neon-red); border-top: 3px solid var(--neon-red); padding-left: 5px; }
+            .terminal-header { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- แผงส่วนหัวหน้าเว็บ -->
+    <header class="terminal-header">
+        <div>
+            <h1 class="terminal-title">2026 PLAVE WORLD TOUR [KEEP IT MANIC]</h1>
+            <p class="terminal-subtitle">INCHEON MUNHAK MAIN STADIUM // OFFICIAL TICKETING GUIDE</p>
+        </div>
+        <!-- ลิงก์กดบัตรย้ายมาเด่นๆ ตรงนี้แทนป๊อปอัป -->
+        <a href="https://bit.ly/3G1gDcJ" target="_blank" class="buy-ticket-btn">BUY TICKET 🎟️</a>
+    </header>
+
+    <!-- ตัวคอนเทนเนอร์หลักแบ่ง ซ้าย-ขวา แบบในรูปโครงสร้างเว็บ -->
+    <div class="terminal-container">
+        
+        <!-- เมนูสลับข้อมูลฝั่งซ้าย -->
+        <nav class="menu-panel">
+            <button class="menu-node active" onclick="switchTerminalTab(0, this)">📅 กำหนดการสำคัญ</button>
+            <button class="menu-node" onclick="switchTerminalTab(1, this)">🗺️ ผังที่นั่ง & เลือกโซน</button>
+            <button class="menu-node" onclick="switchTerminalTab(2, this)">📦 การรับบัตรคอนเสิร์ต</button>
+            <button class="menu-node" onclick="switchTerminalTab(3, this)">⭐ สิทธิพิเศษ Benefits</button>
+            <button class="menu-node" onclick="switchTerminalTab(4, this)">⚠️ กฎระเบียบเข้างาน</button>
+        </nav>
+
+        <!-- จอแสดงผลข้อมูลหลักฝั่งขวา -->
+        <main class="content-panel">
+
+            <!-- TAB 0: กำหนดการสำคัญ -->
+            <div class="data-block active">
+                <h2 class="content-title">TIMELINE // กำหนดการเปิดระบบ</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-badge"></div>
+                        <div class="timeline-date">12 ก.ย. 2569 10:00 น.</div>
+                        <div class="timeline-title">ระบบเปิดให้เข้าคิวเพื่อกดบัตรคอนเสิร์ต</div>
+                        <div class="timeline-desc">กรุณาเข้าสู่ระบบล่วงหน้าเพื่อเตรียมพร้อมรักษาสิทธิ์ลำดับคิวไอดีของคุณ</div>
+                    </div>
+                    <div class="timeline-item active-event">
+                        <div class="timeline-badge"></div>
+                        <div class="timeline-date">12 ก.ย. 2569 11:00 น.</div>
+                        <div class="timeline-title">เปิดจำหน่ายบัตรอย่างเป็นทางการ (รอบออนไลน์)</div>
+                        <div class="timeline-desc">จำหน่ายผ่านช่องทางเว็บไซต์หลักที่กำหนดไว้เท่านั้น หากบัตรหมดจะปิดระบบทันที</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-badge"></div>
+                        <div class="timeline-date">26-27 ก.ย. 2569</div>
+                        <div class="timeline-title">D-DAY // PLAVE WORLD TOUR IN INCHEON</div>
+                        <div class="timeline-desc">ณ Incheon Munhak Main Stadium ประตูเปิดให้เข้าพื้นที่แสดงเวลา 17:00 น. เป็นต้นไป</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 1: ผังที่นั่ง & เลือกโซน (รวมระบบคลิกจากหน้าแรกมาไว้ที่นี่) -->
+            <div class="data-block">
+                <h2 class="content-title">SEATING MAP // ผังและราคาทุกโซน</h2>
+                <div class="map-container">
+                    <p style="color: var(--text-dim); font-size: 0.9rem; margin: 0;">💡 แตะหรือคลิกเลือกโซนบนภาพผังที่นั่งเพื่อตรวจสอบราคาและข้อมูลพื้นที่</p>
+                    
+                    <div class="map-wrapper">
+                        <!-- นำไฟล์รูปภาพผังที่นั่งของคุณมาใส่ตรงนี้แทนพิมพ์ชื่อไฟล์ -->
+                        <img src="seating-map.jpg" alt="PLAVE Seating Map" usemap="#concert-map">
+                        
+                        <map name="concert-map">
+                            <area shape="rect" coords="180,600,780,750" alt="VIP Zone" onclick="selectZoneData('VIP Zone (Soundcheck Included)', '6,000 บาท', 'var(--plave-vip)')">
+                            <area shape="rect" coords="345,270,645,550" alt="Center 4500" onclick="selectZoneData('Zone A3, A4, B3, B4', '4,500 บาท', 'var(--plave-std1)')">
+                            <area shape="rect" coords="240,270,345,600" alt="Left Wing 4500" onclick="selectZoneData('Zone A5, B5, C5', '4,500 บาท', 'var(--plave-std1)')">
+                            <area shape="rect" coords="645,270,750,600" alt="Right Wing 4500" onclick="selectZoneData('Zone A2, B2, C2', '4,500 บาท', 'var(--plave-std1)')">
+                            <area shape="rect" coords="150,290,240,680" alt="Far Left 3000" onclick="selectZoneData('Zone A6, B6, C6', '3,000 บาท', 'var(--plave-std2)')">
+                            <area shape="rect" coords="750,290,840,680" alt="Far Right 3000" onclick="selectZoneData('Zone A1, B1, C1', '3,000 บาท', 'var(--plave-std2)')">
+                        </map>
+                    </div>
+
+                    <!-- กล่องข้อมูลที่จะอัปเดตอัตโนมัติเมื่อกดเลือกในผังด้านบน -->
+                    <div class="price-display-box" id="zoneDisplayBox">
+                        <h4 id="zoneTitleHeader">CURRENT SELECTION // ข้อมูลโซน</h4>
+                        <p id="zonePriceText">โปรดคลิกเลือกโซนที่ต้องการดูบนผังที่นั่งด้านบน</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: การรับบัตรคอนเสิร์ต -->
+            <div class="data-block">
+                <h2 class="content-title">TICKET PICKUP // วิธีการรับบัตร</h2>
+                <ul class="info-list">
+                    <li><strong>การรับบัตรล่วงหน้า:</strong> สามารถทำเรื่องรับบัตรพลาสติกสำหรับเข้างานได้ ณ จุดบริการตามรายละเอียดที่แจ้งในอีเมลเสร็จสิ้นคำสั่งซื้อ</li>
+                    <li><strong>การรับบัตรหน้างานคอนเสิร์ต:</strong> บูธลงทะเบียนหน้าสนามแข่งขัน Incheon Munhak Main Stadium จะเปิดให้บริการตั้งแต่เวลา 10:00 น.</li>
+                    <li><strong>เอกสารยืนยันสิทธิ์:</strong> ต้องเตรียม QR Code หลักฐานใบเสร็จ พร้อมกับบัตรประชาชนตัวจริง (หรือหนังสือเดินทาง) ที่มีชื่อตรงกับระบบตอนกดซื้อเท่านั้น</li>
+                </ul>
+            </div>
+
+            <!-- TAB 3: สิทธิพิเศษ Benefits -->
+            <div class="data-block">
+                <h2 class="content-title">FAN BENEFITS // รายละเอียดสิทธิพิเศษ</h2>
+                <ul class="info-list">
+                    <li><strong>บัตรราคา 6,000 บาท (VIP Zone):</strong> ได้รับสิทธิ์เข้าร่วมรอบชมการซ้อม (Soundcheck) ทุกที่นั่ง 100% และรับเซ็ต Official Photocard คอนเซปต์พิเศษ</li>
+                    <li><strong>บัตรราคา 4,500 บาท:</strong> ได้รับสิทธิ์สุ่มเข้าร่วมรอบ Soundcheck ตามอัตราโควตาที่จัดสรร และรับ Official Poster ประจำคอนเสิร์ต</li>
+                    <li><strong>บัตรราคา 3,000 บาท:</strong> ได้รับ Official Poster ของงานทัวร์ KEEP IT MANIC ทุกที่นั่ง</li>
+                </ul>
+            </div>
+
+            <!-- TAB 4: กฎระเบียบเข้างาน -->
+            <div class="data-block">
+                <h2 class="content-title">RULES & REGULATION // ข้อบังคับความปลอดภัย</h2>
+                <ul class="info-list">
+                    <li><strong>การบันทึกภาพและเสียง:</strong> ห้ามนำกล้องถ่ายภาพอาชีพ กล้องวิดีโอ หรือเครื่องบันทึกเสียงระดับสูงเข้าสู่บริเวณฮอลล์การแสดงโดยเด็ดขาด</li>
+                    <li><strong>อุปกรณ์เชียร์:</strong> ไม่อนุญาตให้นำแท่งไฟที่ไม่ใช่ของแท้จาก Official หรือป้ายไฟที่มีขนาดใหญ่เกินมาตรฐานกำหนดเข้าพื้นที่เพื่อไม่ให้บังสายตาผู้ชมท่านอื่น</li>
+                    <li><strong>สัมภาระและอาหาร:</strong> ไม่อนุญาตให้นำอาหาร เครื่องดื่มทุกชนิด หรือกระเป๋าเดินทางขนาดใหญ่เกินเกณฑ์ผ่านประตูตรวจความปลอดภัยเข้างาน</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- สคริปต์สลับหน้าข้อมูลฝั่งขวา และฟังก์ชันอัปเดตราคาโซน -->
+    <script>
+        // ฟังก์ชันสำหรับสลับหน้าจอ (Tab Switcher)
+        function switchTerminalTab(tabIndex, buttonElement) {
+            const blocks = document.querySelectorAll('.data-block');
+            const buttons = document.querySelectorAll('.menu-node');
+
+            // ลบสถานะความเคลื่อนไหวเดิมออกทั้งหมดก่อน
+            blocks.forEach(block => block.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // เปิดใช้งานแท็บที่คลิกเลือก
+            blocks[tabIndex].classList.add('active');
+            buttonElement.classList.add('active');
+            
+            // เลื่อนหน้าจอกลับไปด้านบนสุดของกล่องแสดงผลเมื่อเปลี่ยนหัวข้อ
+            document.querySelector('.content-panel').scrollTop = 0;
+        }
+
+        // ฟังก์ชันอัปเดตราคาเมื่อมีการคลิกพื้นที่โซนบนรูปผังที่นั่ง
+        function selectZoneData(zoneName, priceValue, borderHexColor) {
+            const displayBox = document.getElementById('zoneDisplayBox');
+            const titleHeader = document.getElementById('zoneTitleHeader');
+            const priceText = document.getElementById('zonePriceText');
+
+            // แสดงข้อความตามโซนที่คลิก
+            titleHeader.innerText = "SELECTED: " + zoneName.toUpperCase();
+            priceText.innerText = "ราคาบัตรโดยประมาณ: " + priceValue;
+            
+            // ปรับสีขอบกล่องข้อความให้เปลี่ยนไปตามระดับโซนที่เลือก
+            displayBox.style.borderLeft = "4px solid " + borderHexColor;
+        }
+    </script>
+</body>
+</html>
