@@ -260,6 +260,46 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);  /* เพิ่มเงามิติหนุนให้ผังที่นั่งลอยขึ้นเด่นชัด */
         }
 
+        /* =========================================================================
+           5. TICKET & BENEFITS IMAGES ALIGNMENT (จัดการรูปภาพหน้าตั๋วและสิทธิพิเศษให้พอดีจอ)
+           ========================================================================= */
+
+        /* สำหรับหน้ารับบัตรคอนเสิร์ต */
+        .ticket-content-container, 
+        .tab-content-block:nth-child(4) { /* ปรับตามคลาสกล่องเนื้อหาหน้ารับบัตรของคุณ */
+       display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        }
+
+        .ticket-content-container img,
+        .tab-content-block:nth-child(4) img {
+            max-width: 100%;
+            max-height: 480px;          /* 💡 บังคับไม่ให้รูปสูงเกินขอบหน้าต่างเว็บ */
+            object-fit: contain;        /* 💡 ล็อกสัดส่วนภาพไม่ให้บี้หรือเบี้ยว */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        /* สำหรับหน้าสิทธิพิเศษ Benefits */
+        .benefits-content-container,
+        .tab-content-block:nth-child(5) { /* ปรับตามคลาสกล่องเนื้อหาหน้า Benefits ของคุณ */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .benefits-content-container img,
+        .tab-content-block:nth-child(5) img {
+            max-width: 100%;
+            max-height: 480px;          /* 💡 บังคับไม่ให้รูปสูงเกินขอบหน้าต่างเว็บ */
+            object-fit: contain;        /* 💡 ล็อกสัดส่วนภาพไม่ให้บี้หรือเบี้ยว */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+        
         /* ส่วนของหน้าภาพรวม (Overview) */
         .overview-grid {
             display: grid;
