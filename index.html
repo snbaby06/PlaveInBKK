@@ -259,10 +259,6 @@
             gap: 25px;
             margin-top: 10px;
         }
-        /* =========================================================================
-           5. TICKET & BENEFITS IMAGES ALIGNMENT (จัดวางรูปผังที่นั่งให้อยู่กึ่งกลางอย่างสวยงาม)
-           ========================================================================= */
-
         .ticket-content-container, 
          display: flex;
             flex-direction: column;
@@ -270,15 +266,12 @@
             gap: 25px;
             margin-top: 10px;
         }
-
         .ticket-content-container img display: flex;
             flex-direction: column;
             align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
             gap: 25px;
             margin-top: 10px;
         }
-
-        /* สำหรับหน้าสิทธิพิเศษ Benefits */
         .benefits-content-container,
           display: flex;
             flex-direction: column;
@@ -366,15 +359,16 @@
             <nav class="left-menu-bar">
                 <button class="menu-item" onclick="changeModalTab(0, this)">📜 ข้อมูล</button>
                 <button class="menu-item" onclick="changeModalTab(1, this)">🗓️ กำหนดการสำคัญ</button>
-                <button class="menu-item active" onclick="changeModalTab(2, this)">💺ผังที่นั่ง</button> <button class="menu-item" onclick="changeModalTab(3, this)">🎫 การรับบัตรคอนเสิร์ต</button>
+                <button class="menu-item active" onclick="changeModalTab(2, this)">💺 ผังที่นั่ง</button> <button class="menu-item" onclick="changeModalTab(3, this)">🎫 การรับบัตรคอนเสิร์ต</button>
                 <button class="menu-item" onclick="changeModalTab(4, this)">✨ สิทธิพิเศษ Benefits</button>
                 <button class="menu-item" onclick="changeModalTab(5, this)">⚠️ กฎระเบียบการเข้างาน</button>
+                <button class="menu-item" onclick="changeModalTab(6, this)">🚘 วิธีการเดินทาง</button>
             </nav>
 
             <div class="right-content-viewer">
 
                 <div class="tab-content-block">
-                    <h2 class="section-title">Overview // ข้อมูลการแสดงภาพรวม</h2>
+                    <h2 class="section-title">ข้อมูลคอนเสิร์ต</h2>
                     <div class="overview-grid">
                         <div class="poster-box">
                             <img src="poster.jpg" alt="PLAVE Concert Poster">
@@ -393,7 +387,7 @@
                 </div>
 
                 <div class="tab-content-block">
-                    <h2 class="section-title">Timeline // กำหนดการสำคัญ</h2>
+                    <h2 class="section-title">กำหนดการ</h2>
                     <ul class="bullet-list">
                         <li><strong>เปิดจำหน่ายบัตร:</strong> 12 กันยายน 2569 เวลา 11:00 น. เป็นต้นไป ผ่านระบบออนไลน์เคาน์เตอร์หลัก</li>
                         <li><strong>วันแสดงจริง:</strong> วันเสาร์ที่ 10 ตุลาคม 2569</li>
@@ -401,7 +395,7 @@
                 </div>
 
                 <div class="tab-content-block active">
-                    <h2 class="section-title">Seating Map // ผังที่นั่งและโซนการแสดง</h2>
+                    <h2 class="section-title">ผังที่นั่งและราคา</h2>
                     <div class="seating-map-container">
                         
                         <img src="seating-map.jpg" alt="PLAVE Concert Seating Map" class="seating-map-image">
@@ -411,7 +405,7 @@
                     </div>
                 </div>
 
-                <div class="tab-content-block">
+                <div class="tab-content-block active">
                     <h2 class="section-title">Ticket Pickup // ข้อตกลงการรับบัตร</h2>
                     <ul class="bullet-list">
                         <img src="how to.jpg" alt="PLAVE Concert how to" class="how to-image">
@@ -419,16 +413,16 @@
                     </ul>
                 </div>
 
-                <div class="tab-content-block">
+                <div class="tab-content-block active">
                     <h2 class="section-title">Benefits</h2>
                     <ul class="bullet-list">
                           <img src="benefit.jpg" alt="benefit" class="benefit-image">
-                        <li><strong>VIP Benefit:</strong> xxx</li>
+                        <li><strong>Benefit:</strong> รออัพเดทข้อมูล</li>
                     </ul>
                 </div>
 
                 <div class="tab-content-block">
-                    <h2 class="section-title">Rules // กฎระเบียบความปลอดภัย</h2>
+                    <h2 class="section-title">กฎระเบียบ</h2>
                     <ul class="bullet-list">
                         <li><strong>อุปกรณ์บันทึกภาพ:</strong> ห้ามนำกล้องถ่ายรูปสเปกสูง เลนส์ซูมระยะไกล หรือแท็บเล็ตขนาดใหญ่เข้ามาบันทึกภาพการแสดง</li>
                         <li><strong>อุปกรณ์เชียร์:</strong> อนุญาตให้ใช้เฉพาะแท่งไฟ Official Lightstick ของวง และป้ายเชียร์ขนาดกะทัดรัดไม่เกินกระดาษ A4</li>
@@ -436,6 +430,15 @@
                     </ul>
                 </div>
 
+                  <div class="tab-content-block active">
+                    <h2 class="section-title">วิธีการเดินทาง</h2>
+                    <ul class="bullet-list">
+                         <li><strong>🚗 รถยนต์:</strong> 📍 https://maps.app.goo.gl/FzLr9eag5h9wrC45A</li>
+                         <li><strong>🚆 รถไฟฟ้า:</strong> รถไฟฟ้าสายสีชมพูด ลงสถานีอิมแพ็ค เมืองทองธานี (MT01) ทางออก3 </li>
+                         <li><strong>🚐 รถตู้:</strong> อนุสาวรีย์ชัยสมรภูมิ (เกาะพหลโยธิน) และจตุจักร (BTS หมอชิต/MRT จตุจักร)</li>
+                        <li><strong>🚌 รถเมล์:</strong> รถเมล์สาย 166 (ปอ.) (AC) และ 2-31E (166 ศรีสมาน)</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
