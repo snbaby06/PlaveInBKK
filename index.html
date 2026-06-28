@@ -13,7 +13,7 @@
             --text-sub: #8b949e;
             --highlight: #00ffcc;
             
-            /* อัปเดตสีให้ตรงตามรูปผังคอนเสิร์ต PLAVE */
+            /* สีตามผังคอนเสิร์ต PLAVE */
             --plave-vip: #e61e4f;      /* สีแดงสดเข้ม (6,000 บาท) */
             --plave-std1: #f37cb5;     /* สีชมพู (4,500 บาท) */
             --plave-std2: #4351b5;     /* สีน้ำเงิน/ม่วงคราม (3,000 บาท) */
@@ -42,9 +42,9 @@
         }
         .nav-logo { font-weight: bold; color: var(--accent-blue); font-size: 1.1rem; }
         
-        /* ปุ่ม CONCERT GUIDE สไตล์สีชมพูตามผังคอนเสิร์ต */
+        /* ปุ่ม CONCERT GUIDE สีชมพู */
         a.nav-btn-guide, .navbar a.nav-btn-guide {
-            display: inline-block;
+            display: inline-block !important;
             background-color: var(--plave-std1) !important; 
             color: #000000 !important; 
             border: none !important;
@@ -61,9 +61,9 @@
             transform: scale(1.05);
         }
 
-        /* ปุ่ม BUY TICKET สไตล์สีแดง VIP */
+        /* ปุ่ม BUY TICKET สีแดง */
         .nav-btn, .navbar .nav-btn {
-            display: inline-block;
+            display: inline-block !important;
             background-color: var(--plave-vip) !important; 
             color: #ffffff !important; 
             padding: 8px 16px;
@@ -118,32 +118,11 @@
         .price-tags { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
         .tag { padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; color: #fff; border: 1px solid rgba(255,255,255,0.1); }
         
-        /* เปลี่ยนสี Tag ตามผังที่นั่งในรูปภาพ */
         .tag.vip { background-color: var(--plave-vip); }
         .tag.std1 { background-color: var(--plave-std1); color: #000; } 
         .tag.std2 { background-color: var(--plave-std2); }
 
-        /* Right Side: Seating Map & Price Display */
-        .interactive-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .price-display-box {
-            background: linear-gradient(135deg, #161b22 0%, #0f131a 100%);
-            padding: 18px;
-            border-radius: 12px;
-            border: 1px solid #30363d;
-            text-align: center;
-            font-size: 1.25rem;
-            color: var(--text-main);
-            min-height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-        }
-
+        /* Right Side: Seating Map */
         .map-wrapper {
             background: var(--card-bg);
             padding: 15px;
@@ -160,22 +139,264 @@
         
         area { cursor: pointer; }
 
-        /* Ticket details & conditions */
-        .details-box {
-            grid-column: 1 / -1;
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #21262d;
-            margin-top: 10px;
-        }
-        .details-box h3 { margin-top: 0; color: var(--accent-blue); border-bottom: 1px solid #21262d; padding-bottom: 10px; font-size: 1.2rem; }
-        .details-box ol { padding-left: 20px; color: var(--text-sub); font-size: 0.95rem; line-height: 1.8; }
-        .details-box li { margin-bottom: 8px; }
-
         /* --- ส่วนของ Popup (Modal Overlay) --- */
         .modal-overlay {
             display: none; 
             position: fixed;
             top: 0; left: 0;
-            width: 100
+            width: 100%; height: 100%;
+            background: rgba(5, 7, 12, 0.85); 
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background: #0f131a;
+            width: 100%;
+            max-width: 750px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #21262d;
+        }
+        .modal-title {
+            font-size: 0.95rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+        .close-btn {
+            background: #1f242c;
+            border: 1px solid #30363d;
+            color: var(--text-sub);
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .close-btn:hover { color: #fff; background: #ff453a; }
+
+        .modal-tabs {
+            display: flex;
+            background: #0b0d13;
+            border-bottom: 1px solid #21262d;
+        }
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 5px;
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-item span { font-size: 0.75rem; display: block; margin-top: 4px; }
+        .tab-item:hover { color: #fff; background: rgba(255,255,255,0.02); }
+        .tab-item.active {
+            color: #00ffcc;
+            border-bottom: 2px solid #00ffcc;
+            background: rgba(0, 255, 204, 0.03);
+        }
+
+        .modal-body {
+            padding: 25px;
+            max-height: 380px;
+            overflow-y: auto;
+            background: #0c0f16;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 1px solid #21262d;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .timeline-item { position: relative; }
+        .timeline-badge {
+            position: absolute;
+            left: -25px; top: 4px;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+        }
+        .timeline-date { font-size: 0.8rem; color: #ff9800; font-weight: bold; margin-bottom: 3px; }
+        .active-event .timeline-date { color: #00ffcc; }
+        .timeline-title { font-size: 0.95rem; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
+        .timeline-desc { font-size: 0.85rem; color: var(--text-sub); line-height: 1.4; }
+
+        .modal-footer {
+            padding: 12px 20px;
+            background: #0f131a;
+            border-top: 1px solid #21262d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+        .dots-indicator { display: flex; gap: 6px; }
+        .dots-indicator .dot { width: 6px; height: 6px; background: #21262d; border-radius: 50%; }
+        .dots-indicator .dot.active { background: #00ffcc; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">#DASH_Quantum_Leap_in_Bangkok #PLAVEBKK2025</div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <a href="#" class="nav-btn-guide" id="openGuideBtn">CONCERT GUIDE 📘</a>
+            <a href="https://bit.ly/3G1gDcJ" target="_blank" class="nav-btn">BUY TICKET 🎟️➔</a>
+        </div>
+    </nav>
+
+    <main class="main-layout">
+        <section class="hero-section">
+            <div class="poster-wrapper">
+                <img src="poster.jpg" alt="PLAVE Concert Poster">
+            </div>
+            <h1 class="concert-title">2025 PLAVE Asia Tour [DASH: Quantum Leap] in Bangkok</h1>
+            <div class="meta-info">
+                <p><span class="meta-icon">📍</span><strong>สถานที่แสดง :</strong> ยูโอบี ไลฟ์, เอ็มสเฟียร์ (UOB LIVE, Emsphere)</p>
+                <p><span class="meta-icon">📅</span><strong>วันที่แสดง :</strong> วันเสาร์ที่ 25 ตุลาคม 2568</p>
+                <p><span class="meta-icon">⏰</span><strong>เวลาแสดง :</strong> 18.00 น.</p>
+                <p><span class="meta-icon">🎟️</span><strong>วันเปิดจำหน่ายบัตร :</strong> วันที่ 27 กรกฎาคม 2568 เวลา 11:00 น.</p>
+            </div>
+            <div class="price-tags">
+                <span class="tag vip">VIP 6,000 บาท</span>
+                <span class="tag std1">4,500 บาท</span>
+                <span class="tag std2">3,000 บาท</span>
+            </div>
+        </section>
+
+        <div class="map-wrapper">
+            <img src="seating-map.jpg" alt="PLAVE Seating Map" usemap="#concert-map">
+            
+            <map name="concert-map">
+                <area shape="rect" coords="180,600,780,750" alt="VIP Zone" onclick="updatePrice('VIP (DD / CC / EE / FF / GG / BB / AA)', '6,000', 'var(--plave-vip)')">
+                <area shape="rect" coords="345,270,645,550" alt="Center 4,500" onclick="updatePrice('A3, A4, B3, B4', '4,500', 'var(--plave-std1)')">
+                <area shape="rect" coords="240,270,345,600" alt="Left Wing 4,500" onclick="updatePrice('A5, B5, C5', '4,500', 'var(--plave-std1)')">
+                <area shape="rect" coords="645,270,750,600" alt="Right Wing 4,500" onclick="updatePrice('A2, B2, C2', '4,500', 'var(--plave-std1)')">
+                <area shape="rect" coords="150,290,240,680" alt="Far Left 3,000" onclick="updatePrice('A6, B6, C6', '3,000', 'var(--plave-std2)')">
+                <area shape="rect" coords="750,290,840,680" alt="Far Right 3,000" onclick="updatePrice('A1, B1, C1', '3,000', 'var(--plave-std2)')">
+                <area shape="rect" coords="240,550,645,680" alt="Bottom Row C3-C4 3,000" onclick="updatePrice('C3, C4 (แถวล่างสุด)', '3,000', 'var(--plave-std2)')">
+            </map>
+        </div>
+    </main>
+
+    <div id="guideModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title"><span style="color: #00ffcc; margin-right: 8px;">●</span>CONCERT GUIDE ・ PLAVE DASH: Quantum Leap</span>
+                <button class="close-btn" id="closeGuideBtn">&times;</button>
+            </div>
+
+            <div class="modal-tabs">
+                <div class="tab-item active">📅<br><span>กำหนดการ</span></div>
+                <div class="tab-item">🎫<br><span>กดบัตร</span></div>
+                <div class="tab-item">📦<br><span>รับบัตร</span></div>
+                <div class="tab-item">⭐<br><span>Fan Benefits</span></div>
+                <div class="tab-item">⚠️<br><span>กฎ & เงื่อนไข</span></div>
+            </div>
+
+            <div class="modal-body">
+                <h3 style="color: #58a6ff; font-size: 1.1rem; margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                    📅 กำหนดการสำคัญ
+                </h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-badge" style="background: #8b949e;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">27 ก.ค. 2568 10:00 น.</div>
+                            <div class="timeline-title">ระบบเปิดให้เข้าคิวเพื่อกดบัตร</div>
+                            <div class="timeline-desc">ควรเตรียมตัวเข้าเว็บไซต์ล่วงหน้าเพื่อรักษาสิทธิ์คิวต้นๆ</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active-event">
+                        <div class="timeline-badge" style="background: #00ffcc;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">27 ก.ค. 2568 11:00 น.</div>
+                            <div class="timeline-title">เปิดขายบัตร รอบออนไลน์</div>
+                            <div class="timeline-desc">ซื้อผ่านเว็บไซต์จำหน่ายบัตรอย่างเป็นทางการเท่านั้น หากบัตรหมดจะไม่มีรอบทั่วไป</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-badge" style="background: #ff9800;"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">25 ต.ค. 2568</div>
+                            <div class="timeline-title">⭐ D-DAY : 2025 PLAVE Asia Tour in Bangkok</div>
+                            <div class="timeline-desc">ลงทะเบียน Fan Benefit และรันคิวหน้างาน / ประตูเปิด 17:00 น. / เริ่มแสดง 18:00 น.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <span>คลิกแต่ละ Tab เพื่อดูข้อมูลเพิ่มเติม</span>
+                <div class="dots-indicator">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('guideModal');
+        const openBtn = document.getElementById('openGuideBtn');
+        const closeBtn = document.getElementById('closeGuideBtn');
+
+        function updatePrice(zone, price, color) {
+            console.log(`Zone: ${zone}, Price: ${price}, Color: ${color}`);
+        }
+
+        // เปิด Modal
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'flex';
+        });
+
+        // ปิด Modal ด้วยปุ่มกากบาท
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // ปิด Modal เมื่อคลิกพื้นหลังภายนอก
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
