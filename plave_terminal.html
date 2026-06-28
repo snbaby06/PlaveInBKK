@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLLI LOVES PLAVE - KEEP IT MANIC Terminal</title>
+    <style>
+        /* อ้างอิงโทนสีดุดันและสีพื้นผิวจากโปสเตอร์ plave.jpg */
+        :root {
+            --bg-dark: #0b0c10;                 /* สีดำสนิทขับแสงสีแดง */
+            --panel-bg: rgba(22, 26, 33, 0.75);  /* สีเทาเข้มหม่นสไตล์ปูนเปลือยฉากหลัง */
+            --neon-red: #ff002b;                /* สีแดงสดดุดันจากโลโก้ KEEP IT MANIC */
+            --neon-glow: rgba(255, 0, 43, 0.25); /* แสงเรืองรองสีแดง */
+            --text-main: #f0f3f5;               /* สีขาวสว่างจากสีชุดสูทของเมมเบอร์ */
+            --text-dim: #8a95a5;                /* สีเทาเงา */
+            --border-color: #2b1418;            /* สีขอบแดงเข้มมืด */
+        }
+
+        /* ตั้งค่าพื้นหลังธีมคอนกรีต/กรันจ์เบาๆ */
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(rgba(255, 0, 43, 0.03) 1px, transparent 0),
+                radial-gradient(rgba(255, 0, 43, 0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+
+        /* Header ด้านบนสุด สไตล์ดุดันขึ้น */
+        .terminal-header {
+            border: 1px solid var(--border-color);
+            background: var(--panel-bg);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            backdrop-filter: blur(8px);
+            border-left: 4px solid var(--neon-red);
+        }
+        .terminal-title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .terminal-subtitle {
+            color: var(--neon-red);
+            font-size: 0.8rem;
+            margin: 5px 0 0 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* โครงสร้างแบ่ง ซ้าย-ขวา */
+        .terminal-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            flex: 1;
+            align-items: start;
+        }
+
+        /* ฝั่งซ้าย: เมนูปุ่มกดเรืองแสงสีแดง */
+        .menu-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-node {
+            background: rgba(20, 24, 30, 0.6);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            padding: 16px 20px;
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .menu-node:hover {
+            border-color: var(--neon-red);
+            color: #ffffff;
+            background: rgba(255, 0, 43, 0.05);
+        }
+
+        /* ปุ่มแท็บที่กำลังกดแสดงผลอยู่ */
+        .menu-node.active {
+            background: rgba(255, 0, 43, 0.12);
+            border-color: var(--neon-red);
+            color: #ffffff;
+            font-weight: 800;
+            box-shadow: 0 0 15px var(--neon-glow), inset 0 0 8px rgba(255, 0, 43, 0.1);
+            border-left: 5px solid var(--neon-red);
+            padding-left: 15px; /* ชดเชยความกว้างของ border */
+        }
+
+        /* ฝั่งขวา: แผงเนื้อหาคอนโซลหลัก */
+        .content-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 35px;
+            backdrop-filter: blur(8px);
+            position: relative;
+            min-height: 400px;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* ปรับแต่ง Scrollbar เป็นโทนสีแดงเดือด */
+        .content-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+        .content-panel::-webkit-scrollbar-track {
+            background: #0b0c10;
+        }
+        .content-panel::-webkit-scrollbar-thumb {
+            background: #2a2f38;
+            border-radius: 3px;
+        }
+        .content-panel::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-red);
+        }
+
+        /* จัดการเอฟเฟกต์ซ่อน/แสดงตอนกดสลับ */
+        .data-block {
+            display: none;
+            animation: glitchReveal 0.25s ease-out forwards;
+        }
+        .data-block.active {
+            display: block;
+        }
+
+        @keyframes glitchReveal {
+            from { opacity: 0; transform: scale(0.99); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* สไตล์เนื้อหา */
+        .content-title {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .info-list li {
+            margin-bottom: 18px;
+            line-height: 1.8;
+            border-left: 3px solid var(--neon-red);
+            padding-left: 15px;
+            font-size: 1rem;
+        }
+        .info-list strong {
+            color: var(--neon-red);
+            font-weight: 700;
+        }
+
+        /* ลายเส้นกรอบเหลี่ยมเพิ่มความดิบตรงมุมขวา */
+        .content-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 20px; height: 20px;
+            border-top: 3px solid var(--neon-red);
+            border-right: 3px solid var(--neon-red);
+        }
+
+        /* ปรับแต่งเพื่อรองรับขนาดอุปกรณ์พกพา */
+        @media (max-width: 768px) {
+            .terminal-container {
+                grid-template-columns: 1fr;
+            }
+            .menu-panel {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .menu-node {
+                flex: 1 1 calc(50% - 4px);
+                padding: 12px;
+                font-size: 0.85rem;
+                text-align: center;
+            }
+            .menu-node.active {
+                border-left: 1px solid var(--neon-red);
+                border-top: 3px solid var(--neon-red);
+                padding-left: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- แผงหัวข้อคอนเซปต์เวิลด์ทัวร์ใหม่ -->
+    <header class="terminal-header">
+        <h1 class="terminal-title">2026 PLAVE WORLD TOUR</h1>
+        <p class="terminal-subtitle">KEEP IT MANIC // DATA CENTER</p>
+    </header>
+
+    <div class="terminal-container">
+        
+        <!-- เมนูปุ่มเลือก Node ฝั่งซ้าย (ธีมสีแดงแมนิแอค) -->
+        <nav class="menu-panel">
+            <button class="menu-node active" onclick="showNode(0, this)">Birth process</button>
+            <button class="menu-node" onclick="showNode(1, this)">기다릴게 MV</button>
+            <button class="menu-node" onclick="showNode(2, this)">Caligo System</button>
+            <button class="menu-node" onclick="showNode(3, this)">Concert Guide</button>
+            <button class="menu-node" onclick="showNode(4, this)">Fan Benefits</button>
+        </nav>
+
+        <!-- พื้นที่เจาะลึกข้อมูลฝั่งขวา -->
+        <main class="content-panel">
+
+            <!-- NODE 0: Birth process -->
+            <div class="data-block active">
+                <h2 class="content-title">Birth Process // กระบวนการกำเนิดคอร์</h2>
+                <ul class="info-list">
+                    <li><strong>รหัสระบุพิกัด:</strong> เริ่มต้นทำการวิเคราะห์โครงสร้างเสมือนของสมาชิกแต่ละหน่วยรหัสในมิติปิด</li>
+                    <li><strong>สถานะการซิงค์:</strong> ข้อมูลดิบพร้อมส่งต่อผ่านสัญญาณคลื่นความถี่สูงไปยังพื้นที่ปลายทางโลกมนุษย์ (Terra)</li>
+                </ul>
+            </div>
+
+            <!-- NODE 1: 기다릴게 MV -->
+            <div class="data-block">
+                <h2 class="content-title">'기다릴게' (Asterum Origin)</h2>
+                <ul class="info-list">
+                    <li><strong>บันทึกเวลาสำคัญ:</strong> จุดชนวนเหตุการณ์ที่ทำให้ระบบสั่นคลอนจนเกิดการทับซ้อนทางเวลาของทั้ง 5 สมาชิก</li>
+                    <li><strong>ข้อมูลวิเคราะห์เนื้อหา:</strong> สัญญาณการเชื่อมต่อระบุว่าพวกเขาตั้งใจส่งคลื่นเสียงทะลุกำแพงระบบเพื่อตามหาผู้ใช้งานระบบร่วม</li>
+                </ul>
+            </div>
+
+            <!-- NODE 2: Caligo -->
+            <div class="data-block">
+                <h2 class="content-title">Caligo Fog Matrix</h2>
+                <ul class="info-list">
+                    <li><strong>สภาพแวดล้อม:</strong> ม่านหมอกหนาทึบที่เป็นจุดเชื่อมต่ออันตรายที่สุดในมิติเสมือน มีความแปรปรวนของระบบสูง</li>
+                    <li><strong>คำเตือนความปลอดภัย:</strong> โปรดระมัดระวังการสูญหายของพิกเซลหากพยายามเจาะไฟล์ข้อมูลนี้โดยไม่ได้รับสิทธิ์</li>
+                </ul>
+            </div>
+
+            <!-- NODE 3: Concert Guide -->
+            <div class="data-block">
+                <h2 class="content-title">KEEP IT MANIC World Tour Schedule</h2>
+                <ul class="info-list">
+                    <li><strong>พิกัดพื้นที่จัดงานคอนเสิร์ต:</strong> เมืองอินชอน (Incheon) และเตรียมอัปเดตจุดจอดสถานีทัวร์ถัดไปในระบบเร็วๆ นี้</li>
+                    <li><strong>วัน-เวลาปล่อยสัญญาณจองสิทธิ์:</strong> สแกนและตรวจสอบเวลาเปิดระบบคิวล่วงหน้าอย่างเคร่งครัดเพื่อกันข้อผิดพลาด</li>
+                </ul>
+            </div>
+
+            <!-- NODE 4: Fan Benefits -->
+            <div class="data-block">
+                <h2 class="content-title">Manic Zone Privilege (สิทธิพิเศษผู้เข้าชม)</h2>
+                <ul class="info-list">
+                    <li><strong>การเข้าถึงระดับสูงสุด (VIP Tier):</strong> สิทธิ์การันตีเข้าร่วมสังเกตการณ์ Soundcheck และรับยูนิตไอเท็มแบบ Physical ครบเซ็ต</li>
+                    <li><strong>การเข้าถึงระดับมาตรฐาน:</strong> ลุ้นรับสิทธิ์สุ่มพิเศษผ่านช่องทางสื่อสารหลักของระบบตามเงื่อนไขที่กำหนด</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function showNode(nodeIndex, buttonElement) {
+            const blocks = document.querySelectorAll('.data-block');
+            const buttons = document.querySelectorAll('.menu-node');
+
+            blocks.forEach(block => block.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            blocks[nodeIndex].classList.add('active');
+            buttonElement.classList.add('active');
+            
+            document.querySelector('.content-panel').scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
