@@ -1,441 +1,466 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 PLAVE WORLD TOUR [KEEP IT MANIC] - Concert Guide</title>
-    <style>
-        /* ==========================================================================
-           1. THEME SETTING & VARIABLE (ปรับดีไซน์กระจกรมควันโปร่งแสง เพื่อไม่ให้ตัวอักษรจม)
-           ========================================================================== */
-        :root {
-            --neon-red: #ff002b;                  /* สีแดงแมนิแอคหลักตามเส้นขอบ */
-            --neon-glow: rgba(255, 0, 43, 0.4);
-            
-            /* พื้นหลังและแผงควบคุมสไตล์ Glassmorphism โปร่งแสง หรูหรา มีมิติ */
-            --glass-outer-bg: rgba(10, 12, 18, 0.8);     /* ตัวกรอบนอกสีเข้มโปร่งแสง */
-            --glass-inner-left: rgba(6, 8, 14, 0.65);     /* เมนูฝั่งซ้าย */
-            --glass-inner-right: rgba(20, 22, 28, 0.85);  /* พื้นหลังฝั่งขวา ปรับให้ทึบขึ้นเล็กน้อยเพื่อให้อ่านอักษรง่ายขึ้น */
-            
-            /* สีตัวอักษร */
-            --text-light-main: #f8fafc;            /* สีขาวนวลคมชัด */
-            --text-light-dim: #94a3b8;               /* สีเทาอ่อนสำหรับข้อมูลรอง */
-            
-            /* ปุ่ม BUY TICKET */
-            --btn-gray: #e2e8f0;                
-            --btn-text-black: #090d16;          
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 PLAVE WORLD TOUR [KEEP IT MANIC] - Concert Guide</title>
+    <style>
+        /* ==========================================================================
+           1. THEME SETTING & VARIABLE (ปรับดีไซน์กระจกรมควันโปร่งแสง เพื่อไม่ให้ตัวอักษรจม)
+           ========================================================================== */
+        :root {
+            --neon-red: #ff002b;                  /* สีแดงแมนิแอคหลักตามเส้นขอบ */
+            --neon-glow: rgba(255, 0, 43, 0.4);
+            
+            /* พื้นหลังและแผงควบคุมสไตล์ Glassmorphism โปร่งแสง หรูหรา มีมิติ */
+            --glass-outer-bg: rgba(10, 12, 18, 0.8);     /* ตัวกรอบนอกสีเข้มโปร่งแสง */
+            --glass-inner-left: rgba(6, 8, 14, 0.65);     /* เมนูฝั่งซ้าย */
+            --glass-inner-right: rgba(20, 22, 28, 0.85);  /* พื้นหลังฝั่งขวา ปรับให้ทึบขึ้นเล็กน้อยเพื่อให้อ่านอักษรง่ายขึ้น */
+            
+            /* สีตัวอักษร */
+            --text-light-main: #f8fafc;            /* สีขาวนวลคมชัด */
+            --text-light-dim: #94a3b8;             /* สีเทาอ่อนสำหรับข้อมูลรอง */
+            
+            /* ปุ่ม BUY TICKET */
+            --btn-gray: #e2e8f0;                
+            --btn-text-black: #090d16;          
+        }
 
-        /* ==========================================================================
-           2. LAYOUT & BACKGROUND (ตั้งค่า bg.jpg เป็นพื้นหลังเว็บ และจัดกรอบอยู่กึ่งกลางจอ)
-           ========================================================================== */
-        body {
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                        url('bg.jpg');   
-            background-repeat: no-repeat;
-            background-position: center;       
-            background-size: cover;            
-            background-attachment: fixed;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;             
-            align-items: center;                 
-            box-sizing: border-box;
-            overflow: hidden;
-        }
+        /* ==========================================================================
+           2. LAYOUT & BACKGROUND (ตั้งค่า bg.jpg เป็นพื้นหลังเว็บ และจัดกรอบอยู่กึ่งกลางจอ)
+           ========================================================================== */
+        body {
+            /* นำภาพ bg.jpg มาทำเป็นพื้นหลังเว็บ พร้อมใส่ overlay เลเยอร์สีดำจาง ๆ เพื่อคุมโทนให้กรอบข้อมูลลอยเด่น */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('bg.jpg');   
+            background-repeat: no-repeat;
+            background-position: center;       
+            background-size: cover;            
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;             /* จัดวางกรอบข้อความให้อยู่กึ่งกลางหน้าจอแนวนอน */
+            align-items: center;                 /* จัดวางกรอบข้อความให้อยู่กึ่งกลางหน้าจอแนวตั้ง */
+            box-sizing: border-box;
+            overflow: hidden;
+        }
 
-        /* ==========================================================================
-           3. CONTAINER DESIGN (ล็อกความสูงกลับมาใช้สัดส่วนหน้าจอ % และ vh เพื่อไม่ให้บ็อกซ์หาย)
-           ========================================================================== */
-        .modal-window {
-            width: 1350px;                        
-            height: 88vh; /* กลับมาใช้ค่า vh ล็อกความสูงสัมพันธ์กับหน้าจอ หน้าต่างจะไม่หายแน่นอน */
-            max-width: 95vw;
-            max-height: 88vh;
-            background: var(--glass-outer-bg);
-            border: 2px solid var(--neon-red);    
-            border-radius: 16px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 
-                        0 0 40px rgba(255, 0, 43, 0.25);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            backdrop-filter: blur(16px);          
-            -webkit-backdrop-filter: blur(16px);
-        }
+        /* ==========================================================================
+           3. CONTAINER DESIGN (ขยายขนาดกรอบให้ใหญ่ขึ้น + เส้นขอบแดง + เอฟเฟกต์กระจกใส)
+           ========================================================================== */
+     .modal-window {
+            width: 1350px;                        /* ขยายความกว้างโครงสร้างตามบรีฟ */
+            height: 8000px;                        /* ขยายความสูงให้ดูโปร่งจุข้อมูลได้เต็มตา */
+            max-width: 100vw;
+            max-height: 88vh;
+            background: var(--glass-outer-bg);
+            border: 2px solid var(--neon-red);    /* เส้นขอบสีแดงตามเรฟวิดีโอ */
+            border-radius: 16px;
+            /* ใส่เงาหนาและรัศมีเรืองแสงสีแดงรอบกรอบ */
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 
+                        0 0 40px rgba(255, 0, 43, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            backdrop-filter: blur(16px);          /* เบลอภาพ bg.jpg ด้านหลังทะลุกระจก */
+            -webkit-backdrop-filter: blur(16px);
+        }
 
-        /* แถบ Header ด้านบนกรอบ */
-        .modal-header {
-            padding: 20px 28px;
-            border-bottom: 1px solid rgba(255, 0, 43, 0.25);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.4);
-        }
-        .modal-title-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--neon-red);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--neon-red);
-        }
-        .modal-title {
-            color: #ffffff;
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-        
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        /* แถบ Header ด้านบนกรอบ */
+        .modal-header {
+            padding: 20px 28px;
+            border-bottom: 1px solid rgba(255, 0, 43, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .modal-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--neon-red);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--neon-red);
+        }
+        .modal-title {
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-        .btn-buy-ticket-top {
-            background-color: var(--btn-gray);
-            color: var(--btn-text-black);
-            border: 1px solid var(--btn-gray);
-            padding: 9px 24px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .btn-buy-ticket-top:hover {
-            background-color: transparent;
-            color: #ffffff;
-            border-color: var(--neon-red);
-            box-shadow: 0 0 15px var(--neon-glow);
-        }
+        /* ย้ายปุ่ม BUY TICKET มาไว้ที่แถวบนขวาตามตำแหน่งที่ต้องการ */
+        .btn-buy-ticket-top {
+            background-color: var(--btn-gray);
+            color: var(--btn-text-black);
+            border: 1px solid var(--btn-gray);
+            padding: 9px 24px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-buy-ticket-top:hover {
+            background-color: transparent;
+            color: #ffffff;
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px var(--neon-glow);
+        }
 
-        .close-window-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #ffffff;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-        .close-window-btn:hover {
-            background: var(--neon-red);
-            border-color: var(--neon-red);
-        }
+        /* ปุ่มปิดหน้าต่าง [X] */
+        .close-window-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .close-window-btn:hover {
+            background: var(--neon-red);
+            border-color: var(--neon-red);
+        }
 
-        /* โครงสร้างเนื้อหาแบ่ง ซ้าย (เมนู) - ขวา (ข้อความ) */
-        .modal-body {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            flex: 1;
-            overflow: hidden;
-        }
+        /* โครงสร้างเนื้อหาแบ่ง ซ้าย (เมนู) - ขวา (ข้อความ) */
+        .modal-body {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            flex: 1;
+            overflow: hidden;
+        }
 
-        /* เมนูฝั่งซ้าย */
-        .left-menu-bar {
-            background: var(--glass-inner-left);
-            border-right: 1px solid rgba(255, 0, 43, 0.15);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            overflow-y: auto;
-        }
-        .menu-item {
-            background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-light-dim);
-            padding: 14px 18px;
-            font-size: 0.9rem;
-            text-align: left;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-        .menu-item:hover {
-            color: #ffffff;
-            background: rgba(255, 0, 43, 0.05);
-        }
-        .menu-item.active {
-            background: rgba(255, 0, 43, 0.15);
-            border: 1px solid var(--neon-red);
-            color: #ffffff;
-            font-weight: bold;
-            border-left: 5px solid var(--neon-red);
-            box-shadow: 0 0 15px rgba(255, 0, 43, 0.1);
-        }
+        /* เมนูฝั่งซ้าย */
+        .left-menu-bar {
+            background: var(--glass-inner-left);
+            border-right: 1px solid rgba(255, 0, 43, 0.15);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+        }
+        .menu-item {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-light-dim);
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .menu-item:hover {
+            color: #ffffff;
+            background: rgba(255, 0, 43, 0.05);
+        }
+        .menu-item.active {
+            background: rgba(255, 0, 43, 0.15);
+            border: 1px solid var(--neon-red);
+            color: #ffffff;
+            font-weight: bold;
+            border-left: 5px solid var(--neon-red);
+            box-shadow: 0 0 15px rgba(255, 0, 43, 0.1);
+        }
 
-        /* พื้นที่แสดงเนื้อหาฝั่งขวา (กระจกรมควัน) */
-        .right-content-viewer {
-            background: var(--glass-inner-right);
-            padding: 40px 45px;
-            overflow-y: auto;
-            position: relative;
-        }
+        /* พื้นที่แสดงเนื้อหาฝั่งขวา (กระจกรมควัน) */
+        .right-content-viewer {
+            background: var(--glass-inner-right);
+            padding: 40px 45px;
+            overflow-y: auto;
+            position: relative;
+        }
 
-        /* ระบบจัดแท็บข้อมูล */
-        .tab-content-block {
-            display: none;
-        }
-        .tab-content-block.active {
-            display: block;
-            animation: glassFadeIn 0.3s ease-out forwards;
-        }
-        @keyframes glassFadeIn {
-            from { opacity: 0; transform: scale(0.99) translateY(5px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
+        /* ระบบจัดแท็บข้อมูล */
+        .tab-content-block {
+            display: none;
+        }
+        .tab-content-block.active {
+            display: block;
+            animation: glassFadeIn 0.3s ease-out forwards;
+        }
+        @keyframes glassFadeIn {
+            from { opacity: 0; transform: scale(0.99) translateY(5px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
 
-        /* สไตล์หัวข้อด้านใน */
-        .section-title {
-            color: var(--text-light-main);
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-top: 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            padding-bottom: 14px;
-            letter-spacing: 0.5px;
-        }
+        /* สไตล์หัวข้อด้านใน */
+        .section-title {
+            color: var(--text-light-main);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
 
-        /* รายการข้อความ */
-        .bullet-list {
-            list-style: none;
-            padding: 0; margin: 0;
-        }
-        .bullet-list li {
-            margin-bottom: 22px;
-            line-height: 1.75;
-            border-left: 4px solid var(--neon-red);
-            padding-left: 18px;
-            font-size: 1rem;
-            color: var(--text-light-main);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
-        }
-        .bullet-list strong { 
-            color: var(--neon-red); 
-            font-weight: 700;
-            display: inline-block;
-            margin-right: 6px;
-        }
+        /* รายการข้อความ */
+        .bullet-list {
+            list-style: none;
+            padding: 0; margin: 0;
+        }
+        .bullet-list li {
+            margin-bottom: 22px;
+            line-height: 1.75;
+            border-left: 4px solid var(--neon-red);
+            padding-left: 18px;
+            font-size: 1rem;
+            color: var(--text-light-main);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* เงาหลังฟอนต์ช่วยให้อ่านง่ายขึ้นบนพื้นกระจก */
+        }
+        .bullet-list strong { 
+            color: var(--neon-red); 
+            font-weight: 700;
+            display: inline-block;
+            margin-right: 6px;
+        }
 
-        /* จำกัดขนาดรูปภาพภายในเนื้อหาฝั่งขวาให้สวยงามและไม่ล้นจอ */
-        .right-content-viewer img {
-            max-width: 100%;
-            height: auto;
-            max-height: 50vh; 
-            object-fit: contain;
-            display: block;
-            margin: 0 auto 20px auto;
-            border-radius: 8px;
-        }
+        /* ==========================================================================
+           4. SEATING MAP CENTER ALIGNMENT (จัดวางรูปผังที่นั่งให้อยู่กึ่งกลางอย่างสวยงาม)
+           ========================================================================== */
+        .seating-map-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
+        }
+        .seating-map-image display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
+        }
+        .ticket-content-container, 
+         display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
+        }
+        .ticket-content-container img display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
+        }
+        .benefits-content-container,
+          display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
+         }
+        .seating-map-image display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
+        }
+        
+        /* ส่วนของหน้าภาพรวม (Overview) */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        .poster-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .details-box p {
+            margin: 16px 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-light-main);
+        }
+        .tag-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        .price-badge {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .price-badge.vip { background-color: var(--neon-red); }
+        .price-badge.std1 { background-color: #d53f8c; }
+        .price-badge.std2 { background-color: #2b6cb0; }
 
-        /* จัดวางรูปผังที่นั่งให้อยู่กึ่งกลาง */
-        .seating-map-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;         
-            gap: 25px;
-            margin-top: 10px;
-        }
-        
-        /* ส่วนของหน้าภาพรวม (Overview) */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 30px;
-            align-items: start;
-        }
-        .poster-box img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        .details-box p {
-            margin: 16px 0;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: var(--text-light-main);
-        }
-        .tag-container {
-            display: flex;
-            gap: 12px;
-            margin-top: 30px;
-        }
-        .price-badge {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.88rem;
-            font-weight: bold;
-            color: #fff;
-        }
-        .price-badge.vip { background-color: var(--neon-red); }
-        .price-badge.std1 { background-color: #d53f8c; }
-        .price-badge.std2 { background-color: #2b6cb0; }
+        /* แถบสกรอลบาร์ดีไซน์มินิมอลแบบไซเบอร์ */
+        .right-content-viewer::-webkit-scrollbar { width: 5px; }
+        .right-content-viewer::-webkit-scrollbar-track { background: transparent; }
+        .right-content-viewer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
+        .right-content-viewer::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
 
-        /* แถบสกรอลบาร์ */
-        .right-content-viewer::-webkit-scrollbar { width: 5px; }
-        .right-content-viewer::-webkit-scrollbar-track { background: transparent; }
-        .right-content-viewer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
-        .right-content-viewer::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
-
-        /* รองรับขนาดหน้าจอ Responsive */
-        @media (max-width: 992px) {
-            body { padding: 15px; overflow-y: auto; }
-            .modal-window { max-width: 95vw; width: 100%; height: auto; max-height: none; }
-            .modal-body { grid-template-columns: 1fr; }
-            .left-menu-bar { flex-direction: row; flex-wrap: wrap; padding: 12px; border-right: none; border-bottom: 1px solid rgba(255,0,43,0.2); }
-            .menu-item { padding: 10px 14px; font-size: 0.8rem; }
-            .right-content-viewer { padding: 25px; }
-            .right-content-viewer img { max-height: 45vh; }
-        }
-    </style>
+        /* รองรับขนาดหน้าจอ Responsive */
+        @media (max-width: 992px) {
+            body { padding: 15px; overflow-y: auto; }
+            .modal-window { max-width: 95vw; width: 100%; height: auto; max-height: none; }
+            .modal-body { grid-template-columns: 1fr; }
+            .left-menu-bar { flex-direction: row; flex-wrap: wrap; padding: 12px; border-right: none; border-bottom: 1px solid rgba(255,0,43,0.2); }
+            .menu-item { padding: 10px 14px; font-size: 0.8rem; }
+            .right-content-viewer { padding: 25px; }
+            .seating-map-image { max-height: 350px; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="modal-window">
-        
-        <header class="modal-header">
-            <div class="modal-title-group">
-                <div class="status-dot"></div>
-                <h1 class="modal-title">CONCERT GUIDE • PLAVE WORLD TOUR [KEEP IT MANIC]</h1>
-            </div>
-            <div class="header-controls">
-                <button class="btn-buy-ticket-top" onclick="window.open('https://www.thaiticketmajor.com/concert/2025-plave-asia-tour-dash-quantum-leap-in-bangkok.html', '_blank')">Buy Ticket</button>
-                <div class="close-window-btn" onclick="alert('ปิดหน้าต่างข้อมูล')">✕</div>
-            </div>
-        </header>
+    <div class="modal-window">
+        
+        <header class="modal-header">
+            <div class="modal-title-group">
+                <div class="status-dot"></div>
+                <h1 class="modal-title">CONCERT GUIDE • PLAVE WORLD TOUR [KEEP IT MANIC]</h1>
+            </div>
+            <div class="header-controls">
+                <button class="btn-buy-ticket-top" onclick="window.open('https://www.thaiticketmajor.com/concert/2025-plave-asia-tour-dash-quantum-leap-in-bangkok.html', '_blank')">Buy Ticket</button>
+                <div class="close-window-btn" onclick="alert('ปิดหน้าต่างข้อมูล')">✕</div>
+            </div>
+        </header>
 
-        <div class="modal-body">
-            
-            <nav class="left-menu-bar">
-                <button class="menu-item active" onclick="changeModalTab(0, this)">📜 ข้อมูลการแสดง</button>
-                <button class="menu-item" onclick="changeModalTab(1, this)">🗓️ กำหนดการ</button>
-                <button class="menu-item" onclick="changeModalTab(2, this)">💺 ผังที่นั่งและราคา</button>
-                <button class="menu-item" onclick="changeModalTab(3, this)">🎫 วิธีการรับบัตร</button>
-                <button class="menu-item" onclick="changeModalTab(4, this)">✨ สิทธิพิเศษ Benefits</button>
-                <button class="menu-item" onclick="changeModalTab(5, this)">⚠️ กฎระเบียบการเข้างาน</button>
-                <button class="menu-item" onclick="changeModalTab(6, this)">🚘 วิธีการเดินทาง</button>
-            </nav>
+        <div class="modal-body">
+            
+            <nav class="left-menu-bar">
+                <button class="menu-item" onclick="changeModalTab(0, this)">📜 ข้อมูลการแสดง</button>
+                <button class="menu-item" onclick="changeModalTab(1, this)">🗓️ กำหนดการส</button>
+                <button class="menu-item active" onclick="changeModalTab(2, this)">💺 ผังที่นั่งและราคา</button>
+                <button class="menu-item" onclick="changeModalTab(3, this)">🎫 วิธีการรับบัตร</button>
+                <button class="menu-item" onclick="changeModalTab(4, this)">✨ สิทธิพิเศษ Benefits</button>
+                <button class="menu-item" onclick="changeModalTab(5, this)">⚠️ กฎระเบียบการเข้างาน</button>
+                <button class="menu-item" onclick="changeModalTab(6, this)">🚘 วิธีการเดินทาง</button>
+            </nav>
 
-            <div class="right-content-viewer">
+            <div class="right-content-viewer">
 
-                <!-- 1. ข้อมูลการแสดง -->
-                <div class="tab-content-block active">
-                    <h2 class="section-title">ข้อมูลคอนเสิร์ต</h2>
-                    <div class="overview-grid">
-                        <div class="poster-box">
-                            <img src="poster.jpg" alt="PLAVE Concert Poster">
-                        </div>
-                        <div class="details-box">
-                            <p><strong>📍 สถานที่แสดง :</strong> IMPACT Arena</p>
-                            <p><strong>📅 วันที่แสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
-                            <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
-                            <div class="tag-container">
-                                <span class="price-badge vip">VIP 6,000 บ.</span>
-                                <span class="price-badge std1">4,500 บ.</span>
-                                <span class="price-badge std2">3,000 บ.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="tab-content-block">
+                    <h2 class="section-title">ข้อมูลคอนเสิร์ต</h2>
+                    <div class="overview-grid">
+                        <div class="poster-box">
+                            <img src="poster.jpg" alt="PLAVE Concert Poster">
+                        </div>
+                        <div class="details-box">
+                            <p><strong>📍 สถานที่แสดง :</strong> IMPACT Arena</p>
+                            <p><strong>📅 วันที่แสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
+                            <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
+                            <div class="tag-container">
+                                <span class="price-badge vip">VIP 6,000 บ.</span>
+                                <span class="price-badge std1">4,500 บ.</span>
+                                <span class="price-badge std2">3,000 บ.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- 2. กำหนดการ -->
-                <div class="tab-content-block active">
-                    <h2 class="section-title">กำหนดการ</h2>
-                    <ul class="bullet-list">
-                        <li><strong>เปิดจำหน่ายบัตร:</strong> 12 กันยายน 2569 เวลา 11:00 น. เป็นต้นไป ผ่านระบบออนไลน์เคาน์เตอร์หลัก</li>
-                        <li><strong>วันแสดงจริง:</strong> วันเสาร์ที่ 10 ตุลาคม 2569</li>
-                    </ul>
-                </div>
+                <div class="tab-content-block">
+                    <h2 class="section-title">กำหนดการ</h2>
+                    <ul class="bullet-list">
+                        <li><strong>เปิดจำหน่ายบัตร:</strong> 12 กันยายน 2569 เวลา 11:00 น. เป็นต้นไป ผ่านระบบออนไลน์เคาน์เตอร์หลัก</li>
+                        <li><strong>วันแสดงจริง:</strong> วันเสาร์ที่ 10 ตุลาคม 2569</li>
+                    </ul>
+                </div>
 
-                <!-- 3. ผังที่นั่งและราคา -->
-                <div class="tab-content-block active">
-                    <h2 class="section-title">ผังที่นั่งและราคา</h2>
-                    <div class="seating-map-container">
-                        <img src="seating-map.jpg" alt="PLAVE Concert Seating Map">
-                        <ul class="bullet-list" style="width: 100%;">
-                            <li><strong>ข้อมูลโซน:</strong> กรุณาเช็กรายละเอียดหมายเลขแถวระบุที่นั่งให้เรียบร้อยที่จุดจำหน่ายบัตรออนไลน์</li>
-                        </ul>
-                    </div>
-                </div>
+                <div class="tab-content-block">
+                    <h2 class="section-title">ผังที่นั่งและราคา</h2>
+                    <div class="seating-map-container">
+                        
+                        <img src="seating-map.jpg" alt="PLAVE Concert Seating Map" class="seating-map-image">
+                      <ul class="bullet-list" style="width: 100%;">
+                            <li><strong>ข้อมูลโซน:</strong> กรุณาเช็กรายละเอียดหมายเลขแถวระบุที่นั่งให้เรียบร้อยที่จุดจำหน่ายบัตรออนไลน์</li>
+                        </ul>
+                    </div>
+                </div>
 
-                <!-- 4. วิธีการรับบัตร -->
-                <div class="tab-content-block active">
-                    <h2 class="section-title">Ticket Pickup // ข้อตกลงการรับบัตร</h2>
-                    <img src="how to.jpg" alt="PLAVE Concert how to">
-                    <ul class="bullet-list">
-                        <li><strong>เอกสารที่ต้องใช้:</strong> ใบเสร็จรับเงินที่มี QR Code ชัดเจน พร้อมบัตรประชาชนตัวจริงหรือพาสปอร์ตผู้ซื้อสิทธิ์</li>
-                    </ul>
-                </div>
+                <div class="tab-content-block">
+                    <h2 class="section-title">Ticket Pickup // วิธีการรับบัตร</h2>
+                    <ul class="bullet-list">
+                        <img src="how to.jpg" alt="PLAVE Concert how to" class="how to-image">
+                        <li><strong>เอกสารที่ต้องใช้:</strong> ใบเสร็จรับเงินที่มี QR Code ชัดเจน พร้อมบัตรประชาชนตัวจริงหรือพาสปอร์ตผู้ซื้อสิทธิ์</li>
+                    </ul>
+                </div>
 
-                <!-- 5. สิทธิพิเศษ Benefits -->
-                <div class="tab-content-block active">
-                    <h2 class="section-title">Benefits</h2>
-                    <img src="benefit.jpg" alt="benefit">
-                    <ul class="bullet-list">
-                        <li><strong>Benefit:</strong> รออัพเดทข้อมูล</li>
-                    </ul>
-                </div>
+                <div class="tab-content-block active">
+                    <h2 class="section-title">Benefits</h2>
+                    <ul class="bullet-list">
+                          <img src="benefit.jpg" alt="benefit" class="benefit-image">
+                        <li><strong>Benefit:</strong> รออัพเดทข้อมูล</li>
+                    </ul>
+                </div>
 
-                <!-- 6. กฎระเบียบการเข้างาน -->
-                <div class="tab-content-block">
-                    <h2 class="section-title">กฎระเบียบ</h2>
-                    <ul class="bullet-list">
-                        <li><strong>อุปกรณ์บันทึกภาพ:</strong> ห้ามนำกล้องถ่ายรูปสเปกสูง เลนส์ซูมระยะไกล หรือแท็บเล็ตขนาดใหญ่เข้ามาบันทึกภาพการแสดง</li>
-                        <li><strong>อุปกรณ์เชียร์:</strong> อนุญาตให้ใช้เฉพาะแท่งไฟ Official Lightstick ของวง และป้ายเชียร์ขนาดกะทัดรัดไม่เกินกระดาษ A4</li>
-                        <li><strong>มาตรการความปลอดภัย:</strong> ห้ามนำอาหาร ของขบเคี้ยว หรือเครื่องดื่มทุกชนิดผ่านประตูตรวจสัมภาระเข้ามาด้านในฮอลล์คอนเสิร์ต</li>
-                    </ul>
-                </div>
+                <div class="tab-content-block">
+                    <h2 class="section-title">กฎระเบียบ</h2>
+                    <ul class="bullet-list">
+                        <li><strong>อุปกรณ์บันทึกภาพ:</strong> ห้ามนำกล้องถ่ายรูปสเปกสูง เลนส์ซูมระยะไกล หรือแท็บเล็ตขนาดใหญ่เข้ามาบันทึกภาพการแสดง</li>
+                        <li><strong>อุปกรณ์เชียร์:</strong> อนุญาตให้ใช้เฉพาะแท่งไฟ Official Lightstick ของวง และป้ายเชียร์ขนาดกะทัดรัดไม่เกินกระดาษ A4</li>
+                        <li><strong>มาตรการความปลอดภัย:</strong> ห้ามนำอาหาร ของขบเคี้ยว หรือเครื่องดื่มทุกชนิดผ่านประตูตรวจสัมภาระเข้ามาด้านในฮอลล์คอนเสิร์ต</li>
+                    </ul>
+                </div>
 
-                <!-- 7. วิธีการเดินทาง -->
-                <div class="tab-content-block">
-                    <h2 class="section-title">วิธีการเดินทาง</h2>
-                    <ul class="bullet-list">
-                        <li><strong>🚗 รถยนต์:</strong> | 📍 <a href="https://maps.app.goo.gl/FzLr9eag5h9wrC45A" target="_blank">คลิกดูแผนที่</a></li>
-                        <li><strong>🚆 รถไฟฟ้า:</strong> รถไฟฟ้าสายสีชมพู ลงสถานีอิมแพ็ค เมืองทองธานี (MT01) ทางออก 3 </li>
-                        <li><strong>🚐 รถตู้:</strong> อนุสาวรีย์ชัยสมรภูมิ (เกาะพหลโยธิน) และจตุจักร (BTS หมอชิต/MRT จตุจักร)</li>
-                        <li><strong>🚌 รถเมล์:</strong> รถเมล์สาย 166 (ปอ.) (AC) และ 2-31E (166 ศรีสมาน)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                  <div class="tab-content-block active">
+                    <h2 class="section-title">วิธีการเดินทาง</h2>
+                    <ul class="bullet-list">
+                         <li><strong>🚗 รถยนต์:</strong> | 📍 <a href="https://maps.app.goo.gl/FzLr9eag5h9wrC45A" target="_blank">คลิกดูแผนที่</a></li>
+                         <li><strong>🚆 รถไฟฟ้า:</strong> รถไฟฟ้าสายสีชมพูด ลงสถานีอิมแพ็ค เมืองทองธานี (MT01) ทางออก3 </li>
+                         <li><strong>🚐 รถตู้:</strong> อนุสาวรีย์ชัยสมรภูมิ (เกาะพหลโยธิน) และจตุจักร (BTS หมอชิต/MRT จตุจักร)</li>
+                        <li><strong>🚌 รถเมล์:</strong> รถเมล์สาย 166 (ปอ.) (AC) และ 2-31E (166 ศรีสมาน)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        function changeModalTab(tabIndex, buttonElement) {
-            const blocks = document.querySelectorAll('.tab-content-block');
-            const buttons = document.querySelectorAll('.menu-item');
+    <script>
+        function changeModalTab(tabIndex, buttonElement) {
+            const blocks = document.querySelectorAll('.tab-content-block');
+            const buttons = document.querySelectorAll('.menu-item');
 
-            blocks.forEach(block => block.classList.remove('active'));
-            buttons.forEach(btn => btn.classList.remove('active'));
+            blocks.forEach(block => block.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
 
-            blocks[tabIndex].classList.add('active');
-            buttonElement.classList.add('active');
-            
-            document.querySelector('.right-content-viewer').scrollTop = 0;
-        }
-    </script>
+            blocks[tabIndex].classList.add('active');
+            buttonElement.classList.add('active');
+            
+            // เลื่อนสกรอลบาร์ฝั่งข้อมูลขวากลับไปตำแหน่งบนสุดอัตโนมัติเมื่อกดสลับแท็บเมนู
+            document.querySelector('.right-content-viewer').scrollTop = 0;
+        }
+    </script>
 </body>
 </html>
+
+
+จะแก้หน้า 🎫 วิธีการรับบัตร✨ สิทธิพิเศษ Benefits ให้รูปพอดีจอ แบบหน้า 📜 ข้อมูลการแสดง และ 💺 ผังที่นั่งและราคา แก้ตรงไหน
