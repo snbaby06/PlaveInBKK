@@ -3,462 +3,523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 PLAVE WORLD TOUR [KEEP IT MANIC] - Official Terminal</title>
+    <title>2026 PLAVE WORLD TOUR [KEEP IT MANIC] IN BANGKOK</title>
     <style>
-        /* ดึงโทนสีและพื้นผิวเทาสว่างจากรูป plave_2.jpg และโครงสร้างจากสกรีนช็อต */
+        /* ปรับระดับความโปร่งแสงตามรูปอ้างอิง image_ee5f3a.jpg */
         :root {
-            --bg-concrete: #b0b7bd;             /* สีเทาคอนกรีตสว่างจากพื้นหลังรูป plave_2.jpg */
-            --panel-bg: rgba(13, 17, 23, 0.92); /* สีกล่องดำโมเดิร์นตัดกับพื้นหลังเทา */
-            --neon-red: #ff002b;                /* สีแดงแมนิแอคสะดุดตา */
-            --neon-glow: rgba(255, 0, 43, 0.3);
-            --text-main: #f0f3f5;
-            --text-dim: #8a95a5;
-            --border-color: #21262d;
+            --bg-concrete: #b0b7bd;             /* สีเทาคอนกรีตสว่างจากพื้นหลังรูป PLAVE */
+            --modal-bg: rgba(15, 18, 24, 0.85); /* สีดำเทาเข้มโปร่งแสงสำหรับโครงกรอบนอก */
+            --inner-panel: rgba(7, 9, 13, 0.65); /* สีดำโปร่งแสง (Transparent Glass) มองทะลุเห็นหลังได้ */
+            --neon-red: #ff002b;                /* สีแดงจากโลโก้ KEEP IT MANIC */
+            --neon-glow: rgba(255, 0, 43, 0.25);
+            --text-main: #f0f3f5;               /* สีขาวคลีน */
+            --text-dim: #8a95a5;                /* สีเทาสำหรับข้อมูลรอง */
+            --border-color: rgba(38, 44, 54, 0.6); /* ปรับขอบให้โปร่งแสงกลมกลืน */
             
+            /* สีสำหรับปุ่ม BUY TICKET ตามบรีฟใหม่ */
+            --btn-gray: #d1d5db;                /* สีเทาสว่างสำหรับปุ่ม */
+            --btn-text-black: #0d1117;          /* สีดำสำหรับตัวอักษรบนปุ่ม */
+
             /* สีแถบราคาโซน */
             --plave-vip: #ff002b;
             --plave-std1: #f37cb5;
             --plave-std2: #4351b5;
         }
 
+        /* ตั้งค่าพื้นหลังหน้าจอหลักให้อยู่ตรงกลางเสมอ */
         body {
             background-color: var(--bg-concrete);
-            /* เพิ่มมิติ Texture กรันจ์คอนกรีตเบาๆ ล้อตามโปสเตอร์เวิลด์ทัวร์ plave_2.jpg */
             background-image: 
-                radial-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 0),
-                linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.05) 100%);
+                radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 0),
+                linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0.05) 100%);
             background-size: 20px 20px, 100% 100%;
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center; 
+            align-items: center;     
+            box-sizing: border-box;
         }
 
-        /* Top Header Navbar แบบสกรีนช็อต */
-        .terminal-header {
+        /* กรอบใหญ่ครอบหน้าจอให้อยู่ตรงกลางลอยเด่นแบบสไตล์ซีทรู */
+        .modal-window {
+            width: 1000px;
+            max-width: 95vw;
+            height: 620px;
+            max-height: 90vh;
+            background: var(--modal-bg);
             border: 1px solid var(--border-color);
-            background: var(--panel-bg);
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(8px); /* เอฟเฟกต์เบลอหลังกระจก */
+        }
+
+        /* ส่วนหัวแถบสถานะด้านบนของกรอบ */
+        .modal-header {
             padding: 15px 20px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border-left: 5px solid var(--neon-red);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255, 255, 255, 0.02);
         }
-        .terminal-title {
+        .modal-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--neon-red);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--neon-red);
+        }
+        .modal-title {
             color: #ffffff;
-            font-size: 1.4rem;
-            font-weight: 900;
+            font-size: 0.95rem;
+            font-weight: bold;
             letter-spacing: 1px;
             margin: 0;
             text-transform: uppercase;
         }
-        .terminal-subtitle {
-            color: var(--neon-red);
-            font-size: 0.8rem;
-            margin: 4px 0 0 0;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
         
-        .buy-ticket-btn {
-            background-color: var(--neon-red);
-            color: #ffffff;
-            padding: 10px 22px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            transition: 0.2s;
-            box-shadow: 0 0 15px var(--neon-glow);
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-        .buy-ticket-btn:hover {
-            background-color: #d60024;
-            transform: scale(1.02);
-        }
-
-        /* Layout แยก ซ้าย-ขวา */
-        .terminal-container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 20px;
-            flex: 1;
-            align-items: start;
-        }
-
-        /* เมนูแผงควบคุมฝั่งซ้ายตามโครงสร้างรูป Screenshot 2026-06-28 124317.jpg */
-        .menu-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .menu-node {
-            background: var(--panel-bg);
+        /* ปุ่ม [X] ปิดกรอบตรงมุมขวาบน */
+        .close-window-btn {
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
             color: var(--text-dim);
-            padding: 16px 18px;
-            font-size: 0.95rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+        .close-window-btn:hover {
+            background: var(--neon-red);
+            color: #ffffff;
+            border-color: var(--neon-red);
+        }
+
+        /* พื้นที่เนื้อหาหลักด้านในกรอบ (แบ่งโครงสร้าง ซ้าย-ขวา) */
+        .modal-body {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            flex: 1;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        /* แผงเมนูตัวเลือกฝั่งซ้ายแบบโปร่งแสง */
+        .left-menu-bar {
+            background: rgba(0, 0, 0, 0.25);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+        }
+        .menu-item {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-dim);
+            padding: 14px 15px;
+            font-size: 0.88rem;
             text-align: left;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 4px;
             transition: all 0.2s ease;
             font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .menu-node:hover {
-            border-color: var(--neon-red);
+        .menu-item:hover {
             color: #ffffff;
             background: rgba(255, 0, 43, 0.05);
+            border-color: rgba(255, 0, 43, 0.2);
         }
-        .menu-node.active {
+        .menu-item.active {
+            background: rgba(255, 0, 43, 0.12);
             border-color: var(--neon-red);
             color: #ffffff;
-            font-weight: 800;
-            box-shadow: 0 0 15px var(--neon-glow), 0 4px 10px rgba(0,0,0,0.3);
-            border-left: 5px solid var(--neon-red);
+            font-weight: bold;
+            border-left: 4px solid var(--neon-red);
         }
 
-        /* จอแสดงข้อมูลฝั่งขวา (ใช้สีเข้มโปร่งแสงทับพื้นหลังเทา) */
-        .content-panel {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 35px;
+        /* แผงหน้าจอแสดงข้อมูลหลักฝั่งขวา (ใช้สีโปร่งแสง ซีทรู) */
+        .right-content-viewer {
+            background: var(--inner-panel);
+            padding: 30px;
+            overflow-y: auto;
             position: relative;
-            min-height: 520px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+            backdrop-filter: blur(4px); /* ช่วยให้ตัวหนังสืออ่านง่ายขึ้น */
         }
 
-        /* คอนโทรล เปิด/ปิด บล็อกข้อมูล */
-        .data-block {
+        /* ควบคุมการเปิด-ปิดบล็อกเนื้อหา */
+        .tab-content-block {
             display: none;
-            animation: terminalContentFade 0.2s ease-out forwards;
+            padding-bottom: 60px; /* เว้นพื้นที่ด้านล่างเผื่อไว้ให้ปุ่มกด */
         }
-        .data-block.active {
+        .tab-content-block.active {
             display: block;
+            animation: fadeInView 0.2s ease-out forwards;
         }
-        @keyframes terminalContentFade {
+        @keyframes fadeInView {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        .content-title {
+        .section-title {
             color: #ffffff;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
             margin-top: 0;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #21262d;
-            padding-bottom: 12px;
-            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
-        /* สไตล์ตารางเวลาเปิดระบบ (Timeline) */
-        .timeline {
+        /* --- ปุ่ม BUY TICKET สีเทา ตัวอักษรดำ ตามสั่ง --- */
+        .buy-ticket-container {
+            position: absolute;
+            bottom: 25px;
+            right: 30px;
+            z-index: 10;
+        }
+        .btn-buy-ticket {
+            background-color: var(--btn-gray);
+            color: var(--btn-text-black);
+            border: 1px solid var(--btn-gray);
+            padding: 12px 28px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.25s ease-in-out;
+        }
+        .btn-buy-ticket:hover {
+            background-color: transparent;
+            color: #ffffff;
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px var(--neon-glow);
+        }
+
+        /* --- สไตล์แท็บหน้าแรกภาพรวมคอนเสิร์ต --- */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        .poster-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .details-box p {
+            margin: 12px 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+        .details-box strong { color: #ffffff; }
+        .tag-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .price-badge {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .price-badge.vip { background-color: var(--plave-vip); }
+        .price-badge.std1 { background-color: var(--plave-std1); color: #000; }
+        .price-badge.std2 { background-color: var(--plave-std2); }
+
+        /* --- สไตล์แท็บตารางเวลา (Timeline) --- */
+        .timeline-container {
             position: relative;
             padding-left: 20px;
-            border-left: 2px solid #21262d;
-            margin-left: 10px;
+            border-left: 2px solid var(--border-color);
+            margin-left: 5px;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
-        .timeline-item { position: relative; }
-        .timeline-badge {
+        .timeline-node { position: relative; }
+        .node-dot {
             position: absolute;
-            left: -26px; top: 5px;
+            left: -26px; top: 4px;
             width: 10px; height: 10px;
             border-radius: 50%;
             background: var(--text-dim);
         }
-        .timeline-item.active-event .timeline-badge {
+        .timeline-node.current .node-dot {
             background: var(--neon-red);
-            box-shadow: 0 0 10px var(--neon-red);
+            box-shadow: 0 0 8px var(--neon-red);
         }
-        .timeline-date { font-size: 0.9rem; color: var(--neon-red); font-weight: bold; margin-bottom: 4px; }
-        .timeline-title { font-size: 1.05rem; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
-        .timeline-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+        .node-time { font-size: 0.85rem; color: var(--neon-red); font-weight: bold; margin-bottom: 2px; }
+        .node-title { font-size: 0.95rem; font-weight: bold; color: #ffffff; margin-bottom: 2px; }
+        .node-detail { font-size: 0.82rem; color: var(--text-dim); line-height: 1.4; }
 
-        /* สไตล์หน้าแรก (Overview Concert Info) */
-        .overview-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 25px;
-        }
-        .overview-poster img {
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-        }
-        .meta-info p {
-            margin: 14px 0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .meta-info strong {
-            color: #ffffff;
-        }
-        .meta-icon {
-            margin-right: 10px;
-        }
-        .price-tags {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-        .tag {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: #fff;
-        }
-        .tag.vip { background-color: var(--plave-vip); box-shadow: 0 0 10px rgba(255,0,43,0.3); }
-        .tag.std1 { background-color: var(--plave-std1); color: #000; }
-        .tag.std2 { background-color: var(--plave-std2); }
-
-        /* ผังที่นั่งคอนเสิร์ต */
-        .map-container {
+        /* --- สไตล์แท็บผังที่นั่ง --- */
+        .map-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
-        .map-wrapper {
+        .image-map-box {
             max-width: 100%;
             border: 1px solid var(--border-color);
-            padding: 8px;
-            background: #07090e;
-            border-radius: 4px;
+            padding: 5px;
+            background: rgba(0,0,0,0.4);
         }
-        .map-wrapper img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
+        .image-map-box img { max-width: 100%; height: auto; display: block; }
         area { cursor: pointer; }
-
-        .price-display-box {
+        
+        .selection-result-panel {
             width: 100%;
-            background: rgba(7, 9, 14, 0.9);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--text-dim);
-            padding: 15px 20px;
-            box-sizing: border-box;
+            padding: 12px 15px;
             border-radius: 4px;
+            box-sizing: border-box;
         }
-        .price-display-box h4 { margin: 0 0 5px 0; font-size: 0.85rem; color: var(--text-dim); }
-        .price-display-box p { margin: 0; font-size: 1.1rem; font-weight: bold; color: #fff; }
+        .selection-result-panel h5 { margin: 0 0 4px 0; font-size: 0.8rem; color: var(--text-dim); }
+        .selection-result-panel p { margin: 0; font-size: 1rem; font-weight: bold; color: #fff; }
 
-        /* รายการทั่วไป */
-        .info-list {
+        /* --- รายการข้อมูลทั่วไป --- */
+        .bullet-list {
             list-style: none;
-            padding: 0;
-            margin: 0;
+            padding: 0; margin: 0;
         }
-        .info-list li {
-            margin-bottom: 18px;
-            line-height: 1.8;
+        .bullet-list li {
+            margin-bottom: 14px;
+            line-height: 1.6;
             border-left: 3px solid var(--neon-red);
-            padding-left: 15px;
+            padding-left: 12px;
+            font-size: 0.9rem;
         }
-        .info-list strong { color: #ffffff; }
+        .bullet-list strong { color: #ffffff; }
 
-        /* ขอบเลเซอร์มุมบนขวาเพิ่มดีเทล */
-        .content-panel::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 20px; height: 20px;
-            border-top: 3px solid var(--neon-red);
-            border-right: 3px solid var(--neon-red);
+        /* แถบเลื่อน Scrollbar ด้านในกล่อง */
+        .right-content-viewer::-webkit-scrollbar,
+        .left-menu-bar::-webkit-scrollbar {
+            width: 5px; height: 5px;
+        }
+        .right-content-viewer::-webkit-scrollbar-track,
+        .left-menu-bar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .right-content-viewer::-webkit-scrollbar-thumb,
+        .left-menu-bar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .right-content-viewer::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-red);
         }
 
-        /* ปรับดีไซน์ตามขนาดมือถือ */
+        /* ปรับสัดส่วนเมื่อเปิดดูในหน้าจอมือถือ */
         @media (max-width: 768px) {
-            .terminal-container { grid-template-columns: 1fr; }
-            .menu-panel { flex-direction: row; flex-wrap: wrap; gap: 5px; }
-            .menu-node { flex: 1 1 calc(50% - 5px); text-align: center; padding: 12px 5px; font-size: 0.8rem; }
-            .menu-node.active { border-left: 1px solid var(--neon-red); border-top: 3px solid var(--neon-red); padding-left: 5px; }
-            .terminal-header { flex-direction: column; gap: 15px; text-align: center; }
-            .overview-layout { grid-template-columns: 1fr; }
+            body { padding: 10px; }
+            .modal-window { height: auto; max-height: 95vh; }
+            .modal-body { grid-template-columns: 1fr; overflow-y: auto; }
+            .left-menu-bar { flex-direction: row; flex-wrap: wrap; padding: 10px; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .menu-item { flex: 1 1 calc(50% - 10px); padding: 10px; text-align: center; font-size: 0.8rem; }
+            .overview-grid { grid-template-columns: 1fr; }
+            .poster-box { max-width: 150px; margin: 0 auto; }
+            .buy-ticket-container { position: static; text-align: center; margin-top: 20px; padding-bottom: 20px; }
+            .btn-buy-ticket { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- แผง Header คุมโทนเทาตัดป้ายดำแดง -->
-    <header class="terminal-header">
-        <div>
-            <h1 class="terminal-title">2026 PLAVE WORLD TOUR [KEEP IT MANIC]</h1>
-            <p class="terminal-subtitle">INCHEON MUNHAK MAIN STADIUM // OFFICIAL TICKETING GUIDE</p>
-        </div>
-        <a href="https://bit.ly/3G1gDcJ" target="_blank" class="buy-ticket-btn">BUY TICKET 🎟️</a>
-    </header>
-
-    <div class="terminal-container">
+    <!-- โครงสร้างกล่องกรอบหน้าต่างลอยอยู่ตรงกลางจอ -->
+    <div class="modal-window">
         
-        <!-- เมนูหลักฝั่งซ้าย สามารถคลิกย้อนกลับมาดูข้อมูลภาพรวมได้จากปุ่มแรก -->
-        <nav class="menu-panel">
-            <button class="menu-node active" onclick="switchTerminalTab(0, this)">📄 ข้อมูลคอนเสิร์ตภาพรวม</button>
-            <button class="menu-node" onclick="switchTerminalTab(1, this)">📅 กำหนดการสำคัญ</button>
-            <button class="menu-node" onclick="switchTerminalTab(2, this)">🗺️ ผังที่นั่ง & เลือกโซน</button>
-            <button class="menu-node" onclick="switchTerminalTab(3, this)">📦 การรับบัตรคอนเสิร์ต</button>
-            <button class="menu-node" onclick="switchTerminalTab(4, this)">⭐ สิทธิพิเศษ Benefits</button>
-            <button class="menu-node" onclick="switchTerminalTab(5, this)">⚠️ กฎระเบียบเข้างาน</button>
-        </nav>
+        <!-- ส่วนแถบหัวเรื่องด้านบนกรอบ -->
+        <header class="modal-header">
+            <div class="modal-title-group">
+                <div class="status-dot"></div>
+                <h1 class="modal-title">CONCERT GUIDE • PLAVE WORLD TOUR [KEEP IT MANIC]</h1>
+            </div>
+            <!-- ปุ่มปิดหน้าต่างจำลอง -->
+            <div class="close-window-btn" onclick="alert('ฟังก์ชันปิดหน้าต่างจำลอง')">✕</div>
+        </header>
 
-        <!-- จอแสดงผลข้อมูลหลักฝั่งขวา -->
-        <main class="content-panel">
+        <!-- ตัวห้องเครื่องด้านใน แบ่งแผงเมนูซ้าย และแผงข้อมูลขวาโปร่งแสง -->
+        <div class="modal-body">
+            
+            <!-- เมนูสลับหน้าข้อมูลฝั่งซ้าย -->
+            <nav class="left-menu-bar">
+                <button class="menu-item active" onclick="changeModalTab(0, this)">📄 ข้อมูลภาพรวมคอนเสิร์ต</button>
+                <button class="menu-item" onclick="changeModalTab(1, this)">📅 กำหนดการสำคัญ</button>
+                <button class="menu-item" onclick="changeModalTab(2, this)">🗺️ ผังที่นั่ง</button>
+                <button class="menu-item" onclick="changeModalTab(3, this)">📦 การรับบัตรคอนเสิร์ต</button>
+                <button class="menu-item" onclick="changeModalTab(4, this)">⭐ สิทธิพิเศษ Benefits</button>
+                <button class="menu-item" onclick="changeModalTab(5, this)">⚠️ กฎระเบียบเข้างาน</button>
+            </nav>
 
-            <!-- TAB 0: หน้าแรกสุด (Overview Concert ข้อมูลตามรูป Screenshot 2026-06-28 124252.png) -->
-            <div class="data-block active">
-                <h2 class="content-title">CONCERT OVERVIEW // ภาพรวมการแสดง</h2>
-                <div class="overview-layout">
-                    <div class="overview-poster">
-                        <!-- ใส่รูปโปสเตอร์คอนเสิร์ตหลักของคุณตรงนี้ -->
-                        <img src="poster.jpg" alt="PLAVE KEEP IT MANIC Poster">
-                    </div>
-                    <div class="meta-info">
-                        <p><span class="meta-icon">📍</span><strong>สถานที่แสดง :</strong> IMPACT Arena</p>
-                        <p><span class="meta-icon">📅</span><strong>วันที่แสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
-                        <p><span class="meta-icon">⏰</span><strong>เวลาแสดง :</strong> 18:00 น.</p>
-                        <p><span class="meta-icon">🎟️</span><strong>วันเปิดจำหน่ายบัตร :</strong> วันเสาร์ที่ 12 กันยายน 2569 เวลา 11:00 น.</p>
-                        
-                        <div class="price-tags">
-                            <span class="tag vip">VIP 6,000 บาท</span>
-                            <span class="tag std1">4,500 บาท</span>
-                            <span class="tag std2">3,000 บาท</span>
+            <!-- จอแสดงผลเนื้อหาฝั่งขวา (รมดำ โปร่งแสง) -->
+            <div class="right-content-viewer">
+
+                <!-- TAB 0: ข้อมูลภาพรวมคอนเสิร์ต -->
+                <div class="tab-content-block active">
+                    <h2 class="section-title">Overview // ข้อมูลการแสดงภาพรวม</h2>
+                    <div class="overview-grid">
+                        <div class="poster-box">
+                            <img src="poster.jpg" alt="PLAVE Concert Poster">
+                        </div>
+                        <div class="details-box">
+                            <p><strong>📍 สถานที่แสดง :</strong> IMPACT Arena</p>
+                            <p><strong>📅 วันที่แสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
+                            <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
+                            <p><strong>🎟️ วันเปิดจำหน่ายบัตร :</strong> วันเสาร์ที่ xx xxxx 2569 เวลา xx:00 น.</p>
+                            
+                            <div class="tag-container">
+                                <span class="price-badge vip">VIP 6,000 บ.</span>
+                                <span class="price-badge std1">4,500 บ.</span>
+                                <span class="price-badge std2">3,000 บ.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- TAB 1: กำหนดการสำคัญ -->
-            <div class="data-block">
-                <h2 class="content-title">TIMELINE // กำหนดการเปิดระบบ</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-date">12 ก.ย. 2569 10:00 น.</div>
-                        <div class="timeline-title">ระบบเปิดให้เข้าคิวเพื่อกดบัตรคอนเสิร์ต</div>
-                        <div class="timeline-desc">กรุณาเข้าสู่ระบบล่วงหน้าบนหน้าเว็บหลักเพื่อเตรียมพร้อมรับสิทธิ์ลำดับคิวไอดี</div>
-                    </div>
-                    <div class="timeline-item active-event">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-date">12 ก.ย. 2569 11:00 น.</div>
-                        <div class="timeline-title">เปิดจำหน่ายบัตรอย่างเป็นทางการ (รอบออนไลน์)</div>
-                        <div class="timeline-desc">ซื้อผ่านลิงก์จำหน่ายอย่างเป็นทางการเท่านั้น หากที่นั่งเต็มระบบคิวจะถูกปิดโดยอัตโนมัติ</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-date">26-27 ก.ย. 2569</div>
-                        <div class="timeline-title">D-DAY // PLAVE WORLD TOUR IN BANGKOK</div>
-                        <div class="timeline-desc">เริ่มเปิดจุดตรวจกระเป๋าและเปิดประตูฮอลล์การแสดงในเวลา 17:00 น. เริ่มทำการแสดง 19:00 น.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 2: ผังที่นั่ง & เลือกโซน -->
-            <div class="data-block">
-                <h2 class="content-title">SEATING MAP // ผังและราคาทุกโซน</h2>
-                <div class="map-container">
-                    <p style="color: var(--text-dim); font-size: 0.9rem; margin: 0;">💡 แตะหรือคลิกเลือกโซนบนภาพผังเพื่อแสดงรายละเอียดราคา</p>
-                    
-                    <div class="map-wrapper">
-                        <!-- ใส่รูปผังที่นั่งของคุณตรงนี้ -->
-                        <img src="seating-map.jpg" alt="PLAVE Seating Map" usemap="#concert-map">
-                        
-                        <map name="concert-map">
-                            <area shape="rect" coords="180,600,780,750" alt="VIP Zone" onclick="selectZoneData('VIP Zone (รวม Soundcheck)', '6,000 บาท', 'var(--plave-vip)')">
-                            <area shape="rect" coords="345,270,645,550" alt="Center 4500" onclick="selectZoneData('Zone A3, A4, B3, B4', '4,500 บาท', 'var(--plave-std1)')">
-                            <area shape="rect" coords="240,270,345,600" alt="Left Wing 4500" onclick="selectZoneData('Zone A5, B5, C5', '4,500 บาท', 'var(--plave-std1)')">
-                            <area shape="rect" coords="645,270,750,600" alt="Right Wing 4500" onclick="selectZoneData('Zone A2, B2, C2', '4,500 บาท', 'var(--plave-std1)')">
-                            <area shape="rect" coords="150,290,240,680" alt="Far Left 3000" onclick="selectZoneData('Zone A6, B6, C6', '3,000 บาท', 'var(--plave-std2)')">
-                            <area shape="rect" coords="750,290,840,680" alt="Far Right 3000" onclick="selectZoneData('Zone A1, B1, C1', '3,000 บาท', 'var(--plave-std2)')">
-                        </map>
-                    </div>
-
-                    <div class="price-display-box" id="zoneDisplayBox">
-                        <h4 id="zoneTitleHeader">CURRENT SELECTION // ข้อมูลโซน</h4>
-                        <p id="zonePriceText">โปรดคลิกเลือกโซนที่ต้องการดูบนผังที่นั่งด้านบน</p>
+                <!-- TAB 1: กำหนดการสำคัญ -->
+                <div class="tab-content-block">
+                    <h2 class="section-title">Timeline // กำหนดการสำคัญ</h2>
+                    <div class="timeline-container">
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-time">xx xx 2569 10:00 น.</div>
+                            <div class="node-title">ระบบเปิดให้เข้าคิวออนไลน์เพื่อรอซื้อบัตร</div>
+                            <div class="node-detail">ผู้ใช้งานควรล็อกอินเข้าสู่ระบบหน้าเว็บจองตั๋วไว้ล่วงหน้าเพื่อรักษาสิทธิ์ลำดับคิว</div>
+                        </div>
+                        <div class="timeline-node current">
+                            <div class="node-dot"></div>
+                            <div class="node-time">xx xx 2569 11:00 น.</div>
+                            <div class="node-title">เปิดจำหน่ายบัตรอย่างเป็นทางการทุกช่องทาง</div>
+                            <div class="node-detail">ซื้อผ่านเว็บจำหน่ายที่เป็นพันธมิตรหลักเท่านั้น หากโควตาที่นั่งหมดระบบจะปิดตัวลงทันที</div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-time">10 ตุลาคม 2569</div>
+                            <div class="node-title">D-DAY // 2026 PLAVE WORLD TOUR</div>
+                            <div class="node-detail">ณ IMPACT ArenaIMPACT Arena ประตูเปิดให้เข้าสู่พื้นที่ภายในงานตั้งแต่เวลา 17:00 น.</div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- TAB 2: ผังที่นั่ง -->
+                <div class="tab-content-block">
+                    <h2 class="section-title">Seating Map // ผังที่นั่งและตรวจสอบราคา</h2>
+                    <div class="map-section">
+                        <div class="image-map-box">
+                            <img src="seating-map.jpg" alt="Seating Map" usemap="#window-concert-map">
+                            
+                            <map name="window-concert-map">
+                                <area shape="rect" coords="180,600,780,750" alt="VIP" onclick="updateMapDisplayBox('VIP Zone (รวมเข้าชมการซ้อม Soundcheck)', '6,000 บาท', 'var(--plave-vip)')">
+                                <area shape="rect" coords="345,270,645,550" alt="Center" onclick="updateMapDisplayBox('Zone A3, A4, B3, B4', '4,500 บาท', 'var(--plave-std1)')">
+                                <area shape="rect" coords="240,270,345,600" alt="Left" onclick="updateMapDisplayBox('Zone A5, B5, C5', '4,500 บาท', 'var(--plave-std1)')">
+                                <area shape="rect" coords="645,270,750,600" alt="Right" onclick="updateMapDisplayBox('Zone A2, B2, C2', '4,500 บาท', 'var(--plave-std1)')">
+                                <area shape="rect" coords="150,290,240,680" alt="FarLeft" onclick="updateMapDisplayBox('Zone A6, B6, C6', '3,000 บาท', 'var(--plave-std2)')">
+                                <area shape="rect" coords="750,290,840,680" alt="FarRight" onclick="updateMapDisplayBox('Zone A1, B1, C1', '3,000 บาท', 'var(--plave-std2)')">
+                            </map>
+                        </div>
+
+                        <div class="selection-result-panel" id="modalMapDisplay">
+                            <h5 id="modalDisplayHeader">CURRENT SELECTION // ข้อมูลการเลือก</h5>
+                            <p id="modalDisplayBodyText">คลิกเลือกโซนบนภาพผังที่นั่งเพื่อตรวจสอบข้อมูลราคา</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: การรับบัตรคอนเสิร์ต -->
+                <div class="tab-content-block">
+                    <h2 class="section-title">Ticket Pickup // ข้อตกลงการรับบัตร</h2>
+                    <ul class="bullet-list">
+                        <li><strong>การจัดส่งหรือรับล่วงหน้า:</strong> บัตรพลาสติกแข็งที่ระลึกสามารถเลือกรับผ่านบริการจัดส่งตามที่ทำรายการในขั้นตอนชำระเงิน</li>
+                        <li><strong>การรับหน้างาน:</strong> เคาน์เตอร์ลงทะเบียนแลกตั๋วบริเวณ IMPACT Arena การแสดงจะเริ่มให้บริการตั้งแต่เวลา 10:00 น. ของวันงาน</li>
+                        <li><strong>หลักฐานสำคัญ:</strong> โปรดนำใบเสร็จที่มี QR Code และบัตรประชาชนตัวจริงที่ชื่อสะกดตรงกับในระบบมาแสดงให้เจ้าหน้าที่ตรวจสอบ</li>
+                    </ul>
+                </div>
+
+                <!-- TAB 4: สิทธิพิเศษ Benefits -->
+                <div class="tab-content-block">
+                    <h2 class="section-title">Benefits // สิทธิพิเศษตามราคาตั๋ว</h2>
+                    <ul class="bullet-list">
+                        <li><strong>โซน VIP (ราคา 6,000 บาท):</strong> ได้สิทธิ์เข้าร่วมรอบสังเกตการณ์ Soundcheck ทุกที่นั่ง 100% พร้อมรับของที่ระลึกแบบ Limited</li>
+                        <li><strong>โซนราคา 4,500 บาท:</strong> ลุ้นรับสิทธิ์สุ่มเข้าชมรอบ Soundcheck ตามอัตราส่วนโควตา และรับ Official Poster ประจำทัวร์</li>
+                        <li><strong>โซนราคา 3,000 บาท:</strong> ได้รับของสัมนาคุณ Official Poster ลายคอนเซปต์หลัก KEEP IT MANIC ทุกที่นั่ง</li>
+                    </ul>
+                </div>
+
+                <!-- TAB 5: กฎระเบียบเข้างาน -->
+                <div class="tab-content-block">
+                    <h2 class="section-title">Rules // กฎระเบียบความปลอดภัย</h2>
+                    <ul class="bullet-list">
+                        <li><strong>อุปกรณ์บันทึกภาพ:</strong> ห้ามนำกล้องถ่ายรูปสเปกสูง เลนส์ซูมระยะไกล หรือแท็บเล็ตขนาดใหญ่เข้ามาบันทึกภาพการแสดง</li>
+                        <li><strong>อุปกรณ์เชียร์:</strong> อนุญาตให้ใช้เฉพาะแท่งไฟ Official Lightstick ของวง และป้ายเชียร์ขนาดกะทัดรัดไม่เกินกระดาษ A4</li>
+                        <li><strong>มาตรการความปลอดภัย:</strong> ห้ามนำอาหาร ของขบเคี้ยว หรือเครื่องดื่มทุกชนิดผ่านประตูตรวจสัมภาระเข้ามาด้านในฮอลล์คอนเสิร์ต</li>
+                    </ul>
+                </div>
+
+                <!-- ส่วนวางปุ่ม BUY TICKET ลอยอยู่มุมขวาล่างของกล่องข้อความ -->
+                <div class="buy-ticket-container">
+                    <button class="btn-buy-ticket" onclick="window.open('https://example.com/tickets', '_blank')">Buy Ticket</button>
+                </div>
+
             </div>
 
-            <!-- TAB 3: การรับบัตรคอนเสิร์ต -->
-            <div class="data-block">
-                <h2 class="content-title">TICKET PICKUP // วิธีการรับบัตร</h2>
-                <ul class="info-list">
-                    <li><strong>การรับบัตรล่วงหน้า:</strong> สามารถทำเรื่องรับบัตรพลาสติกได้ตามระยะเวลาและสาขาบริการจัดส่งที่ระบุในขั้นตอนคำสั่งซื้อสำเร็จ</li>
-                    <li><strong>การรับบัตรหน้างานคอนเสิร์ต:</strong> บูธสำหรับลงทะเบียนตรวจหลักฐานที่ IMPACT Arena จะเปิดต้อนรับตั้งแต่เวลา 10:00 น. ในวันแสดง</li>
-                    <li><strong>เอกสารที่ใช้แสดงสิทธิ์:</strong> ต้องใช้สลิป QR Code ยืนยันในอีเมล พร้อมบัตรประชาชนตัวจริงหรือ Passport ที่ชื่อตรงกับโปรไฟล์ผู้จองซื้อเท่านั้น</li>
-                </ul>
-            </div>
+        </div>
 
-            <!-- TAB 4: สิทธิพิเศษ Benefits -->
-            <div class="data-block">
-                <h2 class="content-title">FAN BENEFITS // รายละเอียดสิทธิพิเศษ</h2>
-                <ul class="info-list">
-                    <li><strong>บัตรราคา 6,000 บาท (VIP Zone):</strong> ได้รับสิทธิ์เข้าร่วมสังเกตการณ์รอบซ้อม (Soundcheck) ทุกที่นั่ง 100% และรับ Official Photocard เซ็ตพิเศษเวิลด์ทัวร์</li>
-                    <li><strong>บัตรราคา 4,500 บาท:</strong> ลุ้นรับสิทธิ์สุ่มเข้าร่วม Soundcheck ตามสัดส่วนโควตาระบบ และรับ Official Poster ประจำทัวร์นีเ</li>
-                    <li><strong>บัตรราคา 3,000 บาท:</strong> ได้รับ Official Poster ลายพิเศษประจำทัวร์ KEEP IT MANIC ครบทุกที่นั่ง</li>
-                </ul>
-            </div>
-
-            <!-- TAB 5: กฎระเบียบเข้างาน -->
-            <div class="data-block">
-                <h2 class="content-title">RULES & REGULATION // ข้อบังคับความปลอดภัย</h2>
-                <ul class="info-list">
-                    <li><strong>การบันทึกภาพวิดีโอ:</strong> ไม่อนุญาตให้นำกล้องบันทึกภาพเลนส์ซูม กล้องวิดีโอสตรีมมิ่ง หรือเครื่องอัดเสียงระดับสูงเข้าสู่ฮอลล์การแสดงอย่างเด็ดขาด</li>
-                    <li><strong>แท่งไฟและป้ายไฟ:</strong> อนุญาตเฉพาะ Official Fanlight ของวงเท่านั้น และห้ามยกป้ายไฟหรือบอร์ดเชียร์สูงเกินระดับสายตาเพื่อไม่ให้บดบังผู้ชมด้านหลัง</li>
-                    <li><strong>สิ่งของต้องห้าม:</strong> ไม่อนุญาตให้นำอาหาร เครื่องดื่ม อาหารว่างภายนอก หรือกระเป๋าสัมภาระขนาดใหญ่กว่าเกณฑ์ความปลอดภัยพกพาเข้างาน</li>
-                </ul>
-            </div>
-
-        </main>
     </div>
 
-    <!-- สคริปต์สลับหน้าจอตามข้อกำหนดหน้าแรก -->
+    <!-- ฟังก์ชันสลับข้อมูลในหน้าต่าง และฟังก์ชันคำนวณผัง -->
     <script>
-        function switchTerminalTab(tabIndex, buttonElement) {
-            const blocks = document.querySelectorAll('.data-block');
-            const buttons = document.querySelectorAll('.menu-node');
+        function changeModalTab(tabIndex, buttonElement) {
+            const blocks = document.querySelectorAll('.tab-content-block');
+            const buttons = document.querySelectorAll('.menu-item');
 
-            // เคลียร์ค่าการเลือกทั้งหมดก่อน
             blocks.forEach(block => block.classList.remove('active'));
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // เปิดแสดงแท็บที่ผู้ใช้งานเลือก
             blocks[tabIndex].classList.add('active');
             buttonElement.classList.add('active');
             
-            // รีเซ็ต Scroll บาร์กลับไปจุดบนสุดของหน้าต่างขวาทุกครั้ง
-            document.querySelector('.content-panel').scrollTop = 0;
+            document.querySelector('.right-content-viewer').scrollTop = 0;
         }
 
-        // ฟังชันก์แกลเลอรีผังที่นั่งคอนเสิร์ต
-        function selectZoneData(zoneName, priceValue, borderHexColor) {
-            const displayBox = document.getElementById('zoneDisplayBox');
-            const titleHeader = document.getElementById('zoneTitleHeader');
-            const priceText = document.getElementById('zonePriceText');
+        function updateMapDisplayBox(zoneTitle, priceValue, borderThemeColor) {
+            const resultBox = document.getElementById('modalMapDisplay');
+            const titleText = document.getElementById('modalDisplayHeader');
+            const bodyText = document.getElementById('modalDisplayBodyText');
 
-            titleHeader.innerText = "SELECTED: " + zoneName.toUpperCase();
-            priceText.innerText = "ราคาบัตรโดยประมาณ: " + priceValue;
-            displayBox.style.borderLeft = "4px solid " + borderHexColor;
+            titleText.innerText = "SELECTED: " + zoneTitle.toUpperCase();
+            bodyText.innerText = "ราคาตั๋วจำหน่าย: " + priceValue;
+            resultBox.style.borderLeft = "4px solid " + borderThemeColor;
         }
     </script>
 </body>
