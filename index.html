@@ -253,51 +253,44 @@
             gap: 25px;
             margin-top: 10px;
         }
-        .seating-map-image {
-            max-width: 100%;             /* ป้องกันไม่ให้รูปภาพล้นขอบ */
-            height: auto;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);  /* เพิ่มเงามิติหนุนให้ผังที่นั่งลอยขึ้นเด่นชัด */
+        .seating-map-image display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
         }
-
         /* =========================================================================
-           5. TICKET & BENEFITS IMAGES ALIGNMENT (จัดการรูปภาพหน้าตั๋วและสิทธิพิเศษให้พอดีจอ)
+           5. TICKET & BENEFITS IMAGES ALIGNMENT (จัดวางรูปผังที่นั่งให้อยู่กึ่งกลางอย่างสวยงาม)
            ========================================================================= */
 
-        /* สำหรับหน้ารับบัตรคอนเสิร์ต */
         .ticket-content-container, 
-        .tab-content-block:nth-child(4) { /* ปรับตามคลาสกล่องเนื้อหาหน้ารับบัตรของคุณ */
-       display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
+         display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
         }
 
-        .ticket-content-container img,
-        .tab-content-block:nth-child(4) img {
-            max-width: 100%;
-            max-height: 480px;          /* 💡 บังคับไม่ให้รูปสูงเกินขอบหน้าต่างเว็บ */
-            object-fit: contain;        /* 💡 ล็อกสัดส่วนภาพไม่ให้บี้หรือเบี้ยว */
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        .ticket-content-container img display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
         }
 
         /* สำหรับหน้าสิทธิพิเศษ Benefits */
         .benefits-content-container,
-        .tab-content-block:nth-child(5) { /* ปรับตามคลาสกล่องเนื้อหาหน้า Benefits ของคุณ */
-            display: flex;
+          display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .benefits-content-container img,
-        .tab-content-block:nth-child(5) img {
-            max-width: 100%;
-            max-height: 480px;          /* 💡 บังคับไม่ให้รูปสูงเกินขอบหน้าต่างเว็บ */
-            object-fit: contain;        /* 💡 ล็อกสัดส่วนภาพไม่ให้บี้หรือเบี้ยว */
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
+         }
+        .seating-map-image display: flex;
+            flex-direction: column;
+            align-items: center;         /* จัดให้รูปภาพผังที่นั่งมาอยู่จุดกึ่งกลางบล็อกขวาพอดี */
+            gap: 25px;
+            margin-top: 10px;
         }
         
         /* ส่วนของหน้าภาพรวม (Overview) */
