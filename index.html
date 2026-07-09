@@ -788,24 +788,35 @@
             }
         }
     }
-    // 
+    //
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 });
 
-//
+// 
 document.addEventListener('keydown', function(e) {
-    // ห้าม Ctrl+C หรือ Cmd+C (Copy)
-    // ห้าม Ctrl+A หรือ Cmd+A (Select All)
-    // ห้าม Ctrl+X หรือ Cmd+X (Cut)
-    if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'a' || e.key === 'x' || e.key === 'C' || e.key === 'A' || e.key === 'X')) {
+    const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+    const key = e.key.toLowerCase();
+
+    // 
+    if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
         e.preventDefault();
     }
-    
+
+    // 
+    if (isCtrlOrCmd && key === 's') {
+        e.preventDefault();
+    }
+
+    // 
+    if (isCtrlOrCmd && key === 'p') {
+        e.preventDefault();
+    }
+
     // 
     if (e.key === 'F12' || 
-        ((e.ctrlKey || e.metaKey) && e.key === 'u') || 
-        ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i'))) {
+        (isCtrlOrCmd && key === 'u') || 
+        (isCtrlOrCmd && e.shiftKey && key === 'i')) {
         e.preventDefault();
     }
 });
