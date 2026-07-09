@@ -380,15 +380,249 @@
                 </div>
 
                 <div class="tab-content-block">
-                    <h2 class="section-title">ผังที่นั่งและราคา</h2>
-                    <div class="seating-map-container">
-                        <img src="seating-map.png" alt="PLAVE Concert Seating Map">
-                        <ul class="bullet-list">
-                            <li><strong>ข้อมูลโซน:</strong> กรุณาเช็กรายละเอียดหมายเลขแถวระบุที่นั่งให้เรียบร้อยที่จุดจำหน่ายบัตรออนไลน์</li>
-                        </ul>
-                    </div>
+    <h2 class="section-title">ผังที่นั่งและราคาบัตร</h2>
+    
+    <div class="seating-interactive-wrapper">
+        <div class="seating-map-side">
+            <div class="seating-map-container">
+                <img src="seating-map.png" alt="PLAVE Concert Seating Map">
+            </div>
+            
+            <div class="zone-selector-container">
+                <span class="selector-label">เลือกโซนเพื่อดูรายละเอียด:</span>
+                <div class="zone-buttons">
+                    <button class="zone-btn" onclick="selectZone('6800')">VIP 6,800</button>
+                    <button class="zone-btn" onclick="selectZone('5500')">5,500</button>
+                    <button class="zone-btn" onclick="selectZone('3800')">3,800</button>
+                    <button class="zone-btn" onclick="selectZone('3500')">3,500</button>
+                    <button class="zone-btn" onclick="selectZone('2800')">2,800</button>
+                    <button class="zone-btn" onclick="selectZone('2500')">2,500</button>
                 </div>
+            </div>
+        </div>
 
+        <div class="zone-details-container">
+            <div class="zone-details-header">
+                🪐 <span id="selected-zone-title">ผังที่นั่งและราคาบัตร</span>
+            </div>
+            <div class="zone-details-body">
+                <ul id="benefits-list" class="bullet-list-interactive">
+                    <li class="default-msg">💡 คลิกเลือกราคาหรือโซนด้านซ้าย เพื่อตรวจสอบสิทธิประโยชน์คอนเสิร์ตและมุมมองการชม</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// คลังข้อมูลสิทธิประโยชน์อ้างอิงตรงตามตารางทางการ (benefit.jpg)
+const concertBenefitData = {
+    '6800': {
+        title: "ราคา 6,800 THB (VIP)",
+        benefits: [
+            "✅ Exclusive merchandise lane",
+            "✅ Soundcheck",
+            "✅ Goodbye talk session",
+            "✅ Laminate & Lanyard (1 ea)",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '5500': {
+        title: "ราคา 5,500 THB",
+        benefits: [
+            "❌ Exclusive merchandise lane",
+            "❌ Soundcheck",
+            "✅ Goodbye talk session",
+            "❌ Laminate & Lanyard",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '3800': {
+        title: "ราคา 3,800 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits (เช่น Soundcheck / Goodbye talk)",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '3500': {
+        title: "ราคา 3,500 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '2800': {
+        title: "ราคา 2,800 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '2500': {
+        title: "ราคา 2,500 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    }
+};
+
+function selectZone(priceKey) {
+    // ดึงข้อมูล
+    const data = concertBenefitData[priceKey];
+    if (!data) return;
+
+    // อัปเดตหัวข้อฝั่งขวา
+    document.getElementById('selected-zone-title').innerText = data.title;
+
+    // เคลียร์และอัปเดตรายการสิทธิประโยชน์
+    const listContainer = document.getElementById('benefits-list');
+    listContainer.innerHTML = ''; 
+
+    data.benefits.forEach(benefit => {
+        const li = document.createElement('li');
+        li.innerHTML = benefit;
+        
+        // ปรับแต่งสีตัวอักษรของสิทธิ์ที่ได้/ไม่ได้เพิ่มความพรีเมียม
+        if(benefit.startsWith('✅')) {
+            li.style.color = '#e2e8f0';
+        } else if(benefit.startsWith('❌')) {
+            li.style.color = '#64748b';
+        }
+        
+        listContainer.appendChild(li);
+    });
+
+    // ปรับการไฮไลต์สถานะปุ่มกด
+    document.querySelectorAll('.zone-btn').forEach(btn => btn.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+}
+</script>
+                /* การจัด Layout หน้าจอแบบ Flexbox แบ่ง ซ้าย-ขวา */
+.seating-interactive-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 15px;
+}
+
+.seating-map-side {
+    flex: 1.2;
+    min-width: 320px;
+}
+
+.zone-details-container {
+    flex: 0.8;
+    min-width: 300px;
+    background-color: #0f1016; /* พื้นหลังสีเข้มแบบอวกาศตามรูป */
+    border: 1px solid #222533;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* หัวข้อกล่องสิทธิประโยชน์ */
+.zone-details-header {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    border-bottom: 1px solid #222533;
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+/* รายการสิทธิประโยชน์ */
+.bullet-list-interactive {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.bullet-list-interactive li {
+    padding: 8px 0;
+    border-bottom: 1px solid #161924;
+    font-size: 0.95rem;
+}
+
+.bullet-list-interactive li.default-msg {
+    color: #94a3b8;
+    text-align: center;
+    padding: 40px 10px;
+    border-bottom: none;
+}
+
+/* ส่วนของปุ่มกดเลือกโซน */
+.zone-selector-container {
+    margin-top: 15px;
+    background: #0f1016;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.selector-label {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.zone-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.zone-btn {
+    background: #1e2130;
+    color: #cbd5e1;
+    border: 1px solid #2e334a;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.zone-btn:hover {
+    background: #2a2f45;
+    color: #fff;
+}
+
+.zone-btn.active {
+    background: #0072CE; /* สีปุ่มเมื่อถูกเลือก */
+    color: #fff;
+    border-color: #0084ff;
+    box-shadow: 0 0 10px rgba(0, 114, 206, 0.5);
+}
+<ul class="bullet-list">
+                            <li><strong>มุมมองแต่ละโซน:</strong> <a href=https://www.plutoticket.com/virtual" target="_blank">https://www.plutoticket.com/virtual</a></li>
+                        </ul>
+                    </div> 
+            
                 <div class="tab-content-block">
                     <h2 class="section-title">How To การกดบัตรรอบ Weverse Presale</h2>
                     <img src="how to Weverse Presale.jpg" alt="PLAVE Concert how to">
