@@ -6,20 +6,20 @@
     <title>2026 PLAVE WORLD TOUR [KEEP IT MANIC] - Concert Guide</title>
     <style>
         /* ==========================================================================
-           1. THEME SETTING & VARIABLE (ปรับดีไซน์กระจกรมควันโปร่งแสง เพื่อไม่ให้ตัวอักษรจม)
+           1. THEME SETTING & VARIABLE
            ========================================================================== */
         :root {
-            --neon-red: #ff002b;                  /* สีแดงแมนิแอคหลักตามเส้นขอบ */
+            --neon-red: #ff002b;                  
             --neon-glow: rgba(255, 0, 43, 0.4);
             
-            /* พื้นหลังและแผงควบคุมสไตล์ Glassmorphism โปร่งแสง หรูหรา มีมิติ */
-            --glass-outer-bg: rgba(10, 12, 18, 0.8);     /* ตัวกรอบนอกสีเข้มโปร่งแสง */
-            --glass-inner-left: rgba(6, 8, 14, 0.65);     /* เมนูฝั่งซ้าย */
-            --glass-inner-right: rgba(20, 22, 28, 0.85);  /* พื้นหลังฝั่งขวา ปรับให้ทึบขึ้นเล็กน้อยเพื่อให้อ่านอักษรง่ายขึ้น */
+            /* พื้นหลังและแผงควบคุมสไตล์ Glassmorphism */
+            --glass-outer-bg: rgba(10, 12, 18, 0.8);     
+            --glass-inner-left: rgba(6, 8, 14, 0.65);     
+            --glass-inner-right: rgba(20, 22, 28, 0.85);  
             
             /* สีตัวอักษร */
-            --text-light-main: #f8fafc;            /* สีขาวนวลคมชัด */
-            --text-light-dim: #94a3b8;               /* สีเทาอ่อนสำหรับข้อมูลรอง */
+            --text-light-main: #f8fafc;            
+            --text-light-dim: #94a3b8;               
             
             /* ปุ่ม BUY TICKET */
             --btn-gray: #e2e8f0;                
@@ -27,7 +27,7 @@
         }
 
         /* ==========================================================================
-           2. LAYOUT & BACKGROUND (ตั้งค่า bg.jpg เป็นพื้นหลังเว็บ และจัดกรอบอยู่กึ่งกลางจอ)
+           2. LAYOUT & BACKGROUND
            ========================================================================== */
         body {
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
@@ -75,6 +75,7 @@
             justify-content: space-between;
             align-items: center;
             background: rgba(0, 0, 0, 0.4);
+            flex-shrink: 0;
         }
         .modal-title-group {
             display: flex;
@@ -142,12 +143,12 @@
             border-color: var(--neon-red);
         }
 
-        /* โครงสร้างเนื้อหาแบ่ง ซ้าย (เมนู) - ขวา (ข้อความ) */
+        /* โครงสร้างเนื้อหาแบ่ง ซ้าย-ขวา */
         .modal-body {
             display: grid;
             grid-template-columns: 280px 1fr;
             flex: 1;
-            overflow: hidden;
+            overflow: hidden; /* ควบคุมให้ส่วนบอดี้ไม่ล้นหน้าจอหลัก */
         }
 
         /* เมนูฝั่งซ้าย */
@@ -185,7 +186,7 @@
             box-shadow: 0 0 15px rgba(255, 0, 43, 0.1);
         }
 
-        /* พื้นที่แสดงเนื้อหาฝั่งขวา (กระจกรมควัน) */
+        /* พื้นที่แสดงเนื้อหาฝั่งขวา */
         .right-content-viewer {
             background: var(--glass-inner-right);
             padding: 40px 45px;
@@ -239,11 +240,11 @@
             margin-right: 6px;
         }
 
-        /* 🛠️ แก้ไขตรงนี้: สั่งให้รูปภาพขยายใหญ่เต็มความกว้างกรอบขวา ไม่ย่อเล็กแล้ว */
+        /* จัดการสัดส่วนของรูปภาพในคอนเทนต์ขวา */
         .right-content-viewer img {
-            width: 100%;             /* ขยายกว้างเต็ม 100% ของพื้นที่ฝั่งขวา */
+            width: 100%;             
             max-width: 100%;         
-            height: auto;            /* ให้ความสูงปรับออโต้ตามสัดส่วนภาพ ไม่โดนบีบแบน */
+            height: auto;            
             display: block;
             margin: 0 auto 25px auto;
             border-radius: 8px;
@@ -261,7 +262,7 @@
         /* ส่วนของหน้าภาพรวม (Overview) */
         .overview-grid {
             display: grid;
-            grid-template-columns: 280px 1fr; /* ขยายขนาดกล่องโปสเตอร์หน้าแรกขึ้นเล็กน้อย */
+            grid-template-columns: 280px 1fr; 
             gap: 30px;
             align-items: start;
         }
@@ -279,34 +280,26 @@
         }
         .tag-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             margin-top: 30px;
         }
+        
+        /* ดีไซน์ Price Badges ของระบบใหม่ */
         .price-badge {
+            display: inline-block; 
             padding: 8px 16px;
             border-radius: 6px;
             font-size: 0.88rem;
             font-weight: bold;
-            color: #fff;
+            color: #fff; 
         }
-      .price-badge {
-    display: inline-block; /* เพิ่มตรงนี้เพื่อให้จัดระยะห่าง (padding) ได้สวยงามขึ้น */
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 0.88rem;
-    font-weight: bold;
-    color: #fff; /* สีตัวอักษรเริ่มต้นเป็นสีขาว */
-}
-
-.price-badge.price-6800 { background-color: #FF1F00; } 
-.price-badge.price-5500 { background-color: #FF7A00; } 
-
-/* โซนสีอ่อน: ปรับ color ให้เป็นสีดำ (#000) เพื่อให้มองเห็นตัวเลขชัดเจน */
-.price-badge.price-3800 { background-color: #FFE699; color: #000; } 
-.price-badge.price-3500 { background-color: #FFF5CC; color: #000; } 
-.price-badge.price-2800 { background-color: #E2F0D9; color: #000; } 
-
-.price-badge.price-2500 { background-color: #0070C0; }
+        .price-badge.price-6800 { background-color: #FF1F00; color: #fff; } 
+        .price-badge.price-5500 { background-color: #FF7A00; color: #fff; } 
+        .price-badge.price-3800 { background-color: #FFE57F; color: #000; } 
+        .price-badge.price-3500 { background-color: #FFF2B2; color: #000; } 
+        .price-badge.price-2800 { background-color: #A1E3F5; color: #000; } 
+        .price-badge.price-2500 { background-color: #0072CE; color: #fff; }
 
         /* แถบสกรอลบาร์ */
         .right-content-viewer::-webkit-scrollbar { width: 5px; }
@@ -344,7 +337,7 @@
             
             <nav class="left-menu-bar">
                 <button class="menu-item active" onclick="changeModalTab(0, this)">📜 ข้อมูลการแสดง</button>
-                <button class="menu-item" onclick="changeModalTab(1, this)">🗓️ กำหนดการ</button>
+                <button class="menu-item" onclick="changeModalTab(1, this)">🗓️ 定 กำหนดการ</button>
                 <button class="menu-item" onclick="changeModalTab(2, this)">💺 ผังที่นั่งและราคา</button>
                 <button class="menu-item" onclick="changeModalTab(3, this)">🎫 How To การกดบัตรรอบ Weverse</button>
                 <button class="menu-item" onclick="changeModalTab(4, this)">🎫 How To การกดบัตรรอบ General Sale</button>
@@ -355,7 +348,6 @@
 
             <div class="right-content-viewer">
 
-                <!-- 1. ข้อมูลการแสดง -->
                 <div class="tab-content-block active">
                     <h2 class="section-title">ข้อมูลคอนเสิร์ต</h2>
                     <div class="overview-grid">
@@ -367,30 +359,26 @@
                             <p><strong>📅 วันที่แสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
                             <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
                             <div class="tag-container">
-    <span class="price-badge price-6800">VIP 6,800 บ.</span>
-    <span class="price-badge price-5500">5,500 บ.</span>
-    <span class="price-badge price-3800">3,800 บ.</span>
-    <span class="price-badge price-3500">3,500 บ.</span>
-    <span class="price-badge price-2800">2,800 บ.</span>
-    <span class="price-badge price-2500">2,500 บ.</span>
-</div>
+                                <span class="price-badge price-6800">VIP 6,800 บ.</span>
+                                <span class="price-badge price-5500">5,500 บ.</span>
+                                <span class="price-badge price-3800">3,800 บ.</span>
+                                <span class="price-badge price-3500">3,500 บ.</span>
+                                <span class="price-badge price-2800">2,800 บ.</span>
+                                <span class="price-badge price-2500">2,500 บ.</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. กำหนดการ -->
                 <div class="tab-content-block">
                     <h2 class="section-title">กำหนดการ</h2>
                     <ul class="bullet-list">
-                        <li><strong>เปิดจำหน่ายบัตร:</strong> 
-                           <li></strong> - Weverse Membership Presale </strong></li> <li>วันเสาร์ที่ 1 สิงหาคม 2569 เวลา 11.00 น. ถึง 21.59 น.</li>
-                           <li></strong> - General Sale</strong></li> <li>วันอาทิตย์ที่ 2 สิงหาคม 2569 ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
-                        <li><strong>วันแสดง:</strong> วันเสาร์ที่ 10 ตุลาคม 2569</li>
+                        <li><strong>Weverse Membership Presale :</strong> วันเสาร์ที่ 1 สิงหาคม 2569 เวลา 11.00 น. ถึง 21.59 น.</li>
+                        <li><strong>General Sale :</strong> วันอาทิตย์ที่ 2 สิงหาคม 2569 ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
+                        <li><strong>วันแสดงคอนเสิร์ต :</strong> วันเสาร์ที่ 10 ตุลาคม 2569 เวลา 18:00 น.</li>
                     </ul>
                 </div>
 
-                <!-- 3. ผังที่นั่งและราคา -->
                 <div class="tab-content-block">
                     <h2 class="section-title">ผังที่นั่งและราคา</h2>
                     <div class="seating-map-container">
@@ -401,42 +389,33 @@
                     </div>
                 </div>
 
-                <!-- 4. How To การกดบัตรรอบ Weverse -->
                 <div class="tab-content-block">
                     <h2 class="section-title">How To การกดบัตรรอบ Weverse Presale</h2>
                     <img src="how to Weverse Presale.jpg" alt="PLAVE Concert how to">
                     <ul class="bullet-list">
-                        <li><strong>หมายเหตุ</strong> 
- <li>1. ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ที่จะใช้ยืนยันตัวตนในวันเข้าชมการแสดง ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี หากฝ่าฝืนเงื่อนไขถือว่าสละสิทธิ์ในการเข้าร่วมงาน และไม่สามารถขอคืนเงินได้</li>
- <li>2. ผู้เข้าร่วมงานต้องแสดง บัตรประชาชนหรือหนังสือเดินทาง (Passport) ตัวจริงที่ยังไม่หมดอายุ ณ จุดตรวจหน้าประตูทางเข้า ไม่รับเอกสารอื่นใด เช่น ใบขับขี่ บัตรรรเรียน/นักศึกษา สำเนาบัตร หรือบัตรประชาชนดิจิทัลจากแอปพลิเคชัน</li>
- <li>3. หากชื่อหรือนามสกุลสะกดผิดโดยไม่ตั้งใจ รวมกันไม่เกิน 4 ตัวอักษร อนุโลมให้เข้างานได้ โดยขึ้นอยู่กับดุลยพินิจของเจ้าหน้าที่ในวันงาน</li>
- <li>4. การซื้อบัตรฯ ถือเป็นการยอมรับเงื่อนไขทั้งหมดของบริษัทฯ โดยสมบูรณ์ และขอสงวนสิทธิ์ไม่คืนเงินในทุกกรณี</li>
+                        <li><strong>ข้อที่ 1:</strong> ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ที่จะใช้ยืนยันตัวตนในวันเข้าชมการแสดง ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี หากฝ่าฝืนเงื่อนไขถือว่าสละสิทธิ์ในการเข้าร่วมงาน และไม่สามารถขอคืนเงินได้</li>
+                        <li><strong>ข้อที่ 2:</strong> ผู้เข้าร่วมงานต้องแสดง บัตรประชาชนหรือหนังสือเดินทาง (Passport) ตัวจริงที่ยังไม่หมดอายุ ณ จุดตรวจหน้าประตูทางเข้า ไม่รับเอกสารอื่นใด เช่น ใบขับขี่ บัตรรรเรียน/นักศึกษา สำเนาบัตร หรือบัตรประชาชนดิจิทัลจากแอปพลิเคชัน</li>
+                        <li><strong>ข้อที่ 3:</strong> หากชื่อหรือนามสกุลสะกดผิดโดยไม่ตั้งใจ รวมกันไม่เกิน 4 ตัวอักษร อนุโลมให้เข้างานได้ โดยขึ้นอยู่กับดุลยพินิจของเจ้าหน้าที่ในวันงาน</li>
+                        <li><strong>ข้อที่ 4:</strong> การซื้อบัตรฯ ถือเป็นการยอมรับเงื่อนไขทั้งหมดของบริษัทฯ โดยสมบูรณ์ และขอสงวนสิทธิ์ไม่คืนเงินในทุกกรณี</li>
                     </ul>
                 </div>
 
-                 <!-- 5.How To การกดบัตรรอบ General Sale -->
-                <div class="tab-content-block">
+                 <div class="tab-content-block">
                     <h2 class="section-title">How To การกดบัตรรอบ General Sale</h2>
                     <img src="how to General Sale.jpg" alt="PLAVE Concert how to">
                     <ul class="bullet-list">
-                        <li><strong>หมายเหตุ</strong> 
- <li>1. ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ที่จะใช้ยืนยันตัวตนในวันเข้าชมการแสดง ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี หากฝ่าฝืนเงื่อนไขถือว่าสละสิทธิ์ในการเข้าร่วมงาน และไม่สามารถขอคืนเงินได้</li>
- <li>2. ผู้เข้าร่วมงานต้องแสดง บัตรประชาชนหรือหนังสือเดินทาง (Passport) ตัวจริงที่ยังไม่หมดอายุ ณ จุดตรวจหน้าประตูทางเข้า ไม่รับเอกสารอื่นใด เช่น ใบขับขี่ บัตรรรเรียน/นักศึกษา สำเนาบัตร หรือบัตรประชาชนดิจิทัลจากแอปพลิเคชัน</li>
- <li>3. หากชื่อหรือนามสกุลสะกดผิดโดยไม่ตั้งใจ รวมกันไม่เกิน 4 ตัวอักษร อนุโลมให้เข้างานได้ โดยขึ้นอยู่กับดุลยพินิจของเจ้าหน้าที่ในวันงาน</li>
- <li>4. การซื้อบัตรฯ ถือเป็นการยอมรับเงื่อนไขทั้งหมดของบริษัทฯ โดยสมบูรณ์ และขอสงวนสิทธิ์ไม่คืนเงินในทุกกรณี</li>
+                        <li><strong>ข้อที่ 1:</strong> ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ที่จะใช้ยืนยันตัวตนในวันเข้าชมการแสดง ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี หากฝ่าฝืนเงื่อนไขถือว่าสละสิทธิ์ในการเข้าร่วมงาน และไม่สามารถขอคืนเงินได้</li>
+                        <li><strong>ข้อที่ 2:</strong> ผู้เข้าร่วมงานต้องแสดง บัตรประชาชนหรือหนังสือเดินทาง (Passport) ตัวจริงที่ยังไม่หมดอายุ ณ จุดตรวจหน้าประตูทางเข้า ไม่รับเอกสารอื่นใด เช่น ใบขับขี่ บัตรรรเรียน/นักศึกษา สำเนาบัตร หรือบัตรประชาชนดิจิทัลจากแอปพลิเคชัน</li>
+                        <li><strong>ข้อที่ 3:</strong> หากชื่อหรือนามสกุลสะกดผิดโดยไม่ตั้งใจ รวมกันไม่เกิน 4 ตัวอักษร อนุโลมให้เข้างานได้ โดยขึ้นอยู่กับดุลยพินิจของเจ้าหน้าที่ในวันงาน</li>
+                        <li><strong>ข้อที่ 4:</strong> การซื้อบัตรฯ ถือเป็นการยอมรับเงื่อนไขทั้งหมดของบริษัทฯ โดยสมบูรณ์ และขอสงวนสิทธิ์ไม่คืนเงินในทุกกรณี</li>
                     </ul>
                 </div>
 
-                <!-- 6. สิทธิพิเศษ Benefits -->
                 <div class="tab-content-block">
                     <h2 class="section-title">Benefits</h2>
                     <img src="benefit.png" alt="benefit">
-                    <ul class="bullet-list">
-                        <li><strong></strong> </li>
-                    </ul>
                 </div>
 
-                <!-- 6. กฎระเบียบการเข้างาน -->
                 <div class="tab-content-block">
                     <h2 class="section-title">กฎระเบียบ</h2>
                     <ul class="bullet-list">
@@ -446,11 +425,10 @@
                     </ul>
                 </div>
 
-                <!-- 7. วิธีการเดินทาง -->
                 <div class="tab-content-block">
                     <h2 class="section-title">วิธีการเดินทาง</h2>
                     <ul class="bullet-list">
-                        <li><strong>🚗 รถยนต์:</strong> | 📍 <a href="https://maps.app.goo.gl/FzLr9eag5h9wrC45A" target="_blank">คลิกดูแผนที่</a></li>
+                        <li><strong>🚗 รถยนต์:</strong> | 📍 <a href="https://maps.google.com" target="_blank" style="color: #ff002b; font-weight: bold;">คลิกดูแผนที่</a></li>
                         <li><strong>🚆 รถไฟฟ้า:</strong> รถไฟฟ้าสายสีชมพู ลงสถานีอิมแพ็ค เมืองทองธานี (MT01) ทางออก 3 </li>
                         <li><strong>🚐 รถตู้:</strong> อนุสาวรีย์ชัยสมรภูมิ (เกาะพหลโยธิน) และจตุจักร (BTS หมอชิต/MRT จตุจักร)</li>
                         <li><strong>🚌 รถเมล์:</strong> รถเมล์สาย 166 (ปอ.) (AC) และ 2-31E (166 ศรีสมาน)</li>
