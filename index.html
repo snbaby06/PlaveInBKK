@@ -463,21 +463,36 @@
                         <img src="seating-map.png" alt="PLAVE Concert Seating Map">
                         <ul class="bullet-list">
                             <li><strong>เลือกดูมุมมองแต่ละโซน: </strong><a href="https://www.plutoticket.com/virtual" target="_blank" style="color: #ffffff; font-weight: bold;">🪐Pluto Ticket</a></li>
-                            <div class="zone-selector-container">
+                          <div class="zone-selector-container">
     <p>เลือกโซนเพื่อดูรายละเอียดราคา:</p>
     <div class="zone-buttons">
-        <button class="zone-btn" data-price="6800">VIP <span>6,800</span> ฿</button>
-        <button class="zone-btn" data-price="5500"><span>5,500</span> ฿</button>
-        <button class="zone-btn" data-price="3800"><span>3,800</span> ฿</button>
-        <button class="zone-btn" data-price="3500"><span>3,500</span> ฿</button>
-        <button class="zone-btn" data-price="2800"><span>2,800</span> ฿</button>
-        <button class="zone-btn" data-price="2500"><span>2,500</span> ฿</button>
+        <button class="zone-btn" data-price="6800">VIP 6,800 ฿</button>
+        <button class="zone-btn" data-price="5500">5,500 ฿</button>
+        <button class="zone-btn" data-price="3800">3,800 ฿</button>
+        <button class="zone-btn" data-price="3500">3,500 ฿</button>
+        <button class="zone-btn" data-price="2800">2,800 ฿</button>
+        <button class="zone-btn" data-price="2500">2,500 ฿</button>
+    </div>
+</div>
+
+<div id="price-detail-display" style="margin-top: 20px; color: #ffffff; line-height: 2;">
+    <div>
+        <span style="color: #aaa;">ราคาบัตร:</span> 
+        <strong style="float: right;"><span id="base-price-text">-</span> ฿</strong>
+    </div>
+    <div>
+        <span style="color: #aaa;">ราคาบัตร รวมค่าบริการ 30 บาทต่อใบ + Processing fee 3% (ไม่รวม Ticket Protect):</span> 
+        <strong style="float: right;"><span id="fee-price-text">-</span> ฿</strong>
+    </div>
+    <div style="margin-top: 5px; padding-top: 5px; border-top: 1px solid #444;">
+        <span style="color: #ffa500; font-weight: bold;">จำนวนเงินที่ต้องชำระ:</span> 
+        <strong style="float: right; font-size: 1.5rem; color: #ff4a4a;"><span id="total-price-text">-</span> ฿</strong>
     </div>
 </div>
 
 <div id="price-display-block" style="margin-top: 20px; color: #fff;">
     <h3>ราคาที่ต้องจ่าย: <span id="total-price-text">0</span> ฿</h3>
-    <small style="color: #aaa;">*(รวม Processing fee: 3% แล้ว / ไม่รวม Ticket Protect)*</small>
+    <small style="color: #aaa;">*(รวมค่าบริการ 30 บาทต่อใบ + Processing fee 3% / ไม่รวม Ticket Protect)*</small>
 </div>
                         </ul>
                     </div>
@@ -669,53 +684,22 @@
                     "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
                 ]
             }
-        };
+     </script>
+        <script>
+    document.querySelectorAll('.zone-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const basePrice = parseFloat(button.getAttribute('data-price'));
+            const serviceFee = 30 + (basePrice * 0.03);
+            const totalPrice = basePrice + serviceFee;
 
-        // ฟังก์ชันสลับเมนู Tab หลัก
-        function changeModalTab(tabIndex, buttonElement) {
-            const blocks = document.querySelectorAll('.tab-content-block');
-            const buttons = document.querySelectorAll('.menu-item');
-
-            blocks.forEach(block => block.classList.remove('active'));
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            blocks[tabIndex].classList.add('active');
-            buttonElement.classList.add('active');
-            
-            document.querySelector('.right-content-viewer').scrollTop = 0;
-        }
-
-        // ฟังก์ชันสำหรับเปลี่ยนข้อมูลสิทธิประโยชน์เมื่อคลิกเลือกปุ่มราคา
-        function selectZone(priceKey, element) {
-            const data = concertBenefitData[priceKey];
-            if (!data) return;
-
-            document.getElementById('selected-zone-title').innerText = data.title;
-
-            const listContainer = document.getElementById('benefits-list');
-            listContainer.innerHTML = ''; 
-
-            data.benefits.forEach(benefit => {
-                const li = document.createElement('li');
-                li.innerHTML = benefit;
-                
-                if(benefit.startsWith('✅')) {
-                    li.style.color = '#e2e8f0';
-                } else if(benefit.startsWith('❌')) {
-                    li.style.color = '#64748b';
-                }
-                
-                listContainer.appendChild(li);
-            });
-
-            document.querySelectorAll('.zone-btn').forEach(btn => btn.classList.remove('active'));
-            
-            if (element) {
-                element.classList.add('active');
-            } else if (window.event && window.event.currentTarget) {
-                window.event.currentTarget.classList.add('active');
-            }
-        }
-    </script>
+            document.getElementById('base-price-text').innerText = basePrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('fee-price-text').innerText = serviceFee.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('total-price-text').innerText = totalPrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+ 
+            document.querySelectorAll('.zone-btn').forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+</script>
 </body>
 </html>
