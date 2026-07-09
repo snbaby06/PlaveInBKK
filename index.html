@@ -77,18 +77,20 @@
             background: rgba(0, 0, 0, 0.4);
             flex-shrink: 0;
         }
-        .modal-title-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        <div class="modal-title-group">
+    <span class="modal-emoji-logo">🛸</span>
+    <h1 class="modal-title">2026 PLAVE WORLD TOUR [KEEP IT MANIC] IN BANGKOK</h1>
+</div>
+         }
         .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--neon-red);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--neon-red);
-        }
+            .modal-emoji-logo {
+    font-size: 1.4rem;  /* ปรับขนาดใหญ่-เล็กของอีโมจิได้จากตรงนี้ */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* เพิ่มเอฟเฟกต์เงาเรืองแสงสีแดงด้านหลังอีโมจิ */
+    filter: drop-shadow(0 0 6px var(--neon-red)); 
+}
         .modal-title {
             color: #ffffff;
             font-size: 1.05rem;
@@ -400,7 +402,7 @@
         <header class="modal-header">
             <div class="modal-title-group">
                 <div class="status-dot"></div>
-                <h1 class="modal-title">PLAVE WORLD TOUR [KEEP IT MANIC] IN BANGKOK</h1>
+                <h1 class="modal-title"> 🛸 PLAVE WORLD TOUR [KEEP IT MANIC] IN BANGKOK  🛸 </h1>
             </div>
             <div class="header-controls">
                 <button class="btn-buy-ticket-top" onclick="window.open('https://www.thaiticketmajor.com/concert/2026-plave-world-tour-keep-it-manic-in-bangkok.html', '_blank')">Buy Ticket</button>
@@ -465,7 +467,7 @@
                     <img src="how to Weverse Presale.jpg" alt="PLAVE Concert how to">
                     <ul class="bullet-list">
                         <li><strong>หมายเหตุ</strong></li>
-                        <li><strong>-</strong> ลงทะเบียน Weverse Membership ตั้งแต่วันที่ 13 - 17 กรกฎาคม 2569 ผ่านเว็บไซต์ <a href="https://weverse.io/plave" target="_blank" font-weight: bold;>WEVERSE</a> (URL จะมีการอัพเดตเพิ่มเติมอีกครั้งในภายหลัง)</li>
+                        <li><strong>-</strong> ลงทะเบียน Weverse Membership ตั้งแต่วันที่ 13 - 17 กรกฎาคม 2569 ผ่านเว็บไซต์ <a href="https://weverse.io/plave" target="_blank" style="color: #ffffff; font-weight: bold;">WEVERSE</a> (URL จะมีการอัพเดตเพิ่มเติมอีกครั้งในภายหลัง)</li>
                         <li><strong>-</strong> มีระบบรันคิวหน้าเว็บไซต์ เปิดให้รอรับคิวตั้งแต่เวลา 10:00 น. ของวันกดรอบบัตร Weverse Membership Presale</li>
                         <li><strong>-</strong> ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี</li>
                         <li><strong>-</strong> ผู้เข้าร่วมงานต้องแสดง บัตรประชาชนหรือหนังสือเดินทาง (Passport) ตัวจริงที่ยังไม่หมดอายุ ณ จุดตรวจหน้าประตูทางเข้า</li>
