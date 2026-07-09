@@ -290,7 +290,6 @@
             margin-top: 30px;
         }
         
-        /* ดีไซน์ Price Badges ของระบบใหม่ */
         .price-badge {
             display: inline-block; 
             padding: 8px 16px;
@@ -306,7 +305,6 @@
         .price-badge.price-2800 { background-color: #A1E3F5; color: #000; } 
         .price-badge.price-2500 { background-color: #0072CE; color: #000; }
 
-        /* แถบ Interactive สำหรับตรวจสอบ Benefits */
         .seating-interactive-wrapper {
             margin-top: 30px;
             display: flex;
@@ -375,19 +373,18 @@
             margin-bottom: 12px;
             font-size: 1rem;
             line-height: 1.6;
+            color: #fff;
         }
         .default-msg {
             color: var(--text-light-dim);
             font-style: italic;
         }
 
-        /* แถบสกรอลบาร์ */
         .right-content-viewer::-webkit-scrollbar { width: 5px; }
         .right-content-viewer::-webkit-scrollbar-track { background: transparent; }
         .right-content-viewer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
         .right-content-viewer::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
 
-        /* รองรับขนาดหน้าจอ Responsive */
         @media (max-width: 992px) {
             body { padding: 15px; overflow-y: auto; }
             .modal-window { max-width: 95vw; width: 100%; height: auto; max-height: none; }
@@ -427,7 +424,6 @@
 
             <div class="right-content-viewer">
 
-                <!-- Tab 0: ข้อมูลการแสดง -->
                 <div class="tab-content-block active">
                     <h2 class="section-title">ข้อมูลการแสดงและกำหนดการ</h2>
                     <div class="overview-grid">
@@ -456,56 +452,50 @@
                     </div>
                 </div>
 
-                <!-- Tab 1: ผังที่นั่งและราคา -->
                 <div class="tab-content-block">
                     <h2 class="section-title">ผังที่นั่งและราคา</h2>
                     <div class="seating-map-container">
                         <img src="seating-map.png" alt="PLAVE Concert Seating Map">
                         <ul class="bullet-list">
                             <li><strong>เลือกดูมุมมองแต่ละโซน: </strong><a href="https://www.plutoticket.com/virtual" target="_blank" style="color: #ffffff; font-weight: bold;">🪐Pluto Ticket</a></li>
-                          <div class="zone-selector-container">
-    <p>เลือกโซนเพื่อดูรายละเอียดราคา:</p>
-    <div class="zone-buttons">
-        <button class="zone-btn" data-price="6800">VIP 6,800 ฿</button>
-        <button class="zone-btn" data-price="5500">5,500 ฿</button>
-        <button class="zone-btn" data-price="3800">3,800 ฿</button>
-        <button class="zone-btn" data-price="3500">3,500 ฿</button>
-        <button class="zone-btn" data-price="2800">2,800 ฿</button>
-        <button class="zone-btn" data-price="2500">2,500 ฿</button>
-    </div>
-</div>
-
-<div id="price-detail-display" style="margin-top: 20px; color: #ffffff; line-height: 2;">
-    <div>
-        <span style="color: #aaa;">ราคาบัตร:</span> 
-        <strong style="float: right;"><span id="base-price-text">-</span> ฿</strong>
-    </div>
-    <div>
-        <span style="color: #aaa;">ราคาบัตร รวมค่าบริการ 30 บาทต่อใบ + Processing fee 3% (ไม่รวม Ticket Protect):</span> 
-        <strong style="float: right;"><span id="fee-price-text">-</span> ฿</strong>
-    </div>
-    <div style="margin-top: 5px; padding-top: 5px; border-top: 1px solid #444;">
-        <span style="color: #ffa500; font-weight: bold;">จำนวนเงินที่ต้องชำระ:</span> 
-        <strong style="float: right; font-size: 1.5rem; color: #ff4a4a;"><span id="total-price-text">-</span> ฿</strong>
-    </div>
-</div>
-
-<div id="price-display-block" style="margin-top: 20px; color: #fff;">
-    <h3>ราคาที่ต้องจ่าย: <span id="total-price-text">0</span> ฿</h3>
-    <small style="color: #aaa;">*(รวมค่าบริการ 30 บาทต่อใบ + Processing fee 3% / ไม่รวม Ticket Protect)*</small>
-</div>
                         </ul>
+                        
+                        <div class="zone-selector-container">
+                            <p>เลือกโซนเพื่อดูรายละเอียดราคาตามบิลจริง TTM:</p>
+                            <div class="zone-buttons">
+                                <button class="zone-btn-calc" data-price="6800" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">VIP 6,800 ฿</button>
+                                <button class="zone-btn-calc" data-price="5500" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">5,500 ฿</button>
+                                <button class="zone-btn-calc" data-price="3800" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">3,800 ฿</button>
+                                <button class="zone-btn-calc" data-price="3500" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">3,500 ฿</button>
+                                <button class="zone-btn-calc" data-price="2800" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">2,800 ฿</button>
+                                <button class="zone-btn-calc" data-price="2500" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">2,500 ฿</button>
+                            </div>
+                        </div>
+
+                        <div id="price-detail-display" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,0,43,0.2); color: #ffffff; line-height: 2;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #aaa;">ราคาบัตร:</span> 
+                                <strong><span id="base-price-text">-</span> ฿</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: #aaa;">ค่าบริการ (30 บาทต่อใบ + Processing fee 3%):</span> 
+                                <strong><span id="fee-price-text">-</span> ฿</strong>
+                            </div>
+                            <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #444; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: #ffa500; font-weight: bold;">จำนวนเงินที่ต้องชำระทั้งหมด:</span> 
+                                <strong style="font-size: 1.5rem; color: #ff4a4a;"><span id="total-price-text">-</span> ฿</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Tab 2: Weverse Presale -->
                 <div class="tab-content-block">
                     <h2 class="section-title">How To & Remarks การกดบัตรรอบ Weverse Presale</h2>
                     <img src="how to Weverse Presale.jpg" alt="PLAVE Concert how to">
                     <ul class="bullet-list">
                         <li><strong>หมายเหตุ</strong></li>
                         <li><strong>🎟️</strong> จะต้องกรอกหมายเลข Weverse Membership ID ก่อนทำการสั่งซื้อ</li>
-                        <li><strong>🎟️</strong> ลงทะเบียน Weverse Membership ตั้งแต่วันที่ 13 - 17 กรกฎาคม 2569 ผ่านเว็บไซต์ <a href="https://weverse.io/plave" target="_blank" style="color: #ffffff; font-weight: bold;">WEVERSE</a> (URL จะมีการอัพเดตเพิ่มเติมอีกครั้งในภายหลัง)</li>
+                        <li><strong>🎟️</strong> ลงทะเบียน Weverse Membership ตั้งแต่วันที่ 13 - 17 กรกฎาคม 2569 ผ่านเว็บไซต์ <a href="https://weverse.io/plave" target="_blank" style="color: #ffffff; font-weight: bold;">WEVERSE</a></li>
                         <li><strong>🎟️</strong> Weverse Membership 1 รหัส สามารถซื้อบัตรคอนเสิร์ต ได้สูงสุด 2 ใบ ต่อ 1 รอบการแสดง</li>
                         <li><strong>🎟️</strong> มีระบบรันคิวหน้าเว็บไซต์ เปิดให้รอรับคิวตั้งแต่เวลา 10:00 น. ของวันกดรอบบัตร Weverse Membership Presale</li>
                         <li><strong>🎟️</strong> ผู้ซื้อบัตรคอนเสิร์ต ต้องระบุชื่อและนามสกุลของผู้เข้าร่วมงานบนบัตรฯ และต้องตรงกับชื่อที่ปรากฏในบัตรประชาชนหรือหนังสือเดินทาง (Passport) ห้ามโอนสิทธิ์ ขายต่อ เปลี่ยนชื่อ หรือมอบอำนาจในทุกกรณี</li>
@@ -515,7 +505,6 @@
                     </ul>
                 </div>
 
-                <!-- Tab 3: General Sale -->
                 <div class="tab-content-block">
                     <h2 class="section-title">How To & Remarks การกดบัตรรอบ General Sale</h2>
                     <img src="how to General Sale.jpg" alt="PLAVE Concert how to">
@@ -531,7 +520,6 @@
                     </ul>
                 </div>
 
-                <!-- Tab 4: Benefits -->
                 <div class="tab-content-block">
                     <h2 class="section-title">Benefits</h2>
                     
@@ -565,7 +553,6 @@
                     </div>
                 </div>
 
-                <!-- Tab 5: ข้อกำหนดเพิ่มเติม -->
                 <div class="tab-content-block">
                     <h2 class="section-title">ข้อกำหนดเพิ่มเติม</h2>
                     <ul class="bullet-list">
@@ -582,7 +569,6 @@
                     </ul>
                 </div>
 
-                <!-- Tab 6: วิธีการเดินทาง -->
                 <div class="tab-content-block">
                     <h2 class="section-title">วิธีการเดินทาง</h2>
                     <ul class="bullet-list">
@@ -598,20 +584,21 @@
     </div>
 
     <script>
-    document.querySelectorAll('.zone-btn').forEach(button => {
-        const basePrice = parseFloat(button.getAttribute('data-price'));
-        const finalPrice = basePrice * 1.03; 
-        const spanText = button.querySelector('span');
-        if (spanText) {
-            spanText.innerText = Math.floor(finalPrice).toLocaleString();
+        function changeModalTab(tabIndex, currentButton) {
+            // ซ่อนแท็บทั้งหมดก่อน
+            const allTabs = document.querySelectorAll('.tab-content-block');
+            allTabs.forEach(tab => tab.classList.remove('active'));
+    
+            const allMenuItems = document.querySelectorAll('.menu-item');
+            allMenuItems.forEach(item => item.classList.remove('active'));
+            
+            if(allTabs[tabIndex]) {
+                allTabs[tabIndex].classList.add('active');
+            }
+            currentButton.classList.add('active');
         }
-        button.addEventListener('click', () => {
-            document.getElementById('total-price-text').innerText = Math.floor(finalPrice).toLocaleString();
-        });
-    });
-</script>
-    <script>
-        // คลังข้อมูลสิทธิประโยชน์แยกตามราคา
+
+        // Benefits
         const concertBenefitData = {
             '6800': {
                 title: "✨ ราคา 6,800 ฿ (VIP)",
@@ -684,22 +671,48 @@
                     "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
                 ]
             }
-     </script>
-        <script>
-    document.querySelectorAll('.zone-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const basePrice = parseFloat(button.getAttribute('data-price'));
-            const serviceFee = 30 + (basePrice * 0.03);
-            const totalPrice = basePrice + serviceFee;
+        };
 
-            document.getElementById('base-price-text').innerText = basePrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('fee-price-text').innerText = serviceFee.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('total-price-text').innerText = totalPrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
- 
-            document.querySelectorAll('.zone-btn').forEach(b => b.classList.remove('active'));
-            button.classList.add('active');
+        // แสดง Benefits 
+        function selectZone(price, element) {
+            const data = concertBenefitData[price];
+            if (!data) return;
+
+            document.getElementById('selected-zone-title').innerText = data.title;
+            const listContainer = document.getElementById('benefits-list');
+            listContainer.innerHTML = ''; 
+
+            data.benefits.forEach(benefit => {
+                const li = document.createElement('li');
+                li.innerText = benefit;
+                listContainer.appendChild(li);
+            });
+
+            element.closest('.zone-buttons').querySelectorAll('.zone-btn').forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        //ระบบคำนวณราคาบัตรในแท็บ "ผังที่นั่งและราคา" 
+        document.querySelectorAll('.zone-btn-calc').forEach(button => {
+            button.addEventListener('click', () => {
+                const basePrice = parseFloat(button.getAttribute('data-price'));
+                const serviceFee = 30 + (basePrice * 0.03); // ค่าบริการ 30 + Processing fee 3%
+                const totalPrice = basePrice + serviceFee;
+
+                document.getElementById('base-price-text').innerText = basePrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                document.getElementById('fee-price-text').innerText = serviceFee.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                document.getElementById('total-price-text').innerText = totalPrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+                button.closest('.zone-buttons').querySelectorAll('.zone-btn-calc').forEach(b => {
+                    b.style.background = 'rgba(255, 255, 255, 0.08)';
+                    b.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    b.style.boxShadow = 'none';
+                });
+                button.style.background = 'var(--neon-red)';
+                button.style.borderColor = 'var(--neon-red)';
+                button.style.boxShadow = '0 0 15px var(--neon-glow)';
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
