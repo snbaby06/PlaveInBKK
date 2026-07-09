@@ -410,13 +410,94 @@
         .right-content-viewer::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 10px; }
         .right-content-viewer::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
 
+        /* ==========================================================================
+           4. MOBILE RESPONSIVE & PROTECTION STYLES
+           ========================================================================== */
+        body {
+            -webkit-user-select: none;  
+            -moz-user-select: none;     
+            -ms-user-select: none;      
+            user-select: none;          
+        }
+
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none; 
+        }
+
         @media (max-width: 992px) {
-            body { padding: 15px; overflow-y: auto; }
-            .modal-window { max-width: 95vw; width: 100%; height: auto; max-height: none; }
-            .modal-body { grid-template-columns: 1fr; }
-            .left-menu-bar { flex-direction: row; flex-wrap: wrap; padding: 12px; border-right: none; border-bottom: 1px solid rgba(255,0,43,0.2); }
-            .menu-item { padding: 10px 14px; font-size: 0.8rem; }
-            .right-content-viewer { padding: 25px; }
+            body { 
+                padding: 10px;
+                overflow-y: auto; 
+                align-items: flex-start;
+            }
+            .modal-window { 
+                max-width: 100vw; 
+                width: 100%;
+                height: auto; 
+                max-height: none; 
+                border-radius: 12px;
+            }
+            .modal-header {
+                padding: 15px 20px;
+            }
+            .modal-title {
+                font-size: 0.9rem;
+            }
+            .modal-body { 
+                grid-template-columns: 1fr;
+            }
+            .left-menu-bar { 
+                flex-direction: row; 
+                flex-wrap: nowrap; 
+                overflow-x: auto;
+                padding: 10px; 
+                border-right: none; 
+                border-bottom: 1px solid rgba(255,0,43,0.2); 
+                -webkit-overflow-scrolling: touch;
+                gap: 8px;
+            }
+            .menu-item { 
+                padding: 8px 14px;
+                font-size: 0.8rem; 
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .right-content-viewer { 
+                padding: 20px 15px; 
+            }
+            .overview-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .poster-box {
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .section-title {
+                font-size: 1.25rem;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
+            .bullet-list li, .bullet-list-interactive li {
+                font-size: 0.9rem;
+                margin-bottom: 14px;
+            }
+            .zone-buttons, .button-group {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .zone-btn, .zone-btn-calc {
+                width: 100% !important;
+                padding: 10px 5px !important;
+                font-size: 0.85rem !important;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -456,9 +537,10 @@
                             <img src="poster.jpg" alt="PLAVE Concert Poster">
                         </div>
                         <div class="details-box">
-                            <p><strong>📍 สถานที่แสดง :</strong> IMPACT Arena</p>
+                            <p><strong>📍 สถานที่แสดง :</strong> อิมแพ็ค อารีน่า เมืองทองธานี</p>
                             <p><strong>📅 วันที่แสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
                             <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
+                            <p><strong>🚪 ประตูเปิด :</strong> 16.30 น. </p>
                             <div class="tag-container">
                                 <span class="price-badge price-6800">VIP 6,800 ฿</span>
                                 <span class="price-badge price-5500">5,500 ฿</span>
@@ -469,7 +551,7 @@
                             </div>
                             <br>
                             <ul class="bullet-list">
-                                <li><strong>จำหน่ายบัตรรอบ Weverse Membership :</strong> วันเสาร์ที่ 1 สิงหาคม เวลา 11.00 น. จนถึง 21.59 น.</li>
+                                <li><strong>จำหน่ายบัตรรอบ Weverse Membership :</strong> วันเสาร์ที่ 1 สิงหาคม เวลา 11.00 น. - 21.59 น.</li>
                                 <li><strong>จำหน่ายบัตรรอบ General Sale :</strong> วันอาทิตย์ที่ 2 สิงหาคม ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
                                 <li><strong>วันแสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569 เวลา 18:00 น.</li>
                             </ul>
