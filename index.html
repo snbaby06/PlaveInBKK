@@ -700,12 +700,12 @@
 <script>
     // 1. 
     const zoneColors = {
-        '6800': { bg: '#FF1F00', text: '#ffffff', glow: 'rgba(255, 31, 0, 0.5)' },
+        '6800': { bg: '#FF1F00', text: '#000000', glow: 'rgba(255, 31, 0, 0.5)' },
         '5500': { bg: '#FF7A00', text: '#000000', glow: 'rgba(255, 122, 0, 0.5)' },
         '3800': { bg: '#FFE57F', text: '#000000', glow: 'rgba(255, 229, 127, 0.5)' },
         '3500': { bg: '#FFF2B2', text: '#000000', glow: 'rgba(255, 242, 178, 0.5)' },
         '2800': { bg: '#A1E3F5', text: '#000000', glow: 'rgba(161, 227, 245, 0.5)' },
-        '2500': { bg: '#0072CE', text: '#ffffff', glow: 'rgba(0, 114, 206, 0.5)' }
+        '2500': { bg: '#0072CE', text: '#000000', glow: 'rgba(0, 114, 206, 0.5)' }
     };
 
     // 2. Benefits 
@@ -875,33 +875,33 @@ document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 });
 
-// 
-document.addEventListener('keydown', function(e) {
-    const isCtrlOrCmd = e.ctrlKey || e.metaKey;
-    const key = e.key.toLowerCase();
+          // 
+          document.addEventListener('keydown', function(e) {
+           const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+           const key = e.key.toLowerCase();
 
-    // 
-    if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
-        e.preventDefault();
-    }
+           // 
+           if (isCtrlOrCmd && (key === 'c' || key === 'x' || key === 'a')) {
+               e.preventDefault();
+           }
 
-    // 
-    if (isCtrlOrCmd && key === 's') {
+           // 
+           if (isCtrlOrCmd && key === 's') {
         e.preventDefault();
-    }
+           }
 
-    // 
-    if (isCtrlOrCmd && key === 'p') {
+           // 
+           if (isCtrlOrCmd && key === 'p') {
         e.preventDefault();
-    }
+           }
 
-    // 
-    if (e.key === 'F12' || 
-        (isCtrlOrCmd && key === 'u') || 
-        (isCtrlOrCmd && e.shiftKey && key === 'i')) {
-        e.preventDefault();
-    }
-});
+           // 
+           if (e.key === 'F12' || 
+               (isCtrlOrCmd && key === 'u') || 
+               (isCtrlOrCmd && e.shiftKey && key === 'i')) {
+               e.preventDefault();
+           }
+       });
     </script>
 </body>
 </html>
