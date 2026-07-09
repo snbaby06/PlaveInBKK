@@ -342,12 +342,6 @@
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
         }
-        .zone-btn.active {
-            background: var(--neon-red);
-            border-color: var(--neon-red);
-            color: #ffffff;
-            box-shadow: 0 0 15px var(--neon-glow);
-        }
         .zone-details-container {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 8px;
@@ -378,6 +372,28 @@
         .default-msg {
             color: var(--text-light-dim);
             font-style: italic;
+        }
+
+        /* ปุ่มสำหรับการคำนวณราคาตั๋ว */
+        .zone-btn-calc {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-light-main);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .zone-btn-calc:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .right-content-viewer::-webkit-scrollbar { width: 5px; }
@@ -459,32 +475,31 @@
                         <ul class="bullet-list">
                             <li><strong>เลือกดูมุมมองแต่ละโซน: </strong><a href="https://www.plutoticket.com/virtual" target="_blank" style="color: #ffffff; font-weight: bold;">🪐Pluto Ticket</a></li>
                         </ul>          
-<div class="calculator-section">
-    <h3>เลือกราคาบัตรเพื่อคำนวณจำนวนเงินทั้งหมดที่ต้องชำระ:</h3>
-    <div class="button-group">
-        <button class="zone-btn-calc" onclick="calculateTicketPrice('6800', this)">VIP 6,800 ฿</button>
-        <button class="zone-btn-calc" onclick="calculateTicketPrice('5500', this)">5,500 ฿</button>
-        <button class="zone-btn-calc" onclick="calculateTicketPrice('3800', this)">3,800 ฿</button>
-        <button class="zone-btn-calc" onclick="calculateTicketPrice('3500', this)">3,500 ฿</button>
-        <button class="zone-btn-calc" onclick="calculateTicketPrice('2800', this)">2,800 ฿</button>
-        <button class="zone-btn-calc" onclick="calculateTicketPrice('2500', this)">2,500 ฿</button>
-    </div>
+                        <div class="calculator-section">
+                            <h3>เลือกราคาบัตรเพื่อคำนวณจำนวนเงินทั้งหมดที่ต้องชำระ:</h3>
+                            <div class="button-group">
+                                <button class="zone-btn-calc" onclick="calculateTicketPrice('6800', this)">VIP 6,800 ฿</button>
+                                <button class="zone-btn-calc" onclick="calculateTicketPrice('5500', this)">5,500 ฿</button>
+                                <button class="zone-btn-calc" onclick="calculateTicketPrice('3800', this)">3,800 ฿</button>
+                                <button class="zone-btn-calc" onclick="calculateTicketPrice('3500', this)">3,500 ฿</button>
+                                <button class="zone-btn-calc" onclick="calculateTicketPrice('2800', this)">2,800 ฿</button>
+                                <button class="zone-btn-calc" onclick="calculateTicketPrice('2500', this)">2,500 ฿</button>
+                            </div>
 
-    <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-            <span>ราคาบัตร:</span>
-            <span><strong id="base-price-text">-</strong> ฿</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-            <span>ค่าบริการ (30 บาทต่อใบ + Processing fee 3%):</span>
-            <span><strong id="fee-price-text">-</strong> ฿</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid #444; font-size: 1.2rem;">
-            <span>จำนวนเงินที่ต้องชำระ:</span>
-            <span style="color: #ff3b30;"><strong id="total-price-text">-</strong> ฿</span>
-        </div>
-    </div>
-</div>
+                            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span>ราคาบัตร:</span>
+                                    <span><strong id="base-price-text">-</strong> ฿</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span>ค่าบริการ (30 บาทต่อใบ + Processing fee 3%):</span>
+                                    <span><strong id="fee-price-text">-</strong> ฿</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid #444; font-size: 1.2rem;">
+                                    <span>จำนวนเงินที่ต้องชำระ:</span>
+                                    <span style="color: #ff3b30;"><strong id="total-price-text">-</strong> ฿</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -582,6 +597,7 @@
             </div>
         </div>
     </div>
+
 <script>
     // 1. แมปปิ้งโค้ดสีตามผังราคาแต่ละโซนของ PLAVE
     const zoneColors = {
@@ -652,7 +668,7 @@
         }
     };
 
-    // [เพิ่มใหม่] ฟังก์ชันสำหรับจัดการเปิด-ปิดสลับแท็บข้อมูลด้านซ้าย
+    // ฟังก์ชันสำหรับจัดการเปิด-ปิดสลับแท็บข้อมูลด้านซ้าย
     function changeModalTab(tabIndex, buttonElement) {
         // ซ่อนคอนเทนต์ทุกแท็บก่อน
         const tabs = document.querySelectorAll('.tab-content-block');
@@ -667,7 +683,7 @@
         if(buttonElement) buttonElement.classList.add('active');
     }
 
-    // 3. ฟังก์ชันสำหรับ "กล่องคำนวณราคาตั๋ว" (กล่องล่าง)
+    // ฟังก์ชันสำหรับ "กล่องคำนวณราคาตั๋ว" (กล่องล่าง)
     function calculateTicketPrice(priceStr, element) {
         if (!element) return;
         
@@ -697,7 +713,7 @@
         }
     }
 
-    // 4. ฟังก์ชันสำหรับ "กล่องดูรายละเอียด Benefits" (กล่องบน)
+    // ฟังก์ชันสำหรับ "กล่องดูรายละเอียด Benefits" (กล่องบน)
     function selectZone(zonePrice, element) {
         if (!element) return;
 
@@ -712,7 +728,7 @@
         const titleElement = document.getElementById('selected-zone-title');
         const listElement = document.getElementById('benefits-list');
         
-        // แก้ไขให้เรียกผ่าน Class ของกล่องในหน้า HTML แทนการใช้ ID เดิมที่ไม่มีอยู่จริง
+        // อัปเดตคลาสให้ตรงตามโครงสร้าง HTML จริงที่มีอยู่
         const headerBox = document.querySelector('.zone-details-header');
         const borderBox = document.querySelector('.zone-details-container');
 
