@@ -788,6 +788,27 @@
             }
         }
     }
-</script>
+    // 
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+//
+document.addEventListener('keydown', function(e) {
+    // ห้าม Ctrl+C หรือ Cmd+C (Copy)
+    // ห้าม Ctrl+A หรือ Cmd+A (Select All)
+    // ห้าม Ctrl+X หรือ Cmd+X (Cut)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'a' || e.key === 'x' || e.key === 'C' || e.key === 'A' || e.key === 'X')) {
+        e.preventDefault();
+    }
+    
+    // 
+    if (e.key === 'F12' || 
+        ((e.ctrlKey || e.metaKey) && e.key === 'u') || 
+        ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i'))) {
+        e.preventDefault();
+    }
+});
+    </script>
 </body>
 </html>
