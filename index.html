@@ -463,6 +463,22 @@
                         <img src="seating-map.png" alt="PLAVE Concert Seating Map">
                         <ul class="bullet-list">
                             <li><strong>เลือกดูมุมมองแต่ละโซน: </strong><a href="https://www.plutoticket.com/virtual" target="_blank" style="color: #ffffff; font-weight: bold;">🪐Pluto Ticket</a></li>
+                            <div class="zone-selector-container">
+    <p>เลือกโซนเพื่อดูรายละเอียดราคา:</p>
+    <div class="zone-buttons">
+        <button class="zone-btn" data-price="6800">VIP <span>6,800</span> ฿</button>
+        <button class="zone-btn" data-price="5500"><span>5,500</span> ฿</button>
+        <button class="zone-btn" data-price="3800"><span>3,800</span> ฿</button>
+        <button class="zone-btn" data-price="3500"><span>3,500</span> ฿</button>
+        <button class="zone-btn" data-price="2800"><span>2,800</span> ฿</button>
+        <button class="zone-btn" data-price="2500"><span>2,500</span> ฿</button>
+    </div>
+</div>
+
+<div id="price-display-block" style="margin-top: 20px; color: #fff;">
+    <h3>ราคาที่ต้องจ่าย: <span id="total-price-text">0</span> ฿</h3>
+    <small style="color: #aaa;">*(รวม Processing fee: 3% แล้ว / ไม่รวม Ticket Protect)*</small>
+</div>
                         </ul>
                     </div>
                 </div>
@@ -566,6 +582,19 @@
         </div>
     </div>
 
+    <script>
+    document.querySelectorAll('.zone-btn').forEach(button => {
+        const basePrice = parseFloat(button.getAttribute('data-price'));
+        const finalPrice = basePrice * 1.03; 
+        const spanText = button.querySelector('span');
+        if (spanText) {
+            spanText.innerText = Math.floor(finalPrice).toLocaleString();
+        }
+        button.addEventListener('click', () => {
+            document.getElementById('total-price-text').innerText = Math.floor(finalPrice).toLocaleString();
+        });
+    });
+</script>
     <script>
         // คลังข้อมูลสิทธิประโยชน์แยกตามราคา
         const concertBenefitData = {
