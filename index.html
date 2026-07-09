@@ -461,8 +461,8 @@
                         </ul>
                         
                         <div class="zone-selector-container">
-                            <p>เลือกโซนเพื่อดูรายละเอียดราคาตามบิลจริง TTM:</p>
-                            <div class="zone-buttons">
+                                <span class="selector-label">เลือกราคาบัตรเพื่อคำนวนจำนวนเงินทั้งหมดที่ต้องชำระ:</span>
+                                <div class="zone-buttons">
                                 <button class="zone-btn-calc" data-price="6800" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">VIP 6,800 ฿</button>
                                 <button class="zone-btn-calc" data-price="5500" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">5,500 ฿</button>
                                 <button class="zone-btn-calc" data-price="3800" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">3,800 ฿</button>
@@ -478,11 +478,11 @@
                                 <strong><span id="base-price-text">-</span> ฿</strong>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
-                                <span style="color: #aaa;">ค่าบริการ (30 บาทต่อใบ + Processing fee 3%):</span> 
+                                <span style="color: #aaa;">ค่าบริการ (30 บาทต่อใบ + Processing fee 3% (ถ้ามี)):</span> 
                                 <strong><span id="fee-price-text">-</span> ฿</strong>
                             </div>
                             <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #444; display: flex; justify-content: space-between; align-items: center;">
-                                <span style="color: #ffa500; font-weight: bold;">จำนวนเงินที่ต้องชำระทั้งหมด:</span> 
+                                <span style="color: #ffa500; font-weight: bold;">จำนวนเงินที่ต้องชำระ:</span> 
                                 <strong style="font-size: 1.5rem; color: #ff4a4a;"><span id="total-price-text">-</span> ฿</strong>
                             </div>
                         </div>
@@ -585,7 +585,7 @@
 
     <script>
         function changeModalTab(tabIndex, currentButton) {
-            // ซ่อนแท็บทั้งหมดก่อน
+            
             const allTabs = document.querySelectorAll('.tab-content-block');
             allTabs.forEach(tab => tab.classList.remove('active'));
     
@@ -673,7 +673,7 @@
             }
         };
 
-        // แสดง Benefits 
+        // 
         function selectZone(price, element) {
             const data = concertBenefitData[price];
             if (!data) return;
@@ -692,7 +692,7 @@
             element.classList.add('active');
         }
 
-        //ระบบคำนวณราคาบัตรในแท็บ "ผังที่นั่งและราคา" 
+        // 
         document.querySelectorAll('.zone-btn-calc').forEach(button => {
             button.addEventListener('click', () => {
                 const basePrice = parseFloat(button.getAttribute('data-price'));
