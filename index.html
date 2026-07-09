@@ -337,7 +337,6 @@
             
             <nav class="left-menu-bar">
                 <button class="menu-item active" onclick="changeModalTab(0, this)">📜 ข้อมูลการแสดง</button>
-                <button class="menu-item" onclick="changeModalTab(1, this)">🗓️ กำหนดการ</button>
                 <button class="menu-item" onclick="changeModalTab(2, this)">💺 ผังที่นั่งและราคา</button>
                 <button class="menu-item" onclick="changeModalTab(3, this)">🎫 How To การกดบัตรรอบ Weverse</button>
                 <button class="menu-item" onclick="changeModalTab(4, this)">🎫 How To การกดบัตรรอบ General Sale</button>
@@ -349,7 +348,7 @@
             <div class="right-content-viewer">
 
                 <div class="tab-content-block active">
-                    <h2 class="section-title">ข้อมูลคอนเสิร์ต</h2>
+                    <h2 class="section-title">ข้อมูลการแสดงและกำหนดการ</h2>
                     <div class="overview-grid">
                         <div class="poster-box">
                             <img src="poster.jpg" alt="PLAVE Concert Poster">
@@ -365,18 +364,15 @@
                                 <span class="price-badge price-3500">3,500 บ.</span>
                                 <span class="price-badge price-2800">2,800 บ.</span>
                                 <span class="price-badge price-2500">2,500 บ.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content-block">
-                    <h2 class="section-title">กำหนดการ</h2>
-                    <ul class="bullet-list">
+                                 <ul class="bullet-list">
                         <li><strong>จำหน่ายบัตรรอบ Weverse Membership Presale :</strong> วันเสาร์ที่ 1 สิงหาคม 2569 เวลา 11.00 น. ถึง 21.59 น.</li>
                         <li><strong>จำหน่ายบัตรรอบ General Sale :</strong> วันอาทิตย์ที่ 2 สิงหาคม 2569 ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
                         <li><strong>วันแสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569 เวลา 18:00 น.</li>
                     </ul>
+                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="tab-content-block">
@@ -384,7 +380,7 @@
                     <div class="seating-map-container">
                         <img src="seating-map.png" alt="PLAVE Concert Seating Map">
                         <ul class="bullet-list">
-                            <li><strong>มุมมองแต่ละโซน:</strong> 🪐Pluto Ticket <a href="https://www.plutoticket.com/virtual" target="_blank" style="color: var(--neon-red); font-weight: bold;">https://www.plutoticket.com/virtual</a></li>
+                            <li><strong>มุมมองแต่ละโซน: 🪐Pluto Ticket </strong><a href="https://www.plutoticket.com/virtual" target="_blank" style="color: var(--neon-red); font-weight: bold;">https://www.plutoticket.com/virtual</a></li>
                                 </ul>
                         </ul>
                     </div>
@@ -416,9 +412,37 @@
                 </div>
 
                 <div class="tab-content-block">
-                    <h2 class="section-title">Benefits</h2>
-                    <img src="benefit.png" alt="benefit">
+    <h2 class="section-title">Benefits</h2>
+    
+    <img src="benefit.png" alt="benefit">
+
+    <div class="seating-interactive-wrapper">
+        <div class="seating-map-side">
+            <div class="zone-selector-container">
+                <span class="selector-label">เลือกโซนราคาเพื่อดูรายละเอียดสิทธิประโยชน์แบบชัดเจน:</span>
+                <div class="zone-buttons">
+                    <button class="zone-btn" onclick="selectZone('6800')">VIP 6,800</button>
+                    <button class="zone-btn" onclick="selectZone('5500')">5,500</button>
+                    <button class="zone-btn" onclick="selectZone('3800')">3,800</button>
+                    <button class="zone-btn" onclick="selectZone('3500')">3,500</button>
+                    <button class="zone-btn" onclick="selectZone('2800')">2,800</button>
+                    <button class="zone-btn" onclick="selectZone('2500')">2,500</button>
                 </div>
+            </div>
+        </div>
+
+        <div class="zone-details-container">
+            <div class="zone-details-header">
+                🪐 <span id="selected-zone-title">รายละเอียดสิทธิประโยชน์แยกตามราคา</span>
+            </div>
+            <div class="zone-details-body">
+                <ul id="benefits-list" class="bullet-list-interactive">
+                    <li class="default-msg">💡 คลิกเลือกราคาหรือโซนด้านซ้าย เพื่อตรวจสอบสิทธิประโยชน์คอนเสิร์ต</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <div class="tab-content-block">
                     <h2 class="section-title">ข้อกำหนดเพิ่มเติม</h2>
@@ -465,5 +489,131 @@
             document.querySelector('.right-content-viewer').scrollTop = 0;
         }
     </script>
+    // คลังข้อมูลสิทธิประโยชน์แยกตามราคา (ตรงตามตาราง benefit.jpg)
+const concertBenefitData = {
+    '6800': {
+        title: "ราคา 6,800 THB (VIP)",
+        benefits: [
+            "✅ Exclusive merchandise lane",
+            "✅ Soundcheck",
+            "✅ Goodbye talk session",
+            "✅ Laminate & Lanyard (1 ea)",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '5500': {
+        title: "ราคา 5,500 THB",
+        benefits: [
+            "❌ Exclusive merchandise lane",
+            "❌ Soundcheck",
+            "✅ Goodbye talk session",
+            "❌ Laminate & Lanyard",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '3800': {
+        title: "ราคา 3,800 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits (เช่น Soundcheck / Goodbye talk)",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '3500': {
+        title: "ราคา 3,500 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '2800': {
+        title: "ราคา 2,800 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    },
+    '2500': {
+        title: "ราคา 2,500 THB",
+        benefits: [
+            "❌ ไม่ได้รับสิทธิ์ในหมวด Benefits",
+            "✅ Individual Photo Cards (1 Set / All Members)",
+            "✅ Large Hologram Group Photo Card (1 ea)",
+            "✅ Tour Stamp Sticker (1 ea)",
+            "✅ Official Plastic Ticket (1 ea)",
+            "✅ Official E-signed Poster (1 ea)"
+        ]
+    }
+};
+
+// ฟังก์ชันสลับเมนู Tab หลัก
+function changeModalTab(tabIndex, buttonElement) {
+    const blocks = document.querySelectorAll('.tab-content-block');
+    const buttons = document.querySelectorAll('.menu-item');
+
+    blocks.forEach(block => block.classList.remove('active'));
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    blocks[tabIndex].classList.add('active');
+    buttonElement.classList.add('active');
+    
+    document.querySelector('.right-content-viewer').scrollTop = 0;
+}
+
+// ฟังก์ชันสำหรับเปลี่ยนข้อมูลสิทธิประโยชน์เมื่อคลิกเลือกปุ่มราคา (เวอร์ชันแก้ไขเพื่อรองรับการย้ายแท็บ)
+function selectZone(priceKey, element) {
+    const data = concertBenefitData[priceKey];
+    if (!data) return;
+
+    // 1. เปลี่ยนหัวข้อข้อความแสดงผล
+    document.getElementById('selected-zone-title').innerText = data.title;
+
+    // 2. เคลียร์รายการเดิมและสร้างรายการสิทธิประโยชน์ใหม่
+    const listContainer = document.getElementById('benefits-list');
+    listContainer.innerHTML = ''; 
+
+    data.benefits.forEach(benefit => {
+        const li = document.createElement('li');
+        li.innerHTML = benefit;
+        
+        // แยกสีตัวอักษรตามสถานะ ผ่าน/ไม่ผ่าน
+        if(benefit.startsWith('✅')) {
+            li.style.color = '#e2e8f0';
+        } else if(benefit.startsWith('❌')) {
+            li.style.color = '#64748b';
+        }
+        
+        listContainer.appendChild(li);
+    });
+
+    // 3. จัดการสถานะไฮไลต์ (Active) ของปุ่มราคา
+    document.querySelectorAll('.zone-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // ตรวจสอบตัวแปร element ที่ส่งมาจาก onclick="selectZone('xxxx', this)"
+    if (element) {
+        element.classList.add('active');
+    } else if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active'); // fallback ป้องกันเอ๋อ
+    }
+}
 </body>
 </html>
