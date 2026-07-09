@@ -289,12 +289,24 @@
             font-weight: bold;
             color: #fff;
         }
-      .price-badge.price-6800 { background-color: #FF1F00; } /* สีแดงสด */
-      .price-badge.price-5500 { background-color: #FF7A00; } /* สีส้มสด */
-      .price-badge.price-3800 { background-color: #FFE699; } /* สีเหลืองนวล */
-      .price-badge.price-3500 { background-color: #FFF5CC; } /* สีเหลืองครีมอ่อน */
-      .price-badge.price-2800 { background-color: #E2F0D9; } /* สีเขียวมินต์พาสเทล */
-      .price-badge.price-2500 { background-color: #0070C0; } /* สีฟ้าเข้ม */
+      .price-badge {
+    display: inline-block; /* เพิ่มตรงนี้เพื่อให้จัดระยะห่าง (padding) ได้สวยงามขึ้น */
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: bold;
+    color: #fff; /* สีตัวอักษรเริ่มต้นเป็นสีขาว */
+}
+
+.price-badge.price-6800 { background-color: #FF1F00; } 
+.price-badge.price-5500 { background-color: #FF7A00; } 
+
+/* โซนสีอ่อน: ปรับ color ให้เป็นสีดำ (#000) เพื่อให้มองเห็นตัวเลขชัดเจน */
+.price-badge.price-3800 { background-color: #FFE699; color: #000; } 
+.price-badge.price-3500 { background-color: #FFF5CC; color: #000; } 
+.price-badge.price-2800 { background-color: #E2F0D9; color: #000; } 
+
+.price-badge.price-2500 { background-color: #0070C0; }
 
         /* แถบสกรอลบาร์ */
         .right-content-viewer::-webkit-scrollbar { width: 5px; }
@@ -355,12 +367,13 @@
                             <p><strong>📅 วันที่แสดง :</strong> วันเสาร์ที่ 10 ตุลาคม 2569</p>
                             <p><strong>⏰ เวลาแสดง :</strong> 18:00 น. </p>
                             <div class="tag-container">
-                                <span class="price-badge.price-6800">VIP 6,800 บ.</span>
-                                <span class="price-badge.price-5500">5,500 บ.</span>
-                                <span class="price-badge.price-3800">3,800 บ.</span>
-                                <span class="price-badge.price-3500">3,500 บ.</span>
-                                <span class="price-badge.price-2800">2,800 บ.</span>
-                                <span class="price-badge.price-2500">2,500 บ.</span>
+    <span class="price-badge price-6800">VIP 6,800 บ.</span>
+    <span class="price-badge price-5500">5,500 บ.</span>
+    <span class="price-badge price-3800">3,800 บ.</span>
+    <span class="price-badge price-3500">3,500 บ.</span>
+    <span class="price-badge price-2800">2,800 บ.</span>
+    <span class="price-badge price-2500">2,500 บ.</span>
+</div>
                             </div>
                         </div>
                     </div>
@@ -371,10 +384,8 @@
                     <h2 class="section-title">กำหนดการ</h2>
                     <ul class="bullet-list">
                         <li><strong>เปิดจำหน่ายบัตร:</strong> 
-                           <li></strong> - Weverse Membership Presale </strong></li>
-                           <li>วันเสาร์ที่ 1 สิงหาคม 2569 เวลา 11.00 น. ถึง 21.59 น.</li>
-                           <li></strong> - General Sale</strong></li>
-                           <li>วันอาทิตย์ที่ 2 สิงหาคม 2569 ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
+                           <li></strong> - Weverse Membership Presale </strong></li> <li>วันเสาร์ที่ 1 สิงหาคม 2569 เวลา 11.00 น. ถึง 21.59 น.</li>
+                           <li></strong> - General Sale</strong></li> <li>วันอาทิตย์ที่ 2 สิงหาคม 2569 ตั้งแต่เวลา 11.00 น. เป็นต้นไป</li>
                         <li><strong>วันแสดง:</strong> วันเสาร์ที่ 10 ตุลาคม 2569</li>
                     </ul>
                 </div>
