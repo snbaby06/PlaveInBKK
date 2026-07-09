@@ -584,135 +584,161 @@
     </div>
 
     <script>
-        function changeModalTab(tabIndex, currentButton) {
-            
-            const allTabs = document.querySelectorAll('.tab-content-block');
-            allTabs.forEach(tab => tab.classList.remove('active'));
-    
-            const allMenuItems = document.querySelectorAll('.menu-item');
-            allMenuItems.forEach(item => item.classList.remove('active'));
-            
-            if(allTabs[tabIndex]) {
-                allTabs[tabIndex].classList.add('active');
-            }
-            currentButton.classList.add('active');
-        }
+    // 
+    const zoneColors = {
+        '6800': { bg: '#FF1F00', text: '#000000', glow: 'rgba(255, 31, 0, 0.4)' },
+        '5500': { bg: '#FF7A00', text: '#000000', glow: 'rgba(255, 122, 0, 0.4)' },
+        '3800': { bg: '#FFE57F', text: '#000000', glow: 'rgba(255, 229, 127, 0.4)' },
+        '3500': { bg: '#FFF2B2', text: '#000000', glow: 'rgba(255, 242, 178, 0.4)' },
+        '2800': { bg: '#A1E3F5', text: '#000000', glow: 'rgba(161, 227, 245, 0.4)' },
+        '2500': { bg: '#0072CE', text: '#ffffff', glow: 'rgba(0, 114, 206, 0.4)' }
+    };
 
-        // Benefits
-        const concertBenefitData = {
-            '6800': {
-                title: "✨ ราคา 6,800 ฿ (VIP)",
-                benefits: [
-                    "✅ Exclusive merchandise lane",
-                    "✅ Soundcheck",
-                    "✅ Goodbye talk session",
-                    "✅ Laminate & Lanyard (1 ea)",
-                    "✅ Individual Photo Cards (1 Set / All Members)",
-                    "✅ Large Hologram Group Photo Card (1 ea)",
-                    "✅ Tour Stamp Sticker (1 ea)",
-                    "✅ Official Plastic Ticket (1 ea)",
-                    "✅ Official E-signed Poster (1 ea)",
-                    "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
-                ]
-            },
-            '5500': {
-                title: "✨ ราคา 5,500 ฿",
-                benefits: [
-                    "✅ Goodbye talk session",
-                    "✅ Individual Photo Cards (1 Set / All Members)",
-                    "✅ Large Hologram Group Photo Card (1 ea)",
-                    "✅ Tour Stamp Sticker (1 ea)",
-                    "✅ Official Plastic Ticket (1 ea)",
-                    "✅ Official E-signed Poster (1 ea)",
-                    "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
-                ]
-            },
-            '3800': {
-                title: "✨ ราคา 3,800 ฿",
-                benefits: [
-                    "✅ Individual Photo Cards (1 Set / All Members)",
-                    "✅ Large Hologram Group Photo Card (1 ea)",
-                    "✅ Tour Stamp Sticker (1 ea)",
-                    "✅ Official Plastic Ticket (1 ea)",
-                    "✅ Official E-signed Poster (1 ea)",
-                    "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
-                ]
-            },
-            '3500': {
-                title: "✨ ราคา 3,500 ฿",
-                benefits: [
-                    "✅ Individual Photo Cards (1 Set / All Members)",
-                    "✅ Large Hologram Group Photo Card (1 ea)",
-                    "✅ Tour Stamp Sticker (1 ea)",
-                    "✅ Official Plastic Ticket (1 ea)",
-                    "✅ Official E-signed Poster (1 ea)",
-                    "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
-                ]
-            },
-            '2800': {
-                title: "✨ ราคา 2,800 ฿",
-                benefits: [
-                    "✅ Individual Photo Cards (1 Set / All Members)",
-                    "✅ Large Hologram Group Photo Card (1 ea)",
-                    "✅ Tour Stamp Sticker (1 ea)",
-                    "✅ Official Plastic Ticket (1 ea)",
-                    "✅ Official E-signed Poster (1 ea)",
-                    "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
-                ]
-            },
-            '2500': {
-                title: "✨ ราคา 2,500 ฿",
-                benefits: [
-                    "✅ Individual Photo Cards (1 Set / All Members)",
-                    "✅ Large Hologram Group Photo Card (1 ea)",
-                    "✅ Tour Stamp Sticker (1 ea)",
-                    "✅ Official Plastic Ticket (1 ea)",
-                    "✅ Official E-signed Poster (1 ea)",
-                    "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
-                ]
-            }
-        };
+    function changeModalTab(tabIndex, currentButton) {
+        const allTabs = document.querySelectorAll('.tab-content-block');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+
+        const allMenuItems = document.querySelectorAll('.menu-item');
+        allMenuItems.forEach(item => item.classList.remove('active'));
+        
+        if(allTabs[tabIndex]) {
+            allTabs[tabIndex].classList.add('active');
+        }
+        currentButton.classList.add('active');
+    }
+
+    //
+    function calculateTicketPrice(priceStr, element) {
+        const price = parseFloat(priceStr);
+        const ticketFee = 30; 
+        const processingFee = price * 0.03;
+        const total = price + ticketFee + processingFee;
 
         // 
-        function selectZone(price, element) {
-            const data = concertBenefitData[price];
-            if (!data) return;
+        document.getElementById('base-price-text').textContent = price.toLocaleString();
+        document.getElementById('fee-price-text').textContent = (ticketFee + processingFee).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('total-price-text').textContent = total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-            document.getElementById('selected-zone-title').innerText = data.title;
-            const listContainer = document.getElementById('benefits-list');
-            listContainer.innerHTML = ''; 
+        // 
+        const allCalcButtons = document.querySelectorAll('.zone-btn-calc');
+        allCalcButtons.forEach(btn => {
+            btn.style.setProperty('background-color', '', 'important');
+            btn.style.setProperty('color', '', 'important');
+            btn.style.setProperty('border-color', '', 'important');
+            btn.style.setProperty('box-shadow', '', 'important');
+        });
 
+        //
+        if (zoneColors[priceStr]) {
+            const theme = zoneColors[priceStr];
+            element.style.setProperty('background-color', theme.bg, 'important');
+            element.style.setProperty('color', theme.text, 'important');
+            element.style.setProperty('border-color', theme.bg, 'important');
+            element.style.setProperty('box-shadow', `0 0 12px ${theme.glow}`, 'important');
+        }
+    }
+
+    // Benefits Data
+    const concertBenefitData = {
+        '6800': {
+            title: "✨ ราคา 6,800 ฿ (VIP)",
+            benefits: [
+                "✅ Exclusive merchandise lane", "✅ Soundcheck", "✅ Goodbye talk session",
+                "✅ Laminate & Lanyard (1 ea)", "✅ Individual Photo Cards (1 Set / All Members)",
+                "✅ Large Hologram Group Photo Card (1 ea)", "✅ Tour Stamp Sticker (1 ea)",
+                "✅ Official Plastic Ticket (1 ea)", "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '5500': {
+            title: "✨ ราคา 5,500 ฿",
+            benefits: [
+                "✅ Goodbye talk session", "✅ Individual Photo Cards (1 Set / All Members)",
+                "✅ Large Hologram Group Photo Card (1 ea)", "✅ Tour Stamp Sticker (1 ea)",
+                "✅ Official Plastic Ticket (1 ea)", "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '3800': {
+            title: "✨ ราคา 3,800 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '3500': {
+            title: "✨ ราคา 3,500 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '2800': {
+            title: "✨ ราคา 2,800 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        },
+        '2500': {
+            title: "✨ ราคา 2,500 ฿",
+            benefits: [
+                "✅ Individual Photo Cards (1 Set / All Members)", "✅ Large Hologram Group Photo Card (1 ea)",
+                "✅ Tour Stamp Sticker (1 ea)", "✅ Official Plastic Ticket (1 ea)",
+                "✅ Official E-signed Poster (1 ea)",
+                "*สิทธิพิเศษ ไม่สามารถโอนสิทธิ์ เปลี่ยนเป็นสินค้า เงินสด หรือผลประโยชน์อื่นใดได้"
+            ]
+        }
+    };
+
+    //
+    function selectZone(zonePrice, element) {
+        const allBenefitButtons = document.querySelectorAll('.zone-btn');
+        allBenefitButtons.forEach(btn => {
+            btn.style.setProperty('background-color', '', 'important');
+            btn.style.setProperty('color', '', 'important');
+            btn.style.setProperty('border-color', '', 'important');
+            btn.style.setProperty('box-shadow', '', 'important');
+        });
+
+        const titleElement = document.getElementById('selected-zone-title');
+        const listElement = document.getElementById('benefits-list');
+        const headerBox = document.getElementById('details-header-box');
+        const borderBox = document.getElementById('details-border-box');
+
+        const data = concertBenefitData[zonePrice];
+
+        if (data) {
+            titleElement.textContent = data.title;
+            listElement.innerHTML = "";
+            
             data.benefits.forEach(benefit => {
                 const li = document.createElement('li');
-                li.innerText = benefit;
-                listContainer.appendChild(li);
+                li.textContent = benefit;
+                listElement.appendChild(li);
             });
 
-            element.closest('.zone-buttons').querySelectorAll('.zone-btn').forEach(b => b.classList.remove('active'));
-            element.classList.add('active');
+            // 
+            if (zoneColors[zonePrice]) {
+                const theme = zoneColors[zonePrice];
+                element.style.setProperty('background-color', theme.bg, 'important');
+                element.style.setProperty('color', theme.text, 'important');
+                element.style.setProperty('border-color', theme.bg, 'important');
+                element.style.setProperty('box-shadow', `0 0 12px ${theme.glow}`, 'important');
+
+                //
+                headerBox.style.setProperty('background-color', theme.bg, 'important');
+                headerBox.style.setProperty('color', theme.text, 'important');
+                borderBox.style.setProperty('border-color', theme.bg, 'important');
+            }
         }
-
-        // 
-        document.querySelectorAll('.zone-btn-calc').forEach(button => {
-            button.addEventListener('click', () => {
-                const basePrice = parseFloat(button.getAttribute('data-price'));
-                const serviceFee = 30 + (basePrice * 0.03); // ค่าบริการ 30 + Processing fee 3%
-                const totalPrice = basePrice + serviceFee;
-
-                document.getElementById('base-price-text').innerText = basePrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                document.getElementById('fee-price-text').innerText = serviceFee.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                document.getElementById('total-price-text').innerText = totalPrice.toLocaleString('th-TH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-                button.closest('.zone-buttons').querySelectorAll('.zone-btn-calc').forEach(b => {
-                    b.style.background = 'rgba(255, 255, 255, 0.08)';
-                    b.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                    b.style.boxShadow = 'none';
-                });
-                button.style.background = 'var(--neon-red)';
-                button.style.borderColor = 'var(--neon-red)';
-                button.style.boxShadow = '0 0 15px var(--neon-glow)';
-            });
-        });
-    </script>
+    }
+</script>
 </body>
 </html>
