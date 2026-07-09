@@ -342,18 +342,22 @@
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
         }
+
+        /* ดีไซน์กล่องแสดงรายละเอียดผลลัพธ์ (สไตล์ผัง Benefit แยกสีหัวข้อ) */
         .zone-details-container {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 8px;
-            border: 1px solid rgba(255, 0, 43, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
+            transition: border-color 0.25s ease;
         }
         .zone-details-header {
-            background: rgba(255, 0, 43, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             padding: 15px 20px;
-            color: #fff;
+            color: var(--text-light-dim);
             font-weight: 700;
-            border-bottom: 1px solid rgba(255, 0, 43, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.25s ease, color 0.25s ease;
         }
         .zone-details-body {
             padding: 25px;
@@ -372,6 +376,22 @@
         .default-msg {
             color: var(--text-light-dim);
             font-style: italic;
+        }
+
+        /* สไตล์สำหรับแถวคำนวณราคาด้านใน */
+        .calc-row {
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 14px;
+            font-size: 1rem;
+            color: #e2e8f0;
+        }
+        .calc-row.total {
+            margin-top: 18px; 
+            padding-top: 18px; 
+            border-top: 1px solid rgba(255, 255, 255, 0.15); 
+            font-size: 1.25rem;
+            font-weight: bold;
         }
 
         /* ปุ่มสำหรับการคำนวณราคาตั๋ว */
@@ -475,29 +495,38 @@
                         <ul class="bullet-list">
                             <li><strong>เลือกดูมุมมองแต่ละโซน: </strong><a href="https://www.plutoticket.com/virtual" target="_blank" style="color: #ffffff; font-weight: bold;">🪐Pluto Ticket</a></li>
                         </ul>          
-                        <div class="calculator-section">
-                            <h3>เลือกราคาบัตรเพื่อคำนวณจำนวนเงินทั้งหมดที่ต้องชำระ:</h3>
-                            <div class="button-group">
-                                <button class="zone-btn-calc" onclick="calculateTicketPrice('6800', this)">VIP 6,800 ฿</button>
-                                <button class="zone-btn-calc" onclick="calculateTicketPrice('5500', this)">5,500 ฿</button>
-                                <button class="zone-btn-calc" onclick="calculateTicketPrice('3800', this)">3,800 ฿</button>
-                                <button class="zone-btn-calc" onclick="calculateTicketPrice('3500', this)">3,500 ฿</button>
-                                <button class="zone-btn-calc" onclick="calculateTicketPrice('2800', this)">2,800 ฿</button>
-                                <button class="zone-btn-calc" onclick="calculateTicketPrice('2500', this)">2,500 ฿</button>
+                        
+                        <div class="seating-interactive-wrapper" style="margin-top: 10px;">
+                            <div class="zone-selector-container">
+                                <span class="selector-label">เลือกราคาบัตรเพื่อคำนวณจำนวนเงินทั้งหมดที่ต้องชำระ:</span>
+                                <div class="button-group">
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('6800', this)">VIP 6,800 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('5500', this)">5,500 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('3800', this)">3,800 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('3500', this)">3,500 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('2800', this)">2,800 ฿</button>
+                                    <button class="zone-btn-calc" onclick="calculateTicketPrice('2500', this)">2,500 ฿</button>
+                                </div>
                             </div>
 
-                            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                    <span>ราคาบัตร:</span>
-                                    <span><strong id="base-price-text">-</strong> ฿</span>
+                            <!-- ปรับโครงสร้างกล่องสรุปราคาให้เป็นแบบกล่องแยกหัวข้อ และมี ID เฉพาะกิจ -->
+                            <div id="calc-details-box" class="zone-details-container">
+                                <div id="calc-details-header" class="zone-details-header">
+                                    <span id="selected-calc-title">รายละเอียดสรุปยอดเงินจะแยกตามราคาบัตร</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                    <span>ค่าบริการ (30 บาทต่อใบ + Processing fee 3%):</span>
-                                    <span><strong id="fee-price-text">-</strong> ฿</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid #444; font-size: 1.2rem;">
-                                    <span>จำนวนเงินที่ต้องชำระ:</span>
-                                    <span style="color: #ff3b30;"><strong id="total-price-text">-</strong> ฿</span>
+                                <div class="zone-details-body">
+                                    <div class="calc-row">
+                                        <span>ราคาบัตร:</span>
+                                        <span><strong id="base-price-text">-</strong> ฿</span>
+                                    </div>
+                                    <div class="calc-row">
+                                        <span>ค่าบริการ (30 บาทต่อใบ + Processing fee 3%):</span>
+                                        <span><strong id="fee-price-text">-</strong> ฿</span>
+                                    </div>
+                                    <div class="calc-row total">
+                                        <span>จำนวนเงินที่ต้องชำระทั้งหมด:</span>
+                                        <span><strong id="total-price-text">-</strong> ฿</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -555,8 +584,8 @@
                             </div>
                         </div>
 
-                        <div class="zone-details-container">
-                            <div class="zone-details-header">
+                        <div id="benefit-details-box" class="zone-details-container">
+                            <div id="benefit-details-header" class="zone-details-header">
                                 <span id="selected-zone-title">รายละเอียด Benefits จะแยกตามราคาบัตร</span>
                             </div>
                             <div class="zone-details-body">
@@ -670,20 +699,17 @@
 
     // ฟังก์ชันสำหรับจัดการเปิด-ปิดสลับแท็บข้อมูลด้านซ้าย
     function changeModalTab(tabIndex, buttonElement) {
-        // ซ่อนคอนเทนต์ทุกแท็บก่อน
         const tabs = document.querySelectorAll('.tab-content-block');
         tabs.forEach(tab => tab.classList.remove('active'));
         
-        // เอาสถานะ active ออกจากปุ่มเมนูทั้งหมด
         const menuItems = document.querySelectorAll('.menu-item');
         menuItems.forEach(item => item.classList.remove('active'));
         
-        // เปิดคอนเทนต์และเปิดไฟปุ่มที่ถูกเลือก
         if(tabs[tabIndex]) tabs[tabIndex].classList.add('active');
         if(buttonElement) buttonElement.classList.add('active');
     }
 
-    // ฟังก์ชันสำหรับ "กล่องคำนวณราคาตั๋ว" (กล่องล่าง)
+    // ฟังก์ชันสำหรับ "กล่องคำนวณราคาตั๋ว" อัปเดตให้แสดงผลแบบแยกช่องและเปลี่ยนสีตามราคาที่เลือก
     function calculateTicketPrice(priceStr, element) {
         if (!element) return;
         
@@ -692,10 +718,16 @@
         const processingFee = price * 0.03;
         const total = price + ticketFee + processingFee;
 
+        // อัปเดตตัวเลขราคาในช่อง
         document.getElementById('base-price-text').textContent = price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         document.getElementById('fee-price-text').textContent = (ticketFee + processingFee).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         document.getElementById('total-price-text').textContent = total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
+        // อัปเดตข้อความหัวข้อของแถบคำนวณราคา
+        const formattedPrice = priceStr === '6800' ? 'VIP 6,800 ฿' : `${Number(priceStr).toLocaleString()} ฿`;
+        document.getElementById('selected-calc-title').textContent = `📊 สรุปยอดเงินสำหรับราคา ${formattedPrice}`;
+
+        // รีเซ็ตปุ่มในกลุ่มคำนวณราคาทั้งหมดให้กลับเป็นค่าเริ่มต้น
         const allCalcButtons = document.querySelectorAll('.zone-btn-calc');
         allCalcButtons.forEach(btn => {
             btn.style.setProperty('background-color', '', 'important');
@@ -704,16 +736,29 @@
             btn.style.setProperty('box-shadow', '', 'important');
         });
 
+        // ดึงอิลิเมนต์ของกล่องคำนวณราคาเพื่อเตรียมเปลี่ยนสีตามธีม
+        const calcHeaderBox = document.getElementById('calc-details-header');
+        const calcBorderBox = document.getElementById('calc-details-box');
+
+        // ใส่สีแบบไดนามิกให้ตัวปุ่มและกล่องผลลัพธ์
         if (zoneColors[priceStr]) {
             const theme = zoneColors[priceStr];
             element.style.setProperty('background-color', theme.bg, 'important');
             element.style.setProperty('color', theme.text, 'important');
             element.style.setProperty('border-color', theme.bg, 'important');
             element.style.setProperty('box-shadow', `0 0 12px ${theme.glow}`, 'important');
+
+            if (calcHeaderBox) {
+                calcHeaderBox.style.setProperty('background-color', theme.bg, 'important');
+                calcHeaderBox.style.setProperty('color', theme.text, 'important');
+            }
+            if (calcBorderBox) {
+                calcBorderBox.style.setProperty('border-color', theme.bg, 'important');
+            }
         }
     }
 
-    // ฟังก์ชันสำหรับ "กล่องดูรายละเอียด Benefits" (กล่องบน)
+    // ฟังก์ชันสำหรับ "กล่องดูรายละเอียด Benefits" 
     function selectZone(zonePrice, element) {
         if (!element) return;
 
@@ -728,9 +773,8 @@
         const titleElement = document.getElementById('selected-zone-title');
         const listElement = document.getElementById('benefits-list');
         
-        // อัปเดตคลาสให้ตรงตามโครงสร้าง HTML จริงที่มีอยู่
-        const headerBox = document.querySelector('.zone-details-header');
-        const borderBox = document.querySelector('.zone-details-container');
+        const benefitHeaderBox = document.getElementById('benefit-details-header');
+        const benefitBorderBox = document.getElementById('benefit-details-box');
 
         const data = concertBenefitData[zonePrice];
         if (data) {
@@ -750,12 +794,12 @@
                 element.style.setProperty('border-color', theme.bg, 'important');
                 element.style.setProperty('box-shadow', `0 0 12px ${theme.glow}`, 'important');
 
-                if (headerBox) {
-                    headerBox.style.setProperty('background-color', theme.bg, 'important');
-                    headerBox.style.setProperty('color', theme.text, 'important');
+                if (benefitHeaderBox) {
+                    benefitHeaderBox.style.setProperty('background-color', theme.bg, 'important');
+                    benefitHeaderBox.style.setProperty('color', theme.text, 'important');
                 }
-                if (borderBox) {
-                    borderBox.style.setProperty('border-color', theme.bg, 'important');
+                if (benefitBorderBox) {
+                    benefitBorderBox.style.setProperty('border-color', theme.bg, 'important');
                 }
             }
         }
