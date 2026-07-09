@@ -582,9 +582,8 @@
             </div>
         </div>
     </div>
-
- <script>
-    // 1. แมปปิ้งโค้ดสีตามผังราคาแต่ละโซนของ PLAVE (ใช้สีสันให้ตรงกับในรูปผัง)
+<script>
+    // 1. แมปปิ้งโค้ดสีตามผังราคาแต่ละโซนของ PLAVE
     const zoneColors = {
         '6800': { bg: '#FF1F00', text: '#ffffff', glow: 'rgba(255, 31, 0, 0.5)' },
         '5500': { bg: '#FF7A00', text: '#000000', glow: 'rgba(255, 122, 0, 0.5)' },
@@ -653,21 +652,34 @@
         }
     };
 
+    // [เพิ่มใหม่] ฟังก์ชันสำหรับจัดการเปิด-ปิดสลับแท็บข้อมูลด้านซ้าย
+    function changeModalTab(tabIndex, buttonElement) {
+        // ซ่อนคอนเทนต์ทุกแท็บก่อน
+        const tabs = document.querySelectorAll('.tab-content-block');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        
+        // เอาสถานะ active ออกจากปุ่มเมนูทั้งหมด
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => item.classList.remove('active'));
+        
+        // เปิดคอนเทนต์และเปิดไฟปุ่มที่ถูกเลือก
+        if(tabs[tabIndex]) tabs[tabIndex].classList.add('active');
+        if(buttonElement) buttonElement.classList.add('active');
+    }
+
     // 3. ฟังก์ชันสำหรับ "กล่องคำนวณราคาตั๋ว" (กล่องล่าง)
     function calculateTicketPrice(priceStr, element) {
-        if (!element) return; // ป้องกัน Error หากไม่มีการส่งค่ามา
+        if (!element) return;
         
         const price = parseFloat(priceStr);
-        const ticketFee = 30; // ค่าบริการตั๋ว 30 บาท
-        const processingFee = price * 0.03; // Processing fee 3% ของราคาบัตร
+        const ticketFee = 30; 
+        const processingFee = price * 0.03;
         const total = price + ticketFee + processingFee;
 
-        // อัปเดตตัวเลขแสดงผลในหน้าเว็บ
         document.getElementById('base-price-text').textContent = price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         document.getElementById('fee-price-text').textContent = (ticketFee + processingFee).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         document.getElementById('total-price-text').textContent = total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-        // ล้างสไตล์ของปุ่มกลุ่มคำนวณทั้งหมดก่อนเพื่อให้กลับเป็นสีเริ่มต้น
         const allCalcButtons = document.querySelectorAll('.zone-btn-calc');
         allCalcButtons.forEach(btn => {
             btn.style.setProperty('background-color', '', 'important');
@@ -676,7 +688,6 @@
             btn.style.setProperty('box-shadow', '', 'important');
         });
 
-        // ไฮไลต์ปุ่มที่เลือกตามธีมสีผังราคา (ใช้ setProperty ร่วมกับ !important เพื่อเอาชนะ CSS :hover)
         if (zoneColors[priceStr]) {
             const theme = zoneColors[priceStr];
             element.style.setProperty('background-color', theme.bg, 'important');
@@ -690,7 +701,6 @@
     function selectZone(zonePrice, element) {
         if (!element) return;
 
-        // ล้างสีของปุ่มดูรายละเอียด Benefits ทั้งหมดก่อน
         const allBenefitButtons = document.querySelectorAll('.zone-btn');
         allBenefitButtons.forEach(btn => {
             btn.style.setProperty('background-color', '', 'important');
@@ -701,23 +711,22 @@
 
         const titleElement = document.getElementById('selected-zone-title');
         const listElement = document.getElementById('benefits-list');
-        const headerBox = document.getElementById('details-header-box');
-        const borderBox = document.getElementById('details-border-box');
+        
+        // แก้ไขให้เรียกผ่าน Class ของกล่องในหน้า HTML แทนการใช้ ID เดิมที่ไม่มีอยู่จริง
+        const headerBox = document.querySelector('.zone-details-header');
+        const borderBox = document.querySelector('.zone-details-container');
 
         const data = concertBenefitData[zonePrice];
-
         if (data) {
             titleElement.textContent = data.title;
             listElement.innerHTML = "";
-            
-            // วนลูปเพื่อสร้าง <li> แสดงรายการสิทธิประโยชน์
+
             data.benefits.forEach(benefit => {
                 const li = document.createElement('li');
                 li.textContent = benefit;
                 listElement.appendChild(li);
             });
 
-            // เปลี่ยนสีปุ่มและสีกรอบของกล่องข้อมูลให้สวยงามตามธีมราคาที่เลือก
             if (zoneColors[zonePrice]) {
                 const theme = zoneColors[zonePrice];
                 element.style.setProperty('background-color', theme.bg, 'important');
@@ -725,10 +734,13 @@
                 element.style.setProperty('border-color', theme.bg, 'important');
                 element.style.setProperty('box-shadow', `0 0 12px ${theme.glow}`, 'important');
 
-                // ปรับสีกรอบและสีพื้นหลัง Header ของรายละเอียดให้เข้าชุดกัน
-                headerBox.style.setProperty('background-color', theme.bg, 'important');
-                headerBox.style.setProperty('color', theme.text, 'important');
-                borderBox.style.setProperty('border-color', theme.bg, 'important');
+                if (headerBox) {
+                    headerBox.style.setProperty('background-color', theme.bg, 'important');
+                    headerBox.style.setProperty('color', theme.text, 'important');
+                }
+                if (borderBox) {
+                    borderBox.style.setProperty('border-color', theme.bg, 'important');
+                }
             }
         }
     }
